@@ -1,0 +1,573 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* // Primary */
+.primary1 {
+  color: #8eebaf;
+}
+.primary2 {
+  color: #78e7a0;
+}
+.primary3 {
+  color: #61e390;
+}
+.primary4 {
+  color: #4bdf80;
+}
+.primary5 {
+  color: #34db70;
+}
+.primary6 {
+  color: #1ed760;
+}
+.primary7 {
+  color: #04bd46;
+}
+.primary8 {
+  color: #00a42d;
+}
+.primary9 {
+  color: #008a13;
+}
+.primary10 {
+  color: #007100;
+}
+
+/* // Secondary */
+
+.secondary1 {
+  color: #000000;
+}
+.secondary2 {
+  color: #ffffff;
+}
+
+/* // Neutral */
+
+.neutral1 {
+  color: #fafafa;
+}
+.neutral2 {
+  color: #f5f5f5;
+}
+.neutral3 {
+  color: #e5e5e5;
+}
+.neutral4 {
+  color: #d4d4d4;
+}
+.neutral5 {
+  color: #a3a3a3;
+}
+.neutral6 {
+  color: #737373;
+}
+.neutral7 {
+  color: #525252;
+}
+.neutral8 {
+  color: #404040;
+}
+.neutral9 {
+  color: #262626;
+}
+.neutral10 {
+  color: #171717;
+}
+
+/* // Warning & Destructive colors */
+
+.warning1 {
+  color: #f59e0b;
+}
+.warning2 {
+  color: #fbbf24;
+}
+
+.destructive1 {
+  color: #ef4444;
+}
+.destructive2 {
+  color: #dc2626;
+}
+
+        /* // Heading 1  */
+.heading_1_regular {
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: -2%;
+  color: white;
+  font-weight: 400;
+}
+.heading_1_Medium {
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: -2%;
+  color: white;
+  font-weight: 500;
+}
+.heading_1_Semibold {
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: -2%;
+  color: white;
+  font-weight: 600;
+}
+.heading_1_ExtraBold {
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: -2%;
+  color: white;
+  font-weight: 800;
+}
+
+        /* // Heading 2 */
+.headind_2_regular {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: white;
+    font-weight:400;
+}
+.heading_2_medium {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.heading_2_semibold {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:600;
+}
+.heading_2_extraBold {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:800;
+}
+
+        /* // Heading 3 */
+.heading_3_regular {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:400;
+}
+.heading_3_medium {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.heading_3_semibold {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:600;
+}
+.heading_3_extraBold {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:800;
+}
+
+        /* // Heading 4 */
+.heading_4_regular {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:400;
+}
+.heading_4_medium {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.heading_4_semibold {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:600;
+}
+.heading_4_extraBold {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:800;
+}
+
+        /* // Heading 5 */
+.heading_5_regular {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:400;
+}
+.heading_5_medium {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.heading_5_semibold {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:600;
+}
+.heading_5_extraBold {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:800;
+}
+
+        /* // Heading 6 */
+.heading_6_regular {
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:400;
+}
+.heading_6_medium {
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.heading_6_semibold {
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:600;
+}
+.heading_6_extraBold {
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:800;
+}
+
+        /* // Paragraph Large */
+.paragraph_large_regular {
+    font-size: 18px;
+    line-height: 28px;
+    color: #A3A3A3;
+    font-weight:400;
+}
+.paragraph_large_medium {
+    font-size: 18px;
+    line-height: 28px;
+    color: #A3A3A3;
+    font-weight:500;
+}
+
+        /* // Paragraph Medium */
+
+.paragraph_medium_regular {
+    font-size: 16px;
+    line-height: 24px;
+    color: #A3A3A3;
+    font-weight:400;
+}
+.paragraph_medium_medium {
+    font-size: 16px;
+    line-height: 24px;
+    color: #A3A3A3;
+    font-weight:500;
+}
+
+        /* // Paragraph Small */
+.paragraph_small_regular {
+    font-size: 14px;
+    line-height: 20px;
+    color: #A3A3A3;
+    font-weight:400;
+}
+.paragraph_small_medium {
+    font-size: 14px;
+    line-height: 20px;
+    color: #A3A3A3;
+    font-weight:500;
+}
+
+        /* // Paragraph Extra Small */
+.paragraph_extraSmall_regular {
+    font-size: 12px;
+    line-height: 20px;
+    color: #A3A3A3;
+    font-weight:400;
+}
+.paragraph_extraSmall_medium {
+    font-size: 12px;
+    line-height: 20px;
+    color: #A3A3A3;
+    font-weight:500;
+}
+
+        /* // Heading Desktop */
+
+        /* // display large */
+.dislpay_large_regular {
+    font-size: 52px;
+    line-height: 56px;
+    letter-spacing: -2%;
+    color: white;
+    font-weight:500;
+}
+.dislpay_large_medium {
+    font-size: 96px;
+    line-height: 96px;
+    letter-spacing: -2%;
+    color: white;
+    font-weight:600;
+}
+.dislpay_large_bold {
+    font-size: 96px;
+    line-height: 96px;
+    letter-spacing: -2%;
+    color: white;
+    font-weight:700;
+}
+.dislpay_large_black {
+    font-size: 96px;
+    line-height: 96px;
+    letter-spacing: -2%;
+    color: white;
+    font-weight:900;
+}
+
+        /* // display small */
+
+.dislpay_small_regular {
+    font-size: 44px;
+    line-height: 48px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.dislpay_small_medium {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: white;
+    font-weight:600;
+}
+.dislpay_small_bold {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: white;
+    font-weight:700;
+}
+.dislpay_small_black {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:900;
+}
+
+        /* // heading 1 */
+.disktop_heading_1_regular {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:400;
+}
+.disktop_heading_1_medium {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.disktop_heading_1_bold {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:700;
+}
+.disktop_heading_1_black {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:900;
+}
+
+        /* /// heading 2 */
+.disktop_heading_2_regular {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.disktop_heading_2_medium {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:600;
+}
+.disktop_heading_2_bold {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:700;
+}
+.disktop_heading_2_black {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:900;
+}
+
+        /* // heading 3 */
+.disktop_heading_3_regular {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.disktop_heading_3_medium {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:600;
+}
+.disktop_heading_3_bold {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:700;
+}
+.disktop_heading_3_black {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:900;
+}
+
+        /* // heading 4 */
+.disktop_heading_4_regular {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.disktop_heading_4_medium {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:600;
+}
+.disktop_heading_4_bold {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:700;
+}
+.disktop_heading_4_black {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:900;
+}
+
+        /* // heading 5 */
+.disktop_heading_5_regular {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.disktop_heading_5_medium {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:600;
+}
+.disktop_heading_5_bold {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:700;
+}
+.disktop_heading_5_black {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:900;
+}
+
+        /* // heading 6 */
+.disktop_heading_6_regular {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:500;
+}
+.disktop_heading_6_medium {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:600;
+}
+.disktop_heading_6_bold {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:700;
+}
+.disktop_heading_6_black {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -2%;
+    color: #000000;
+    font-weight:900;
+}
