@@ -1,0 +1,33 @@
+.navbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	/* padding: 0 3vw; */
+	background-color: #262626;
+	height: 8vh;
+	color: #ffffff;
+	width: 45%;
+	margin: 0 auto;
+	position: fixed;
+	top: 87px;
+	left: 29%;
+	z-index: 4;
+	border-radius: 58px;
+}
+
+.navbar div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    cursor: pointer;
+}
+
+.img{
+    width: 17px;
+    cursor: pointer;
+}
+
+.arrow{
+    width: 9px;
+}
