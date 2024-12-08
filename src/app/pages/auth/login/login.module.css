@@ -1,0 +1,219 @@
+.section {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #121212;
+    color: white;
+    gap: 12vw;
+}
+
+         /* // left section */
+
+.left_section{
+    width: 60%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.left_section .text_section{
+    width: 85%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-color: black;
+    gap: 2vh;
+    padding: 0 8vw;
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #1ed760;
+    color: black;
+    padding: 9px 30px;
+    border-radius: 30px;
+    border: none;
+}
+
+        /* // right section */
+
+.right_section{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;    
+    align-items:self-end;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.icon{
+    width: 15px;
+    height: 45px;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 325px;
+    cursor: pointer;
+}
+.icon_2{
+    width: 18px;
+    height: 45px;
+    object-fit: cover;
+    object-position: center;
+    margin-left: 24px; 
+    cursor: pointer;
+    
+}
+
+.right_section h1{
+    margin-right: -8px;
+}
+
+.input_section{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    gap: 3vh;
+    margin-top: 20px;
+}
+
+.input_section div{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    border: 1px solid #a3a3a385;
+    gap: 10px;
+    border-radius: 30px;
+    width: 22vw;
+    color: #A3A3A3;
+}
+
+.input_section div input{
+    border: none;
+    outline: none;
+    background-color: #121212;
+    color: white;
+    border-top-right-radius: 60px;
+    border-bottom-right-radius: 60px;
+    /* border: 1px solid #A3A3A3; */
+    /* padding: 8px 8px; */
+}
+
+.forget{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 56%;
+    color: #1ed760;
+}
+/* Header-navbar-explore
+
+position: absolute;
+width: 1440px;
+height: 70px;
+left: calc(50% - 1440px/2 - 286.5px);
+top: 1316px; */
+
+
+
+.button_2{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #1ed760;
+    color: black;
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: none;
+    width: 22vw;
+}
+.button_3{
+    margin-top: 20px;
+    /* margin-bottom: 15px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    background-color: white;
+    color: #121212;
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: none;
+    width: 22vw;
+}
+
+.button_3 img{
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    object-position: center;
+}
+.button_4 img{
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 4px;
+}
+.button_5 img{
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    object-position: center;
+}
+.button_4{
+    /* margin-top: 20px; */
+    /* margin-bottom: 15px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 10px;
+    background-color: #355998;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: none;
+    width: 22vw;
+}
+.button_5{
+    /* margin-top: 20px; */
+    /* margin-bottom: 15px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: none;
+    width: 22vw;
+}
+
+.or{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.or span{
+    /* margin: 0 10px; */
+    color: #A3A3A3;
+}
