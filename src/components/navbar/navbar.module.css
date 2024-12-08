@@ -1,11 +1,10 @@
 .navbar {
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: space-evenly;
 	/* padding: 0 3vw; */
 	background-color: #262626;
 	height: 8vh;
-	color: #ffffff;
 	width: 45%;
 	margin: 0 auto;
 	position: fixed;
@@ -21,6 +20,18 @@
     justify-content: center;
     gap: 9px;
     cursor: pointer;
+	padding: 6px 20px;
+	color: #e5e5e5;
+}
+.genre{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    cursor: pointer;
+	background-color: #1ED760;
+	border-radius: 50px;
+	transition: all 0.3s ease-in-out;
 }
 
 .img{
@@ -31,3 +42,57 @@
 .arrow{
     width: 9px;
 }
+
+.active{
+	color: #1ED760;
+}
+
+.active img{
+	width: 17px;
+}
+
+.active .arrow{
+	width: 9px;
+}
+
+		/* // feDrop down */
+.dropdown{
+	position: absolute;
+	top: 4rem;
+	left: 0rem;
+	display: grid;
+	align-items: center;
+	justify-content: center;
+	grid-template-columns: repeat(2, 1fr);
+	background-color: #262626;	
+	gap: 9px;
+	padding: 50px;
+	border-radius: 15px;
+}
+
+.dropdown li{
+	display: flex;
+	align-items: center;
+	/* justify-content: start; */
+	gap: 9px;
+	cursor: pointer;
+	padding-right: 20px;
+	color: #d4d4d4;
+}
+
+#dropdown{
+	width: 15px;
+	height: 15px;
+	cursor: pointer;
+	border: 2px solid #1ED760;
+	border-radius: 2px;
+	outline: none;
+	accent-color: #1ED760;
+	
+}
+
+/* #dropdown:checked{
+	background-color: #1ED760;
+	color: #262626;
+	
+} */
