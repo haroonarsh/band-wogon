@@ -123,7 +123,7 @@
 }
 
         /* // Heading 2 */
-.headind_2_regular {
+.heading_2_regular {
     font-size: 32px;
     line-height: 40px;
     letter-spacing: -2%;
@@ -134,14 +134,14 @@
     font-size: 32px;
     line-height: 40px;
     letter-spacing: -2%;
-    color: #000000;
+    color: white;
     font-weight:500;
 }
 .heading_2_semibold {
     font-size: 32px;
     line-height: 40px;
     letter-spacing: -2%;
-    color: #000000;
+    color: white;
     font-weight:600;
 }
 .heading_2_extraBold {
@@ -187,28 +187,28 @@
     font-size: 24px;
     line-height: 32px;
     letter-spacing: -2%;
-    color: #000000;
+    color: #f5f5f5;
     font-weight:400;
 }
 .heading_4_medium {
     font-size: 24px;
     line-height: 32px;
     letter-spacing: -2%;
-    color: #000000;
+    color: white;
     font-weight:500;
 }
 .heading_4_semibold {
     font-size: 24px;
     line-height: 32px;
     letter-spacing: -2%;
-    color: #000000;
+    color: white;
     font-weight:600;
 }
 .heading_4_extraBold {
     font-size: 24px;
     line-height: 32px;
     letter-spacing: -2%;
-    color: #000000;
+    color: white;
     font-weight:800;
 }
 
