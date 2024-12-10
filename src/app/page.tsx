@@ -1,10 +1,10 @@
 import Image from "next/image";
-import SignupPage from "./pages/auth/signup/SignupPage.jsx";
+import Index from "./pages/dashboard/Index.jsx";
 
 export default function Home() {
   return (
    <>
-   <SignupPage /> 
+   <Index /> 
    </>
   );
 }

@@ -1,22 +1,12 @@
 "use client"
 import React from 'react'
 import styles from './index.module.css'
-import { IoMdSearch } from "react-icons/io";
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { darkThemeStyles } from '../../../mapTheme/mapTheme.js';
 import Navbar from '../../../components/navbar/Navbar.jsx';
 import Header from '../../../components/header/Header.jsx';
 import Sidebar from '../../../components/sidebar/Sidebar.jsx';
+import Google_map from '../../../components/google_map/Google_map.jsx';
+import Show_results from '../../../components/show_results/Show_results.jsx';
 
-const containerStyle = {
-  width: '100%',
-  height: '100vh'
-};
-
-const center = {
-  lat: 33.693661514230975, // Example: Latitude of San Francisco
-  lng: 73.03031502875508, // Example: Longitude of San Francisco
-};
 
 // Dark mode styles
 // const darkThemeStyles = [
@@ -57,20 +47,13 @@ function Index() {
       <Sidebar />
 
               {/* // main section */}
-      <section className={styles.hero_section}>
-        <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-         <GoogleMap
-         mapContainerStyle={containerStyle}
-         center={center}
-         zoom={10}
-         options={{ styles: darkThemeStyles,
-          disableDefaultUI: false
-         }}
-         >
-          <Marker position={center} />
-         </GoogleMap>
-         </LoadScript>
-      </section>
+      <Google_map />          
+
+
+              {/* // Show_results */}
+
+      <Show_results />
+      
       </container>
     </>
   )
