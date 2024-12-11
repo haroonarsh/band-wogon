@@ -1,10 +1,245 @@
 .show_results{
     width: 100%;
+    display: grid;
+    top: 29rem;
+    left: 0;
+    position: fixed;
+    /* z-index: 4; */
+}
+
+.send{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 70%;
+    margin: 0 auto;
+    /* background-color: #04bd46; */
+}
+.icon{
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #262626;
+  padding: 10px;
+  color: #04bd46;
+  font-size: 39px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.results{
+    background-color: #262626;
+    color: #a3a3a3;
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 0;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.cards{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 3rem;
+    width: 100%;
+    padding: 0 2rem;
+    /* margin-top: 1rem;    */
+}
+.card_text img {
+    width: 15px;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.card_text p{
+    color: #737373;
+    display: flex;
+    align-items: center;
+}
+
+.card{
+    display: flex;
+    align-items: center;    
+    justify-content: start;
+    gap: 12px;
+    background-color: #262626;
+    border-radius: 4px;
+    padding: 7px 40px 7px 7px;
+    cursor: pointer;
+}
+
+.card_text h2{
+    display: flex;
+    align-items: center;
+    color: #e5e5e5;
+    gap: 7px;
+}
+.card_text p{
+    padding-top: 4px;
+}
+
+.icon2{
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #262626;
+  padding: 10px;
+  color: #04bd46;
+  font-size: 39px;
+  margin: 0 50px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+                    /* // show_results after click */
+.show_results_2{
+  position: absolute;
+  top: 9rem;
+  right: 1rem;
+  background-color: #282828;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 15px;
+  color: #e5e5e5;
+  border-radius: 10px;
+  width: 21%;
+  z-index: 2px;
+}
+
+.close{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-bottom: 14px;
+}
+
+.profile{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    top: 4rem;
-    position: absolute;
-    left: 0;
-    z-index: 4;
+    gap: 10px;
+    width: 100%;
+}
+.profile_text{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile_text_2{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile_text_2 h2{
+    display: flex;
+    align-items: center;
+    color: #e5e5e5;
+    gap: 7px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.profile_text_2 p{
+    font-size: 13px;
+    color: #a3a3a3;
+}
+.profile_text img{
+    border-radius: 50px;
+    object-fit: cover;
+    object-position: center;
+}
+.button_2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #04bd46;
+    border: 1px solid #04bd46;
+    border-radius: 50px;
+    font-size: 14px;
+    padding: 5px 11px;
+    transition: all 0.2s ease-in-out;
+}
+.button_2:hover{
+    background-color: #04bd46;
+    color: #d4d4d4;
+}
+
+.line{
+    width: 100%;
+    height: 1px;
+    background-color: #525252;
+    margin: 20px 0;
+}
+
+.check_in{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #737373;
+    border-radius: 8px;
+    font-size: 14px;
+}
+.check_in h2{
+    font-weight: 600;
+}
+.check_in p{
+    color: #a3a3a3;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.card_text2{
+    width: 100%;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+.card_text2 p{
+    color: #d4d4d4;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.map{
+    cursor: pointer;
+}
+
+.buttons{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 0;
+}
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #d4d4d4;
+    background-color: #04bd46;
+    border: 1px solid #04bd46;
+    border-radius: 50px;
+    font-size: 14px;
+    padding: 5px 11px;
+    transition: all 0.2s ease-in-out;
+}
+.button:hover{
+    background-color: #262626;
+    color: #04bd46;
 }
