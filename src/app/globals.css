@@ -149,7 +149,7 @@
     line-height: 40px;
     letter-spacing: -2%;
     color: #000000;
-    font-weight:800;
+    font-weight:700;
 }
 
         /* // Heading 3 */
@@ -157,14 +157,14 @@
     font-size: 28px;
     line-height: 36px;
     letter-spacing: -2%;
-    color: #000000;
+    color: white;
     font-weight:400;
 }
 .heading_3_medium {
     font-size: 28px;
     line-height: 36px;
     letter-spacing: -2%;
-    color: #000000;
+    color: white;
     font-weight:500;
 }
 .heading_3_semibold {
@@ -179,7 +179,7 @@
     line-height: 36px;
     letter-spacing: -2%;
     color: #000000;
-    font-weight:800;
+    font-weight:700;
 }
 
         /* // Heading 4 */
@@ -224,7 +224,7 @@
     font-size: 20px;
     line-height: 28px;
     letter-spacing: -2%;
-    color: #000000;
+    color: #fafafa;
     font-weight:500;
 }
 .heading_5_semibold {
@@ -254,21 +254,21 @@
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -2%;
-    color: #000000;
+    color: #fafafa;
     font-weight:500;
 }
 .heading_6_semibold {
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -2%;
-    color: #000000;
+    color: #e5e5e5;
     font-weight:600;
 }
 .heading_6_extraBold {
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -2%;
-    color: #000000;
+    color: #e5e5e5;
     font-weight:800;
 }
 

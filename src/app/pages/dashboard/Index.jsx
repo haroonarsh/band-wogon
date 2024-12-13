@@ -6,7 +6,7 @@ import Header from '../../../components/header/Header.jsx';
 import Sidebar from '../../../components/sidebar/Sidebar.jsx';
 import Google_map from '../../../components/google_map/Google_map.jsx';
 import Show_results from '../../../components/show_results/Show_results.jsx';
-
+import Artist_profile from '../../../components/artist_profile/Artist_profile.jsx';
 
 // Dark mode styles
 // const darkThemeStyles = [
@@ -36,25 +36,27 @@ import Show_results from '../../../components/show_results/Show_results.jsx';
 function Index() {
   return (
     <>
-      <container className={styles.container}>
+      {/* <container className={styles.container}> */}
             {/* // header */}
       <Header />
 
               {/* navbar */}
-      <Navbar />
+      {/* <Navbar /> */}
 
               {/* sidebar */}
-      <Sidebar />
+      {/* <Sidebar /> */}
 
               {/* // main section */}
-      <Google_map />          
+      {/* <Google_map />           */}
 
 
               {/* // Show_results */}
 
-      <Show_results />
+      {/* <Show_results /> */}
       
-      </container>
+                {/* // artist profile */}
+        <Artist_profile />
+      {/* </container> */}
     </>
   )
 }
