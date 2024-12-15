@@ -273,12 +273,12 @@
     justify-content: start;
 }
 .show img{
-    width:70px;
-    height: 70px;
-    border-radius: 50px;
+    width: 40px;
+    height: auto;
+    border-radius: 90px;
     object-fit: cover;
     object-position: center;
-    padding-top: 20px;
+    margin-top: 20px;
 }
 .show p{
     font-size: 13px;
