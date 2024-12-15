@@ -6,7 +6,7 @@ import { darkThemeStyles } from '../../mapTheme/mapTheme.js';
 
 const containerStyle = {
     width: '100%',
-    height: '100vh'
+    height: '90.9vh'
   };
   
   const center = {

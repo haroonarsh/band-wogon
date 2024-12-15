@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react'
 import styles from './artist_profile.module.css'
 import { MdOutlineLocationOn } from "react-icons/md";
