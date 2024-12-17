@@ -1,0 +1,234 @@
+.main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    background-color: #121212;
+    position: relative;
+}
+
+.blank{
+    width: 40%;
+    display: flex;
+    /* align-items: flex-end; */
+    justify-content: flex-end;
+}
+.settings{
+    /* width: ; */
+    margin: 3px 0;
+    height: 109vh;
+    width: 42%;
+    background-color: #262626;
+    color: #fafafa;
+}
+
+.main_content{
+    width: 60%;
+    height: 100vh;
+    color: white;
+    background-color: #121212;
+}
+
+.heading{
+    font-size: 25px;
+    padding: 30px 0 50px 30px;
+}
+
+.line{
+    background-color: #525252;
+    width: 100%;
+    height: 2px;
+}
+
+.account h2{
+    font-size: 20px;
+    padding: 16px 30px;
+    color: #737373;
+}
+
+.route{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 22px;
+    /* background-color: #04bd46; */
+    color: #fafafa;
+    transition: all 0.2s ease-in-out;
+}
+.route:hover{
+    background-color: #04bd46;
+    color: #121212;
+}
+.active{
+    background-color: #04bd46;
+    color: #121212;
+}
+.route div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.route div h2{
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.main_content{
+    width: 60%;
+    height: 100vh;
+    padding: 9rem 8rem;
+}
+
+.change_email{
+    width: 52%;
+}
+.change_email h1{
+    font-size: 25px;
+    letter-spacing: -1px;
+    padding-bottom: 30px;
+}
+
+.email{
+    display: flex;
+    align-items: center;
+    border: 1px solid #a3a3a32e;
+    border-radius: 50px;
+    padding: 8px 13px;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.email input{
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: white;
+}
+
+.password{
+    display: flex;
+    align-items: center;
+    border: 1px solid #a3a3a32e;
+    border-radius: 50px;
+    padding: 8px 13px;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.password input{
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: white;
+}
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #fafafa;
+    background-color: #04bd46;
+    border: 1px solid #04bd46;
+    border-radius: 50px;
+    font-size: 14px;
+    margin-top: 30px;
+    font-weight: 600;
+    padding: 8px 98px;
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+.button:hover{
+    background-color: transparent;
+    color: #04bd46;
+}
+.change_notification{
+    width: 60%;
+}
+.change_notification h1{
+    font-size: 25px;
+    letter-spacing: -1px;
+    padding-bottom: 30px;
+}
+
+.notification{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 20px;
+
+}
+
+/* Switch button */
+.switch {
+    width: 45px;
+    height: 18px;
+    border-radius: 30px;
+    background-color: #4d4d4d;
+    /* Default background (off state) */
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.switchOn {
+    background-color: #00ff5e5a;
+    /* Background color for on state */
+}
+
+.switchOff {
+    background-color: #FFFFFF61;
+    /* Background color for off state */
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    /* Default circle color */
+    position: absolute;
+    top: -0.9px;
+    left: 0px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.circleOn {
+    transform: translateX(26px);
+    /* Move circle to the right when switched on */
+    background-color: #00ff5f;
+    /* Circle color for on state */
+}
+
+.circleOff {
+    transform: translateX(0);
+    /* Circle remains on the left (off state) */
+    background-color: #bfbfbf;
+    /* Circle color for off state */
+}
+
+.button_2{
+    border: 1px solid #737373;
+    border-radius: 50px;
+    padding: 3px 10px;
+    font-size: 14px;
+}
+
+                /* themes */
+.theme{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #262626;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #737373;
+    padding-left: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.theme:hover{
+    background-color: #4d4d4d;
+}
