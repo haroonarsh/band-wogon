@@ -1,0 +1,171 @@
+.main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    background-color: #121212;
+    position: relative;
+}
+
+.blank{
+    width: 20%;
+    display: flex;
+    /* align-items: flex-end; */
+    justify-content: flex-end;
+}
+.blank div{
+    width: 1.5px;
+    margin: 3px 0;
+    height: 100%;
+    background-color: #A3A3A3;
+    color: #A3A3A3;
+}
+
+.main_content{
+    width: 80%;
+    min-height: 100vh;
+    color: white;
+    margin-top: 3rem;
+    margin-left: 2rem;
+    /* justify-content: center; */
+    background-color: #121212;
+}
+.heading{
+    font-size: 28px;
+    letter-spacing: -2%;
+    padding-bottom: 40px;
+}
+
+.artist{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    margin-left: 60px;
+}
+
+.uploader {
+    position: relative;
+    width: 38%;
+    height: 240px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .uploadBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    background-color: #525252;
+  }
+  
+  .fileInput {
+    display: none;
+  }
+  
+  .placeholder {
+    text-align: center;
+    color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .icon {
+    font-size: 24px;
+    color: #fafafa;
+    margin-bottom: 8px;
+  }
+  
+  .preview {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+.artist_info{
+    width: 38%;
+}
+.artist_info p{
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+    color: #A3A3A3;
+    padding-top: 30px;
+}
+.artist_info hr{
+    border: none;
+    width: 100%;
+    height: 1px;
+    background-color: #a3a3a3dd;
+    margin-top: 3px;
+}
+.artist_bio{
+    width: 38%;
+}
+.artist_bio p{
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+    color: #A3A3A3;
+    padding-top: 30px;
+}
+.artist_bio hr{
+    border: none;
+    width: 100%;
+    height: 1px;
+    background-color: #a3a3a3dd;
+    margin-top: 3px;
+}
+.location{
+    width: 38%;
+}
+.location p{
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+    color: #A3A3A3;
+    padding-top: 30px;
+}
+.location hr{
+    border: none;
+    width: 100%;
+    height: 1px;
+    background-color: #a3a3a3dd;
+    margin-top: 3px;
+}
+
+.map{
+    width: 38%;
+    height: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #04bd46;
+    color: #fafafa;
+    border: 1px solid #04bd46;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 7px 11px;
+    width: 38%;
+    margin-top: 30px;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 4rem;
+}
+.button:hover{
+    background-color: transparent;
+    color: #04bd46;
+}
