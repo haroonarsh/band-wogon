@@ -16,10 +16,12 @@ import { RiMoneyDollarBoxFill } from "react-icons/ri";
 import { FaVimeoV } from "react-icons/fa6";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
+import { useRouter } from 'next/navigation';
 
 function Artist_profile() {
 
   const [isChecked, setIsChecked] = useState(false);
+  const router = useRouter();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -82,7 +84,7 @@ function Artist_profile() {
                 </div>
               </div>
               <button className={styles.button_3}
-              
+              onClick={() => router.push('/upcoming')}
               >View upcoming & past shows</button>
             </div>
           </div>
