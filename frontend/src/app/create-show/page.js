@@ -5,11 +5,13 @@ import styles from './create-show.module.css'
 import Header from '@/components/header/Header'
 import { BiEditAlt } from "react-icons/bi";
 // import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import Google_map from '@/components/google_map/Google_map';
+import Google_map from '@/components/google_map/GoogleMap';
+import { useRouter } from 'next/navigation';
 
 function Page() {
 
     const [imagePreview, setImagePreview] = useState(null);
+    const router = useRouter();
 
     const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -71,7 +73,9 @@ function Page() {
                         <div className={styles.map}>
                             <Google_map />
                         </div>
-                        <button className={styles.button}>Create show</button>
+                        <button className={styles.button}
+                        onClick={() => router.push('/home')}
+                        >Create show</button>
                     </div>
                 </div>
             </div>
