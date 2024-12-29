@@ -7,8 +7,11 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
 
 function Page() {
+
+    const router = useRouter();
     return (
         <>
                 {/* Header */}
@@ -46,7 +49,9 @@ function Page() {
                     </div>
                     
 
-                    <button className={styles.add_show}><FaPlus /> Add show </button>
+                    <button className={styles.add_show}
+                    onClick={() => router.push('/create-show')}
+                    ><FaPlus /> Add show </button>
                 </div>
             </div>
         </>
