@@ -51,6 +51,12 @@
     width: 50%;
     
 }
+.heading{
+    display: grid;
+    align-items: start;
+    gap: 15px;
+    margin-bottom: 20px;
+}
             /* // input section */
 .input_section{
     width: 100%;

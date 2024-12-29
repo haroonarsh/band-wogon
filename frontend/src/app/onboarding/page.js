@@ -1,7 +1,10 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from "./Style.module.css"
+import { AnimatePresence, motion, useInView } from 'framer-motion'
+import { Router } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 const slides = [
   {
@@ -24,25 +27,54 @@ const slides = [
 function SecondPage() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const ref = useRef(null);
+  const router = useRouter();
+
+  const isInView = useInView(ref);
+
+  useEffect(() => {
+    console.log("useEffect called", isInView);
+    
+  }, [isInView]);
+
 
   const nextSlide = () => {
     if (currentSlide === slides.length - 1) {
-      setCurrentSlide(0);
+      // setCurrentSlide(0);
+      router.push('/signup')
     } else {
       setCurrentSlide((prev) => prev + 1);
     }
   }
   return (
     <>
-      <section className={styles.section}>
+      <section className={styles.section}
+      >
           <div className={styles.sub_section}>
-            <div className={styles.image_section}>
+            <motion.div 
+            className={styles.image_section}
+            initial={{ opacity: 0, translateX: -100 }}
+            animate={{ opacity: 1, translateX: 0 }}
+            key={currentSlide}
+            exit={{ opacity: 0, translateX: 100 }}
+            transition={{ duration: 0.5 }}
+            >
               <img src={slides[currentSlide].Image} alt={slides[currentSlide].title} />
-            </div>
-            <div className={styles.text_section}>
-              <div className={styles.heading_section}>
-              <h1 className='heading_1_Semibold'>{slides[currentSlide].title}</h1>
-              <p className='paragraph_large_medium'>{slides[currentSlide].discription}</p>
+            </motion.div>
+            <AnimatePresence mode='wait'>
+            <motion.div 
+            className={styles.text_section}>
+              <div  className={styles.heading_section}>
+              <motion.div className={styles.heading}
+              initial={{ opacity: 0, translateX: 100 }}
+              animate={{ opacity: 1, translateX: 0 }}
+              key={currentSlide}
+              exit={{ opacity: 0, translateX: 100 }}
+              transition={{ duration: 0.5 }}
+              >
+              <h1  className='heading_1_Semibold'>{slides[currentSlide].title}</h1>
+              <motion.p className='paragraph_large_medium' >{slides[currentSlide].discription}</motion.p>
+              </motion.div>
 
               <div className={styles.input_section}>
                     {/* // radio */}
@@ -52,12 +84,18 @@ function SecondPage() {
                   ))}
                 </div>
                     {/* // button */}
-                <button className={styles.button} 
+                <motion.button className={styles.button} 
                 onClick={nextSlide}
-                >{currentSlide === slides.length - 1 ? "Get Started" : "Continue"}</button>
+                initial={{ opacity: 0}}
+                animate={{ opacity: 1}}
+                key={currentSlide}
+                exit={{ opacity: 0}}
+                transition={{ duration: 0.5 }}
+                >{currentSlide === slides.length - 1 ? "Get Started" : "Continue"}</motion.button>
               </div>
             </div>
-            </div>
+            </motion.div>
+            </AnimatePresence>
           </div>
       </section>
     </>

@@ -6,8 +6,11 @@ import Header from '@/components/header/Header'
 // import Sidebar from '@/components/sidebar/Sidebar'
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
+import { useRouter } from 'next/navigation';
 
 function page() {
+
+    const router = useRouter();
   return (
     <>
                {/* Header */}
@@ -35,7 +38,9 @@ function page() {
                         <FaRegCheckCircle size={20} className={styles.icon} color='#1ed760' />
                         <p>See performance metrics from past shows</p>
                     </div>
-                    <button className={styles.button}><FaPlus /> Create page</button>
+                    <button className={styles.button}
+                    onClick={() => router.push('/create-page')}
+                    ><FaPlus /> Create page</button>
                 </div>
             </div>
         </div>
