@@ -7,31 +7,69 @@ import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import { useRouter } from 'next/navigation';
 
 
 function Sidebar() {
 
     const [showSidebar, setShowSidebar] = useState(false);
+    const router = useRouter();
 
     const toggleSidebar = () => {
         setShowSidebar(!showSidebar);
     }
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('/api/user/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+
+                 // Clear the user data and refreshToken cookie
+            localStorage.removeItem('user');
+            localStorage.removeItem('refreshToken');
+            
+            if (response.ok) {
+                console.log('Logout successful');
+                router.push('/signup');
+            } else {
+                console.error('Logout failed');
+            }
+            
+            
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    }
     return (
         <>
             <div className={styles.sidebar}>
-                <div className={styles.location}>
+                <div className={styles.location}
+                onClick={() => router.push('/home')}
+                >
                     <MdOutlineLocationOn className={styles.icon}/>
                 </div>
-                <div className={styles.profile}>
+                <div className={styles.profile}
+                onClick={() => router.push('/profile-screen')}
+                >
                     <MdOutlinePersonOutline className={styles.icon}/>
                 </div>
-                <div className={styles.notification}>
+                <div className={styles.notification}
+                onClick={() => router.push('/notification')}
+                >
                     <MdNotificationsNone className={styles.icon}/>
                 </div>
-                <div className={styles.sitting}>
+                <div className={styles.sitting}
+                onClick={() => router.push('/setting')}
+                >
                     <IoMdSettings className={styles.icon}/>
                 </div>
-                <div className={styles.move_item}>
+                <div className={styles.move_item}
+                onClick={handleLogout}
+                >
                     <TbLogout className={styles.icon}/>
                 </div>
                 <div className={styles.right_arrow}

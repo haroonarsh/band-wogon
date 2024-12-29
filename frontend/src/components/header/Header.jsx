@@ -1,14 +1,27 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './header.module.css'
 import { IoMdSearch } from "react-icons/io";
 import { LuArrowLeft } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
+import { useRouter } from 'next/navigation';
 
 
 function Header() {
 
   const [open, setOpen] = useState(false)
   const dropdownRef = useRef(null)
+  const [user, setUser] = useState(null)
+  const router = useRouter();
+
+  useEffect(() => {
+           // Get the user data from localStorage
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const toggleDropdown = (e) => {
     e.preventDefault();
@@ -74,7 +87,9 @@ function Header() {
           </div>
         )}
         <div className={styles.profile}>
-          <img src="./images/profile.png" alt="" />
+          <img className="cursor-pointer"  src={user?.profileImage} alt="profile" 
+          onClick={() => router.push('/profile-screen')}
+          />
         </div>
       </header>
     </>
