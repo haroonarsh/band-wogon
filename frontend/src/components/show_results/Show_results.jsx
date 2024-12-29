@@ -8,12 +8,14 @@ import { MdOutlineCalendarMonth } from "react-icons/md";
 import { GiMusicSpell } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
 import { FaRegClock } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
 
 
 function Show_results() {
 
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const router = useRouter();
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -98,7 +100,9 @@ function Show_results() {
                         <p>Artist</p>
                         </div>
                     </div>
-                    <button className={styles.button_2}>View profile</button>
+                    <button className={styles.button_2}
+                    onClick={() => router.push('/artist_profile')}
+                    >View profile</button>
                 </div>
                 <span className={styles.line} />
                 <div className={styles.check_in}>
