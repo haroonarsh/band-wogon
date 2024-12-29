@@ -14,7 +14,7 @@ const containerStyle = {
     lng: 73.03031502875508, // Example: Longitude of San Francisco
   };
 
-function Google_map() {
+function GoogleMaps() {
     return (
         <>
         <section>
@@ -34,4 +34,4 @@ function Google_map() {
     )
 }
 
-export default Google_map
+export default GoogleMaps
