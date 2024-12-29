@@ -5,23 +5,17 @@ import styles from './create-page.module.css'
 import Header from '@/components/header/Header'
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { FaPlus } from "react-icons/fa";
-import { BiEditAlt } from "react-icons/bi";
-import { MdOutlineFacebook } from "react-icons/md";
-import { FaXTwitter } from "react-icons/fa6";
-import { GrSpotify } from "react-icons/gr";
-import { FaSoundcloud } from "react-icons/fa6";
-import { FaYoutube } from "react-icons/fa6";
-import { BiLogoVenmo } from "react-icons/bi";
-import { SiCashapp } from "react-icons/si";
+import { useRouter } from 'next/navigation';
 
 
 function Page() {
 
-    const [createPage, setCreatePage] = useState(false)
+    const router = useRouter();
+    // const [createPage, setCreatePage] = useState(false)
 
-    const handleCreatePage = () => {
-        setCreatePage(!createPage)
-    }
+    // const handleCreatePage = () => {
+    //     setCreatePage(!createPage)
+    // }
 
     return (
         <>
@@ -34,7 +28,7 @@ function Page() {
             <div className={styles.main_content}>
                 <h1 className={styles.heading}>Create page</h1>
 
-                <div className={`${createPage ? styles.hide : ''}`}>
+                <div >
                     <div className={styles.content}>
                     <div className={styles.dots}>
                     <PiDotsThreeOutlineFill size={20} cursor={'pointer'}  />
@@ -44,17 +38,19 @@ function Page() {
                         <h2>BandWagon music</h2>
                     </div>
                     <div className={styles.buttons}>
-                        <button>Edit profile</button>
+                        <button onClick={() => router.push('/edit-profile')}>Edit profile</button>
                         <button>Show schedule</button>
-                        <button>Past shows</button>
+                        <button onClick={() => router.push('/past-shows')}>Past shows</button>
                     </div>
                 </div>
-                <button className={styles.button} onClick={handleCreatePage}><FaPlus /> Create page</button>
+                <button className={styles.button} 
+                onClick={() => router.push('/create-page2')}
+                ><FaPlus /> Create page</button>
                 </div>
 
                         {/* // create page */}
 
-                {createPage && (
+                {/* {createPage && (
                     <div className={styles.create_page}>
                     <div  className='relative'>   
                         <img src="./images/frame.png" alt="" /> 
@@ -131,7 +127,7 @@ function Page() {
 
                     <button className={styles.button_3} onClick={handleCreatePage}>Done</button>
                     </div>
-                )}
+                )} */}
             </div>
         </div>
         </>
