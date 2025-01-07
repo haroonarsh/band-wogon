@@ -30,7 +30,7 @@ export const authOptions = {
         return {
           id: user._id,
           email: user.email,
-          name: user.username,
+          username: user.username,
           profileImage: user.profileImage || null,
         };
       },
@@ -47,7 +47,7 @@ export const authOptions = {
         const dbUser = await createOrUpdateUser(user, account, profile);
         token.id = dbUser._id;
         token.email = dbUser.email;
-        token.name = dbUser.name;
+        token.name = dbUser.username;
         token.profileImage = dbUser.profileImage;
         token.location = dbUser.location;
       }
@@ -57,7 +57,7 @@ export const authOptions = {
       session.user = {
         id: token.id,
         email: token.email,
-        name: token.name,
+        username: token.name,
         profileImage: token.profileImage || "https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-Vector-PNG-File.png",
         location: token.location,
       };
@@ -66,6 +66,7 @@ export const authOptions = {
   },
   pages: {
     signIn: '/login',
+    newUser: '/signup',
   },
 };
 

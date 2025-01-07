@@ -1,7 +1,6 @@
 import connectDB from "@/backend/lib/mongodb";
 import User from "@/backend/models/user.model";
 import { generateTokens } from "@/backend/utils/generateTokens";
-import { response } from "express";
 
 export const config = {
     api: {
@@ -56,7 +55,10 @@ export const POST = async (req) => {
       // Set the refresh token as a cookie
       try {
         return new Response(
-          JSON.stringify({ accessToken, message: "User created successfully" }),
+          JSON.stringify({ 
+            accessToken,
+            user,
+            message: "User created successfully" }),
           {
             status: 201,
             headers: {

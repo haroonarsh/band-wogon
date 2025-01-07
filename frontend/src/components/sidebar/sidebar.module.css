@@ -20,10 +20,22 @@
 }
 
 .location{
-    background-color: #04bd4537;
     padding: 15px;
     border-radius: 90px;
+    /* color: #04bd46; */
+}
+.active{
+    background-color: #04bd4537;
     color: #04bd46;
+    padding: 15px;
+    border-radius: 90px;
+}
+.active2{
+    background-color: #04bd4537;
+    color: #04bd46;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 90px;
 }
 .icon{
     /* width: 18px; */

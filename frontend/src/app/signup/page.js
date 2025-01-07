@@ -4,16 +4,15 @@ import React, { useEffect, useState } from 'react'
 import styles from './signuppage.module.css'
 import { FaArrowLeft, FaRegUser } from "react-icons/fa";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
-import axios from 'axios';
-import Router from 'next/router';
 import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
 import { signIn, useSession } from 'next-auth/react';
 
 function SignupPage() {
 
-  const { data: session, status } = useSession();
-  console.log("Signup session : ",session);  
+  // const { data: session, status } = useSession();
+  // console.log("Signup session : ",session);  
+  
   
   const [formData, setFormData] = useState({
     username: '',
@@ -36,30 +35,33 @@ function SignupPage() {
       })
 
       const data = await response.json();
+      console.log('Signup data:', data);
+      
 
       const { user, accessToken } = data;
+      console.log('Signup user:', user);
+      
 
       // Store the user data and accessToken in localStorage
+      if (user) {
       localStorage.setItem('user', JSON.stringify(user));
+      } else {
+        console.log('No user data');  
+      }
       localStorage.setItem('accessToken', accessToken);
+      // localStorage.setItem('userId', user._id);
 
       if (data.error) {
-        toast.error(`Error: ${data.error}`, {
-          position: "top-center"
-        })
+        toast.error(data.error);
         // alert(`Error: ${data.error}`);
         return;
       }
       if (response.ok) {
         // alert("Signup successful! 🎉");
-        toast.success("Signup successful! 🎉", {
-          position: "top-center"
-        })
-        router.push('/home');
+        toast.success('Signup successful! 🎉')
+        router.push('/login');
       } else {
-        toast.error(`Error: ${data.error}`, {
-          position: "top-center"
-        })
+        toast.error('An error occurred. Please try again.');
         // alert(`Error: ${data.error}`);
       }
     } catch (error) {
@@ -70,6 +72,16 @@ function SignupPage() {
     }
   }
 
+
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     router.push('/home');
+  //   }
+  // }, [status, router]);
+
+  // if (session ) {
+  //   router.push('/home');
+  // }
   // useEffect(() => {
   //   if (session) {
   //     router.push('/home');
@@ -138,7 +150,7 @@ function SignupPage() {
     
             <button type='submit' className={styles.button_2} disabled={loading}>
               {loading ? 'Loading...' : 'Sign up'}
-              <ToastContainer />
+              {/* <ToastContainer /> */}
               </button>
             <p className={styles.or}><span>_______________________</span> or <span>_______________________</span></p>
 

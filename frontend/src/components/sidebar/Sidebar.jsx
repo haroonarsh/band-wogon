@@ -7,13 +7,13 @@ import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import { useRouter } from 'next/navigation';
-
+import { usePathname, useRouter } from 'next/navigation';
 
 function Sidebar() {
 
     const [showSidebar, setShowSidebar] = useState(false);
     const router = useRouter();
+    const pathname = usePathname();
 
     const toggleSidebar = () => {
         setShowSidebar(!showSidebar);
@@ -47,22 +47,22 @@ function Sidebar() {
     return (
         <>
             <div className={styles.sidebar}>
-                <div className={styles.location}
+                <div className={`${pathname === '/home' ? styles.active : styles.location}`}
                 onClick={() => router.push('/home')}
                 >
                     <MdOutlineLocationOn className={styles.icon}/>
                 </div>
-                <div className={styles.profile}
+                <div className={`${pathname === '/profile-screen' ? styles.active : styles.profile}`}
                 onClick={() => router.push('/profile-screen')}
                 >
                     <MdOutlinePersonOutline className={styles.icon}/>
                 </div>
-                <div className={styles.notification}
+                <div className={`${ pathname === '/notification' ? styles.active : styles.notification}`}
                 onClick={() => router.push('/notification')}
                 >
                     <MdNotificationsNone className={styles.icon}/>
                 </div>
-                <div className={styles.sitting}
+                <div className={`${ pathname === '/setting' ? styles.active2 : styles.sitting}`}
                 onClick={() => router.push('/setting')}
                 >
                     <IoMdSettings className={styles.icon}/>

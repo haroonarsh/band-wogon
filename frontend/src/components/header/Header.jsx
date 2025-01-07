@@ -6,6 +6,7 @@ import { IoMdSearch } from "react-icons/io";
 import { LuArrowLeft } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 
 function Header() {
@@ -14,12 +15,19 @@ function Header() {
   const dropdownRef = useRef(null)
   const [user, setUser] = useState(null)
   const router = useRouter();
+  // const { data: session } = useSession();
+  // if (session) {
+  //   const { user } = session;
+  //   // console.log("user : ",user);
+  // }
 
   useEffect(() => {
            // Get the user data from localStorage
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    } else {
+      console.log('No user data');
     }
   }, []);
 
@@ -38,6 +46,10 @@ function Header() {
     document.addEventListener('mousedown', closeDropdown);
     return () => document.removeEventListener('mousedown', closeDropdown);
   }, []);
+
+  // console.log("session : ",session);
+  // console.log("user : ",user);
+  
   return (
     <>
         <header className={styles.header}>

@@ -9,8 +9,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import { signIn, useSession } from 'next-auth/react';
 
 function Login() {
-  const { data: session, status } = useSession();
-  console.log("session : ",session);
+  // const { data: session, status } = useSession();
+  // console.log("session : ",session);
   
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -39,13 +39,18 @@ function Login() {
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('accessToken', accessToken);
 
+      if (data.error) {
+        toast.error(data.error);
+        console.log('Error during login:', data.error);
+        return;
+      }
       console.log('Login successful:', user);
       
       if (response.ok) {
-        toast.success('Login successfuly')
+        toast.success('Login successful! 🎉',);
         router.push('/home');
       } else {
-        toast.error(`Error: ${data.error}`)
+        toast.error(data.error);
       }
 
       
@@ -57,19 +62,19 @@ function Login() {
     }
   }
 
-  useEffect(() => {
-    if (session) {
-      router.push('/home');
-    } 
-  }, [session, router]);
-  if (status === 'loading') {
-    return (
-      <p>Loading...</p>
-    )
-  }
-  if (session) {
-    return null
-  }
+  // useEffect(() => {
+  //   if (session) {
+  //     router.push('/home');
+  //   } 
+  // }, [session, router]);
+  // if (status === 'loading') {
+  //   return (
+  //     <p>Loading...</p>
+  //   )
+  // }
+  // if (session) {
+  //   return null
+  // }
   return (
     <>
     <div className={styles.section}>
