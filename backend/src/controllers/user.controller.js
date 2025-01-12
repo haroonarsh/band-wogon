@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import ApiError from "../utils/apiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
         // utility functions to generate tokens
 const generateAccessToken = (userId) => {
@@ -108,13 +109,38 @@ const login = asyncHandler(async (req, res) => {
 
         // Update user
 const updateUser = asyncHandler(async (req, res) => {
-  const { username, email, profileImage } = req.body;
+  const { username, email } = req.body;
 
   if (!username || !email) {
     throw new ApiError(400, "All fields are required");
   }
 
   const userId = req.user.id; // Ensure `req.user` is set by middleware
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+
+  let profileImage = user.profileImage;
+
+  // console.log("Uploaded file:", req.file);
+
+  if (req.file) {
+    try {
+      // console.log("File path:", req.file);
+      
+      const uploadPresponse = await uploadOnCloudinary(req.file.path);
+      if (uploadPresponse && uploadPresponse.secure_url) {
+        profileImage = uploadPresponse.secure_url;
+      } else {
+        throw new ApiError(400, "Error uplaoding image to cloudinary");
+      }
+    } catch (error) {
+      throw new ApiError(400, error.message);
+    }
+  }
+  
 
   try {
     // Check if the email is already in use by another user
@@ -193,6 +219,26 @@ const updatePassword = asyncHandler(async (req, res) => {
   }
 })
 
+                  // delete user
+const deleteUser = asyncHandler(async (req, res) => {
+  const userId = req.user.id; // Ensure `req.user` is set by middleware
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    await user.remove();
+
+    res
+    .status(200)
+    .json(new ApiResponse(200, { user }, "User deleted successfully"));
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+})
 
 
-export { signup, login, updateUser, logout, updatePassword };
+
+export { signup, login, updateUser, logout, updatePassword, deleteUser };
