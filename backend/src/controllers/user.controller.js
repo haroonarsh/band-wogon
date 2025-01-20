@@ -5,6 +5,7 @@ import ApiError from "../utils/apiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import Artist from "../models/artist.model.js";
 
         // utility functions to generate tokens
 const generateAccessToken = (userId) => {
@@ -241,6 +242,39 @@ const deleteUser = asyncHandler(async (req, res) => {
     res
     .status(200)
     .json(new ApiResponse(200, null, "User deleted successfully"));
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+})
+
+                  // Become a Artist
+const becomeArtist = asyncHandler(async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const artistData = req.body;
+
+      // Create a new artist
+    const newArtist = new Artist(artistData)
+
+      // Save the artist
+    await newArtist.save();
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        role: "artist",
+        artistProfile: newArtist._id,
+      },
+      { new: true }
+    );
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    res
+    .status(200)
+    .json(new ApiResponse(200, user, "User updated successfully"));
   } catch (error) {
     throw new ApiError(400, error.message);
   }
