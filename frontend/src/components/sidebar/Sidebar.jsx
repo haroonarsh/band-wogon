@@ -8,6 +8,7 @@ import { TbLogout } from "react-icons/tb";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { usePathname, useRouter } from 'next/navigation';
+import axios from 'axios';
 
 function Sidebar() {
 
@@ -15,34 +16,30 @@ function Sidebar() {
     const router = useRouter();
     const pathname = usePathname();
 
-    const toggleSidebar = () => {
-        setShowSidebar(!showSidebar);
+    const handleLogout = () => {
+        const removeUser = localStorage.removeItem('user');
+        localStorage.removeItem('userData');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('UserAccessToken');
+        console.log("logout success");
+        console.log("removeUser", removeUser);
+        
+        router.push('/login');
     }
 
-    const handleLogout = async () => {
-        try {
-            const response = await fetch('/api/user/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
+    const logoutGoogle = () => {
+        const response = axios.get('http://localhost:8000/logout', { withCredentials: true });
 
-                 // Clear the user data and refreshToken cookie
+        if (response.status === 200) {
             localStorage.removeItem('user');
-            localStorage.removeItem('refreshToken');
-            
-            if (response.ok) {
-                console.log('Logout successful');
-                router.push('/signup');
-            } else {
-                console.error('Logout failed');
-            }
-            
-            
-        } catch (error) {
-            console.error('Logout error:', error);
+            localStorage.removeItem('userData');
+            localStorage.removeItem('UserAccessToken');
+            localStorage.removeItem('accessToken');
         }
+    }
+
+    const toggleSidebar = () => {
+        setShowSidebar(!showSidebar);
     }
     return (
         <>
@@ -68,7 +65,7 @@ function Sidebar() {
                     <IoMdSettings className={styles.icon}/>
                 </div>
                 <div className={styles.move_item}
-                onClick={handleLogout}
+                onClick={handleLogout || logoutGoogle}
                 >
                     <TbLogout className={styles.icon}/>
                 </div>
@@ -98,7 +95,9 @@ function Sidebar() {
                 <IoMdSettings className={styles.icon}/>
                 <p>Settings</p>
                 </div>
-                <div className={styles.show_move_item}>
+                <div className={styles.show_move_item}
+                onClick={handleLogout || logoutGoogle}
+                >
                 <TbLogout className={styles.icon}/>
                 <p>Log out</p>
                 </div>
