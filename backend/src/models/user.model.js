@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
         default: "user",
         enum: ["user", "artist"],
     },
+    artistProfile: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Artist",
+    },
     show: [
         {
         type: mongoose.Schema.Types.ObjectId,
