@@ -7,92 +7,56 @@ import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
 import { signIn, useSession } from 'next-auth/react';
+import axios from 'axios';
 
 function SignupPage() {
 
   // const { data: session, status } = useSession();
   // console.log("Signup session : ",session);  
-  
+    const [loading, setLoading] = useState(false)
+  const router = useRouter();
   
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
   })
-  const [loading, setLoading] = useState(false)
-  const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+
+    // Handle input changes
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      try {
+        const response = await axios.post(`http://localhost:8000/api/user/signup`, formData);
+
+        if (response.status === 201) {
+          toast.success(response.response.message);
+          router.push('/login');
+        }
+        if (response.status === 400) {
+          toast.error(response.data.message);
+        }
+        console.log(response.response.data);
+
+      } catch (error) {
+        toast.error(error.response.message);
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+      // Handle Google Login Redirect Callback
+  const handleGoogleLogin = () => {
     try {
-      const response = await fetch('/api/user/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      const data = await response.json();
-      console.log('Signup data:', data);
-      
-
-      const { user, accessToken } = data;
-      console.log('Signup user:', user);
-      
-
-      // Store the user data and accessToken in localStorage
-      if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-      } else {
-        console.log('No user data');  
-      }
-      localStorage.setItem('accessToken', accessToken);
-      // localStorage.setItem('userId', user._id);
-
-      if (data.error) {
-        toast.error(data.error);
-        // alert(`Error: ${data.error}`);
-        return;
-      }
-      if (response.ok) {
-        // alert("Signup successful! 🎉");
-        toast.success('Signup successful! 🎉')
-        router.push('/login');
-      } else {
-        toast.error('An error occurred. Please try again.');
-        // alert(`Error: ${data.error}`);
-      }
+      // Redirect to Google login page
+      window.open('http://localhost:8000/auth/google/callback', '_self');
     } catch (error) {
-      console.error('Error during signup:', error);
-      alert('An error occurred. Please try again.');
-    } finally {
-      setLoading(false);
+      console.error("Google Login Error:", error);
     }
   }
 
-
-  // useEffect(() => {
-  //   if (status === "authenticated") {
-  //     router.push('/home');
-  //   }
-  // }, [status, router]);
-
-  // if (session ) {
-  //   router.push('/home');
-  // }
-  // useEffect(() => {
-  //   if (session) {
-  //     router.push('/home');
-  //   }
-  // }, [session, router]);
-  // if (status === "loading") {
-  //   return <p>Loading...</p>;
-  // }
-  // if (session) {
-  //   return null;
-  // }
 
   return (
     <>
@@ -155,7 +119,7 @@ function SignupPage() {
             <p className={styles.or}><span>_______________________</span> or <span>_______________________</span></p>
 
             <button className={styles.button_3}
-            onClick={() => signIn('google', { callbackUrl: '/home' })}
+            onClick={handleGoogleLogin}
             > <img src="./images/google.png" alt="" />Sign up with Google</button>
             <button className={styles.button_4}> <img src="./images/facebook.png" alt="" />Sign up with Facebook</button>
             <button className={styles.button_5}> <img src="./images/apple-48.png" alt="" />Sign up with Apple</button>
