@@ -7,6 +7,7 @@ import { LuArrowLeft } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import axios from 'axios';
 
 
 function Header() {
@@ -15,21 +16,65 @@ function Header() {
   const dropdownRef = useRef(null)
   const [user, setUser] = useState(null)
   const router = useRouter();
-  // const { data: session } = useSession();
-  // if (session) {
-  //   const { user } = session;
-  //   // console.log("user : ",user);
-  // }
 
+  console.log("user : ",user);
+  console.log("ProfileImage", user?.profileImage);
+  
+
+              // Check if user data exists in localStorage
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem('userData');
+  //   const googleUser = localStorage.getItem('user');
+  //   if (storedUser || googleUser) {
+  //     try {
+  //       // Parse the JSON string
+  //       const parsedUser = JSON.parse(storedUser) || JSON.parse(googleUser); // Parse the JSON string
+  //       setUser(parsedUser);
+  //       console.log("Stored User:", parsedUser);
+  //     } catch (error) {
+  //       console.error("Error parsing user data:", error);
+  //       localStorage.removeItem('user'); // Remove invalid data
+  //       localStorage.removeItem('userData');
+  //     }
+  //   } else {
+  //     console.log('No user data found in localStorage');
+  //   }
+  // }, []);
   useEffect(() => {
-           // Get the user data from localStorage
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else {
-      console.log('No user data');
+          // Get the user data from localStorage
+          const storedUser = localStorage.getItem('userData');
+          const googeleUser = localStorage.getItem('user');
+          if (storedUser || googeleUser) {
+              setUser(JSON.parse(storedUser) || JSON.parse(googeleUser));
+          }
+      }, [])
+  
+            // Google login store user and token in sessionStorage
+  const getUser = async () => {
+        try {
+            const response = await axios.get("http://localhost:8000/login/success", { withCredentials: true });
+
+            setUser(response.data.user.user);
+            console.log("user", response.data.user.user);
+            console.log("accessToken", response.data.accessToken);
+            
+            localStorage.setItem('user', JSON.stringify(response.data.user.user));
+            localStorage.setItem('accessToken', response.data.accessToken);
+        } catch (error) {
+            console.log("error", error)
+        }
     }
-  }, []);
+
+    // logoout
+    // const logout = ()=>{
+    //     window.open("http://localhost:8000/logout","_self")
+    // }
+const StoredUserData = JSON.parse(localStorage.getItem('userData'));
+    useEffect(() => {
+        if (!StoredUserData) {
+            getUser();
+        }
+    }, [])
 
   const toggleDropdown = (e) => {
     e.preventDefault();
