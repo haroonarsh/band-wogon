@@ -6,7 +6,8 @@ import { FaArrowLeft, FaRegUser } from "react-icons/fa";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
-import { signIn, useSession } from 'next-auth/react';
+// import { signIn, useSession } from 'next-auth/react';
+import axios from 'axios';
 
 function Login() {
   // const { data: session, status } = useSession();
@@ -22,59 +23,51 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    localStorage.removeItem('userData');
+    localStorage.removeItem("UserAccessToken");
+    localStorage.removeItem("accessToken");
+    const googleUser = localStorage.removeItem("user");
+
+    console.log("googleUser", googleUser);
+    console.log("googleUserImage", googleUser?.profileImage);
+    
+    
     try {
-      const response = await fetch('/api/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      const data = await response.json();
-
-      const { user, accessToken } = data;
-
-             // Store the user data and accessToken in localStorage
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('accessToken', accessToken);
-
-      if (data.error) {
-        toast.error(data.error);
-        console.log('Error during login:', data.error);
-        return;
+      const response = await axios.post('http://localhost:8000/api/user/login', formData);
+  
+      if (response.status === 200) {
+        const user = response.data.data.user; // User data
+        const accessToken = response.data.data.accessToken; // Access token
+        console.log("token", accessToken);
+        
+  
+        // Store user and token in localStorage
+        localStorage.setItem('userData', JSON.stringify(user));
+        localStorage.setItem('UserAccessToken', accessToken);
+  
+        toast.success(response.data.message);
+        router.push('/home'); // Navigate to the home page
       }
-      console.log('Login successful:', user);
-      
-      if (response.ok) {
-        toast.success('Login successful! 🎉',);
-        router.push('/home');
-      } else {
-        toast.error(data.error);
-      }
-
-      
     } catch (error) {
-      console.error('Error during login:', error);
-      toast.error(error.message);
+      toast.error("Invalid email or password");
+      console.error("Login Error:", error.response?.data || error.message);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  // useEffect(() => {
-  //   if (session) {
-  //     router.push('/home');
-  //   } 
-  // }, [session, router]);
-  // if (status === 'loading') {
-  //   return (
-  //     <p>Loading...</p>
-  //   )
-  // }
-  // if (session) {
-  //   return null
-  // }
+  // Handle Google Login Redirect Callback
+  const handleGoogleLogin = () => {
+    try {
+      // Redirect to Google login page
+      window.open('http://localhost:8000/auth/google/callback', '_self');
+    } catch (error) {
+      console.error("Google Login Error:", error);
+    }
+  }
+  
+
   return (
     <>
     <div className={styles.section}>
@@ -109,7 +102,8 @@ function Login() {
             <p className={styles.or}><span>_______________________</span> or <span>_______________________</span></p>
 
             <button className={styles.button_3} 
-            onClick={() => signIn('google', { callbackUrl: '/home' })}
+            // onClick={handleGoogleLogin}
+            onClick={handleGoogleLogin}
             > <img src="./images/google.png" alt="" />Sign up with Google</button>
             <button className={styles.button_4}> <img src="./images/facebook.png" alt="" />Sign up with Facebook</button>
             <button className={styles.button_5}> <img src="./images/apple-48.png" alt="" />Sign up with Apple</button>
