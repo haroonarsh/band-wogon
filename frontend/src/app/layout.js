@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import GoogleProvider from "./googleProvider";
+// import GoogleProvider from "./googleProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,7 +21,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <GoogleProvider>
+    // <GoogleProvider>
     <html lang="en">
 
       <body
@@ -40,6 +40,6 @@ export default function RootLayout({ children }) {
         />
       </body>
     </html>
-    </GoogleProvider>
+    // </GoogleProvider>
   );
 }
