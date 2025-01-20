@@ -15,9 +15,10 @@ function Page() {
 
     useEffect(() => {
         // Get the user data from localStorage
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
+        const storedUser = localStorage.getItem('userData');
+        const googeleUser = localStorage.getItem('user');
+        if (storedUser || googeleUser) {
+            setUser(JSON.parse(storedUser) || JSON.parse(googeleUser));
         }
     }, [])
     return (
