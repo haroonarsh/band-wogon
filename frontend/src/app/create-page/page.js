@@ -31,7 +31,7 @@ function Page() {
                 <div >
                     <div className={styles.content}>
                     <div className={styles.dots}>
-                    <PiDotsThreeOutlineFill size={20} cursor={'pointer'}  />
+                    <PiDotsThreeOutlineFill size={20} cursor={'pointer'} />
                     </div>
                     <div className={styles.artist}>
                         <img src="./images/Image(1).png" alt="" />
@@ -39,7 +39,7 @@ function Page() {
                     </div>
                     <div className={styles.buttons}>
                         <button onClick={() => router.push('/edit-profile')}>Edit profile</button>
-                        <button>Show schedule</button>
+                        <button onClick={() => router.push('/upcoming-schedules')}>Show schedule</button>
                         <button onClick={() => router.push('/past-shows')}>Past shows</button>
                     </div>
                 </div>
