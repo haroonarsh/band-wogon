@@ -101,9 +101,9 @@ const login = asyncHandler(async (req, res) => {
 
     res
     .status(200)
-    .json(new ApiResponse(200, { user: user},{ accessToken, refreshToken }, "User logged in successfully"));
+    .json(new ApiResponse(200, { user, accessToken, refreshToken},"User logged in successfully"));
   } catch (error) {
-    throw new ApiError(400, error.message);
+    throw new ApiError(400, error.message || "Error logging in user");
   }
 })
 
@@ -149,6 +149,13 @@ const updateUser = asyncHandler(async (req, res) => {
       throw new ApiError(400, "Email is already in use");
     }
 
+    // Check if the username is already in use by another user
+    // const existingUsername = await User.findOne({ username });
+    // if (existingUsername && existingUsername._id.toString() !== userId) {
+    //   throw new ApiError(400, "Username is already in use");
+    // }
+    const accessToken = generateAccessToken(userId);
+
     // Update the user's profile
     const updatedUser = await User.findByIdAndUpdate(
       userId,
@@ -162,7 +169,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     res
       .status(200)
-      .json(new ApiResponse(200, { user: updatedUser }, "User updated successfully"));
+      .json(new ApiResponse(200, { user: updatedUser , accessToken }, "User updated successfully"));
   } catch (error) {
     console.error("Error updating user:", error.message);
     throw new ApiError(400, error.message);
@@ -229,11 +236,11 @@ const deleteUser = asyncHandler(async (req, res) => {
       throw new ApiError(404, "User not found");
     }
 
-    await user.remove();
+    await User.findByIdAndDelete(userId);
 
     res
     .status(200)
-    .json(new ApiResponse(200, { user }, "User deleted successfully"));
+    .json(new ApiResponse(200, null, "User deleted successfully"));
   } catch (error) {
     throw new ApiError(400, error.message);
   }
