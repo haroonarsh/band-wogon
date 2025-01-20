@@ -15,12 +15,16 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, "password is required"],
+        required: false,
         unique: true
     },
     profileImage: {
         type: String,
         default: "https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-Vector-PNG-File.png",
+    },
+    googleId: {
+        type: String,
+        unique: true,
     },
     role: {
         type: String,
