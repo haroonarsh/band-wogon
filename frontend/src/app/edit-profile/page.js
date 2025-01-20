@@ -1,154 +1,151 @@
 "use client"
 
 import Header from '@/components/header/Header'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { use, useContext, useEffect, useState } from 'react'
 import styles from './edit-profile.module.css'
 import Sidebar from '@/components/sidebar/Sidebar'
 import { BiEditAlt } from "react-icons/bi";
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify';
 // import { AuthContext } from '@/context/AuthContext'
 
 function Page() {
 
-    // const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null);
     // const { user, login } = useContext(AuthContext);
     const router = useRouter();
-    const userData = JSON.parse(localStorage.getItem("user"));
-
-    console.log("User data:", userData);
-    const accessToken = localStorage.getItem("accessToken");
-    console.log("Access token:", accessToken);
-    
-    
-
-    const [form, setForm] = useState({
-        username: userData?.username || "",
-        email: userData?.email || "",
-        profileImage: null,
-    });
-
-    const [previewImage, setPreviewImage] = useState(userData?.profileImage || null);
+    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        if (!userData) {
-            router.push("/profile-screen");
+        const storedUser = localStorage.getItem('userData');
+        const googleUser = localStorage.getItem('user');
+        if (storedUser || googleUser) {
+            setUser(JSON.parse(storedUser) || JSON.parse(googleUser));
+            // setUser(JSON.parse(storedUser));
         }
-    }, [ userData, router ]);
-    const handleFileChange = (e) => {   
+    }, []);
+
+    const storedUser = localStorage.getItem('userData');
+    const googleUser = localStorage.getItem('user');
+
+    console.log("Stored User:", storedUser);
+    console.log("Google User:", googleUser);
+    
+
+    // const checkingUsers = () => {
+    //     if (storedUser === null || storedUser === "undefined") {
+    //         handleSubmit();
+    //     } else {
+    //         handleGoogleSubmit();
+    //     }
+    // }
+
+    const [form, setForm] = useState({
+        username: "",
+        email: "",
+        profileImage: "",
+    })
+
+    const [previewImage, setPreviewImage] = useState(null);
+
+    const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setForm({ ...form, profileImage: file });
-        setPreviewImage(URL.createObjectURL(file));
-      };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append("username", form.username);
-        formData.append("email", form.email);
-        if (form.profileImage) {
-            formData.append("profileImage", form.profileImage);
-        }
-
-        try {
-            const { data } = await axios.patch("/api/user/edit-profile", formData, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-
-                        // Store the user data and accessToken in localStorage
-            localStorage.setItem('user', JSON.stringify(data.user));
-            localStorage.setItem('accessToken', data.accessToken);
-
-            console.log("Profile updated successfully:", data);
-            alert("Profile updated successfully!");
-            router.push("/home");
-        } catch (error) {
-            console.error("Error updating profile:", error.message);
-            alert("Failed to update profile!");
+        if (file) {
+            setForm({ ...form, profileImage: file });
+            setPreviewImage(URL.createObjectURL(file));
         }
     }
 
-                // =============================
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        localStorage.removeItem('user');
+        localStorage.removeItem("userData");
+        const token = localStorage.getItem('UserAccessToken');
 
-    // Fetch the current user data
-    // useEffect(() => {
-    //     const fetchUserData = async () => {
-    //         try {
-    //             const storedUser = localStorage.getItem("user");
-    //             setUser(JSON.parse(storedUser));
-    //             if (!storedUser) {
-    //                 alert("User not logged in!");
-    //                 return;
-    //             } else {
-    //                 alert("User logged in:" + storedUser);
-    //             }
+        if (!token) {
+            toast.error("You are not logged in");
+            return;
+        }
 
-    //             const res = await axios.get(`/api/user/profile?userId=${JSON.parse(storedUser)._id}`);
-    //             alert("User data response:", res.data);
+        try {
+            const formData = new FormData();
+            formData.append('username', form.username);
+            formData.append('email', form.email);
+
+            if (form.profileImage) {
+                formData.append('profileImage', form.profileImage);
+                console.log("Profile image:", form.profileImage);
+            } else {
+                console.log("No profile image selected");
+            }
+
+            const response = await axios.put('http://localhost:8000/api/user/edit-profile', formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+
+            if (response.status === 200) {
+                toast.success(response.data.message);
+                const updatedUser = response.data.data.user;
+                const accessToken = response.data.data.accessToken; // Access token
+                localStorage.setItem('userData', JSON.stringify(updatedUser));
+                localStorage.setItem('UserAccessToken', accessToken);
                 
-    //             const user = res.data.user;
-    //             console.log("User data user:", user);
-    //             console.log("User id:", user.userId);
+                router.push('/home');
+            }
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Something went wrong");
+            console.log("Error:", error.response?.data || error.message);
+        }
+    }
+
+                // Google update
+
+    const handleGoogleSubmit = (e) => {
+        e.preventDefault();
+        localStorage.removeItem('user');
+        localStorage.removeItem("userData");
+        const token = localStorage.getItem('accessToken');
+
+        if (!token) {
+            toast.error("You are not logged in");
+            return;
+        }
+        try {
+            const formData = new FormData();
+            formData.append('username', form.username);
+            formData.append('email', form.email);
+            if (form.profileImage) {
+                formData.append('profileImage', form.profileImage);
+            } else {
+                console.log("No profile image selected");
+            }
+            const response = axios.put('http://localhost:8000/update-profile', formData , {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(response);
+
+            if (response.status === 200) {
+                toast.success(response.data.message);
+                console.log("response", response);
                 
-                
-
-    //             setFormData({
-    //                 userId: user._id,
-    //                 username: user.username,
-    //                 email: user.email,
-    //                 profileImage: null,
-    //             });
-    //             alert("User data:" + user.username);
-
-    //             setPreviewImage(user.profileImage);
-    //         } catch (error) {
-    //             alert("Error fetching user data:" + error);
-    //             console.error("Error fetching user data:", error);
-    //         }
-    //     };
-
-    //     fetchUserData();
-    // }, []);
-
-    // const handleInputChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setFormData({ ...formData, [name]: value });
-    // };
-
-    // const handleFileChange = (e) => {
-    //     const file = e.target.files[0];
-    //     setFormData({ ...formData, profileImage: file });
-    //     setPreviewImage(URL.createObjectURL(file)); // Preview the selected image
-    // };
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     try {
-    //         const form = new FormData();
-    //         form.append("userId", formData.userId);
-    //         form.append("username", formData.username);
-    //         form.append("email", formData.email);
-    //         if (formData.profileImage) {
-    //             form.append("profileImage", formData.profileImage);
-    //         }
-
-    //         const res = await axios.post("/api/user/edit-profile", form, {
-    //             headers: { "Content-Type": "multipart/form-data" },
-    //         });
-
-    //         if (res.status === 200) {
-    //             alert("Profile updated successfully!");
-    //         }
-    //     } catch (error) {
-    //         console.error("Error updating profile:", error);
-    //         alert("Failed to update profile!");
-    //     }
-    // };
+                const updatedUser = response.data.user.user;
+                const accessToken = response.data.accessToken; // Access token
+                localStorage.setItem('user', JSON.stringify(updatedUser));
+                localStorage.setItem('accessToken', accessToken);
+            }
+            router.push('/login');
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Something went wrong");
+            console.log("Error:", error.response?.data || error.message);
+        }
+    }
 
     return (
         <>
@@ -163,22 +160,28 @@ function Page() {
                 <div className={styles.main_content}>
                     <h1 className={styles.heading}>Edit profile</h1>
                 <div className={styles.profile}>
-                    <form onSubmit={handleSubmit} encType='multipart/form-data' className={styles.profile_info}>
+                    <form onSubmit={(e) => {
+                        if (storedUser === null || storedUser === "undefined") {
+                            handleGoogleSubmit(e);
+                        } else {
+                            handleSubmit(e);
+                        }
+                    }} encType='multipart/form-data' className={styles.profile_info}>
                         <div className='relative'>
                         <img src={ previewImage || user?.profileImage } alt="profile preview" />
-                        <label className={styles.edit}>
+                        <label htmlFor="fileInput" className={styles.edit}>
                         <BiEditAlt  />
                         </label>
                         <input
                             type="file"
-                            // id="fileInput"
-                            // name='profileImage' 
+                            id="fileInput"
+                            name='profileImage' 
                             accept="image/*"
                             onChange={handleFileChange}
-                            // style={{ display: "none" }}
+                            style={{ display: "none" }}
                         />
                         </div>
-                        <h1 className={styles.name}>{ form.username || "User Name"}</h1>
+                        <h1 className={styles.name}>{ form.username || user?.username || "User Name"}</h1>
 
                         <div className={styles.username}>
                             <p>Name</p>
