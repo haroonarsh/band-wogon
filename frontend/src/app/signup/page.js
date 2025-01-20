@@ -30,17 +30,17 @@ function SignupPage() {
       try {
         const response = await axios.post(`http://localhost:8000/api/user/signup`, formData);
 
-        if (response.status === 201) {
-          toast.success(response.response.message);
+        if (response.status === 201 || response.status === 200) {
+          toast.success(response.message);
           router.push('/login');
         }
         if (response.status === 400) {
-          toast.error(response.data.message);
+          toast.error(response.message);
         }
-        console.log(response.response.data);
-
+        console.log(response.data);
+        
       } catch (error) {
-        toast.error(error.response.message);
+        toast.error(error.message);
         console.log(error);
       } finally {
         setLoading(false);
