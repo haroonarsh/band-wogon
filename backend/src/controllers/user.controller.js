@@ -250,20 +250,34 @@ const deleteUser = asyncHandler(async (req, res) => {
                   // Become a Artist
 const becomeArtist = asyncHandler(async (req, res) => {
   try {
-    const { userId } = req.params;
-    const artistData = req.body;
+    const userId = req.user.id;
+    const { artistName, location, bio, startDate, showPerformed, genres } = req.body;
 
+    if (!artistName || !location || !bio || !startDate || !showPerformed || !genres) {
+      throw new ApiError(400, "All fields are required");
+    }
+
+    if (req.user.role !== "user") {
+      throw new ApiError(400, "Only users can become artists");
+    }
       // Create a new artist
-    const newArtist = new Artist(artistData)
+    const newArtist = new Artist({
+      artistName, 
+      location, 
+      bio, 
+      startDate: new Date(startDate), 
+      showPerformed: parseInt(showPerformed, 10), 
+      genres,
+    })
 
       // Save the artist
-    await newArtist.save();
+    const savedArtist = await newArtist.save();
 
     const user = await User.findByIdAndUpdate(
       userId,
       {
         role: "artist",
-        artistProfile: newArtist._id,
+        artistProfile: savedArtist._id,
       },
       { new: true }
     );
@@ -274,7 +288,7 @@ const becomeArtist = asyncHandler(async (req, res) => {
 
     res
     .status(200)
-    .json(new ApiResponse(200, user, "User updated successfully"));
+    .json(new ApiResponse(200, { user }, "User updated successfully"));
   } catch (error) {
     throw new ApiError(400, error.message);
   }
@@ -282,4 +296,4 @@ const becomeArtist = asyncHandler(async (req, res) => {
 
 
 
-export { signup, login, updateUser, logout, updatePassword, deleteUser };
+export { signup, login, updateUser, logout, updatePassword, deleteUser, becomeArtist };
