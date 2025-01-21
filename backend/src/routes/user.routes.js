@@ -1,7 +1,8 @@
 import express from "express";
-import { signup, login, updateUser, logout, updatePassword, deleteUser } from "../controllers/user.controller.js";
+import { signup, login, updateUser, logout, updatePassword, deleteUser, becomeArtist } from "../controllers/user.controller.js";
 import authenticate from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/upload.js";
+import { roleAuth } from "../middlewares/roleAuth.middleware.js";
 // import passport from "passport";
 
 const router = express.Router();
@@ -13,15 +14,7 @@ router.put("/edit-profile", authenticate, upload.single("profileImage"), updateU
 router.post("/logout", authenticate, logout);
 router.put("/update-password", authenticate, updatePassword);
 router.delete("/delete-user", authenticate, deleteUser);
+router.post("/become-artist", authenticate, roleAuth("user"), becomeArtist);
 
-//                 // Google routes
-//         // google auth
-// router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
-//         // google callback
-// router.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/home', failureRedirect: '/login' }),
-//         // (req, res) => {
-//         //         res.redirect('/home');  // Redirect to your frontend page after successful login
-// // }            
-// )
 
 export default router;
