@@ -15,6 +15,28 @@ import { BiLogoVenmo } from "react-icons/bi";
 import { SiCashapp } from "react-icons/si";
 import { useRouter } from 'next/navigation';
 
+
+        // initial state for the form
+const initialState = {
+    artistName: '',
+    location: '',
+    bio: '',
+    startDate: '',
+    showPerformed: '',
+    genres: [],
+    socialLinks: {
+        facebook: '',
+        twitter: '',
+        spotify: '',
+        soundcloud: '',
+        youtube: '',
+    },
+    paymentMethods: {
+        venmo: '',
+        cashapp: '',
+    },
+};
+
 function Page() {
 
     const router = useRouter()
