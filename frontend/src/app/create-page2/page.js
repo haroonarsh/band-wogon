@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './create-page2.module.css'
 import Header from '@/components/header/Header'
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
@@ -14,32 +14,110 @@ import { FaYoutube } from "react-icons/fa6";
 import { BiLogoVenmo } from "react-icons/bi";
 import { SiCashapp } from "react-icons/si";
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { set } from 'mongoose';
 
 
         // initial state for the form
-const initialState = {
-    artistName: '',
-    location: '',
-    bio: '',
-    startDate: '',
-    showPerformed: '',
-    genres: [],
-    socialLinks: {
-        facebook: '',
-        twitter: '',
-        spotify: '',
-        soundcloud: '',
-        youtube: '',
-    },
-    paymentMethods: {
-        venmo: '',
-        cashapp: '',
-    },
-};
+// const initialState = {
+//     artistName: '',
+//     location: '',
+//     bio: '',
+//     startDate: '',
+//     showPerformed: '',
+//     genres: [],
+//     socialLinks: {
+//         facebook: '',
+//         twitter: '',
+//         spotify: '',
+//         soundcloud: '',
+//         youtube: '',
+//     },
+//     paymentMethods: {
+//         venmo: '',
+//         cashapp: '',
+//     },
+// };
 
 function Page() {
 
+    const [form, setForm] = useState({
+        artistName: '',
+        location: '',
+        bio: '',
+        startDate: '',
+        showPerformed: '',
+        genres: '',
+    });
     const router = useRouter()
+    const [previewImage, setPreviewImage] = useState(null);
+
+    
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
+    }
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setForm((prevState) => ({
+                ...prevState,
+                profileImage: file,
+            }));
+            setPreviewImage(URL.createObjectURL(file));
+        }
+    }
+
+    const handleGenreSelection = (genre) => {
+        setForm((prevState) => {
+            const updatedGenres = prevState.genres.includes(genre)
+            ? prevState.genres.filter((g) => g !== genre)
+            : [...prevState.genres, genre];
+            return { ...prevState, genres: updatedGenres };
+
+        })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        localStorage.removeItem('user');
+        localStorage.removeItem('userData');
+        const userDataToken = localStorage.getItem('UserAccessToken');
+        const googleUserToken = localStorage.getItem('accessToken');
+            try {   
+                const response = await axios.post('http://localhost:8000/api/user/become-artist', form, {
+                    headers: {
+                        Authorization: `Bearer ${userDataToken === null || userDataToken === "undefined" 
+                        ? googleUserToken 
+                        : userDataToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+                 
+                if (userDataToken === null || userDataToken === "undefined") {
+                    localStorage.setItem('user', JSON.stringify(response.data.data.user));
+                } else {
+                    localStorage.setItem('userData', JSON.stringify(response.data.data.user));
+                }
+                 if (response.success === true || response.status === 200 ) {
+                    toast.success(response.data.message);
+                    router.push('/upcoming-schedules');
+
+                 } else {
+                    toast.error( response.data.message || "Something went wrong");
+                 }
+                 
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        
+    }
     return (
         <>
                     {/* Header */}
@@ -52,13 +130,41 @@ function Page() {
                     <h1 className={styles.heading}>Create page</h1>
             <div className={styles.create_page}>
                     <div  className='relative'>   
-                        <img src="./images/frame.png" alt="" /> 
-                        <BiEditAlt className={styles.edit} />
+                        <img src={previewImage || './images/frame2.png'} alt="profile preview" />
+                        <label htmlFor="fileInput" className={styles.edit}>
+                        <BiEditAlt  />
+                        </label>
+                        <input
+                            type="file"
+                            id="fileInput"
+                            name='profileImage' 
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            style={{ display: "none" }}
+                        />
                     </div>
                     <div className={styles.inputs}>
-                        <input type="text" placeholder='Artist name' />
-                        <input type="text" placeholder='Location' />
-                        <input type="text" placeholder='Bio' />
+                        <input 
+                        type="text" 
+                        placeholder='Artist Name' 
+                        name='artistName'
+                        value={form.artistName}
+                        onChange={handleChange}
+                        />
+                        <input 
+                        type="text" 
+                        placeholder='Location' 
+                        name='location'
+                        value={form.location}
+                        onChange={handleChange}
+                        />
+                        <input 
+                        type="text" 
+                        placeholder='Bio' 
+                        name='bio'
+                        value={form.bio}
+                        onChange={handleChange}
+                        />
                     </div>
 
                     <h1>When did you start performing</h1>
@@ -66,36 +172,47 @@ function Page() {
                     <div className={styles.dates}>
                         <h2 className='paragraph_small_medium'>Start date</h2>
                         <div className={styles.date}>
-                            <input type="month" placeholder='Septamber '/>
-                            <input type="month" placeholder='2023 '/>
+                            <input 
+                            type="text" 
+                            placeholder='Septamber'
+                            name='startDate'
+                            value={form.startDate}
+                            onChange={handleChange}
+                            />
+                            <input 
+                            type="month" 
+                            placeholder='2023'
+                            name='startDate'
+                            value={form.startDate}
+                            onChange={handleChange}
+                            />
                         </div>
                     </div>
 
                     <h1>How many shows have you performed</h1>
                     <div className={styles.inputs}>
-                        <input type="tel" placeholder='Select shows' />
+                        <input 
+                        type="number" 
+                        placeholder='Number of shows' 
+                        name='showPerformed'
+                        value={form.showPerformed}
+                        onChange={handleChange}
+                        />
                     </div>
 
                     <h1 className={styles.genre}>Genre</h1>
                     <p className='paragraph_medium_medium'>Select all that apply</p>
 
                     <div className={styles.genres}>
-                        <button>Blues</button>                        
-                        <button>Classical</button>                        
-                        <button>Country</button>                        
-                        <button>EDM</button>                        
-                        <button>Falk</button>                        
-                        <button>Funk</button>                        
-                        <button>Hip-Hop</button>                        
-                        <button>Jazz</button>                        
-                        <button>Latin</button>                        
-                        <button>Metal</button>                        
-                        <button>Pop</button>                        
-                        <button>Punk</button>                        
-                        <button>Reggae</button>                        
-                        <button>R&B</button>                        
-                        <button>Rock</button>                        
-                        <button>Soul</button>                        
+                        {['Blues', 'Classical', 'Country', 'EDM', 'Folk', 'Funk', 'Hip-Hop', 'Jazz', 'Latin', 'Metal', 'Pop', 'Punk', 'Reggae', 'R&B', 'Rock', 'Soul'].map((genre) => (
+                            <button
+                            key={genre}
+                            className={form.genres.includes(genre) ? styles.selected : styles.unselected}
+                            onClick={() => handleGenreSelection(genre)}
+                            >
+                                {genre}
+                            </button> 
+                        ))}                        
                     </div>
 
                     <h1>Link Social accounts</h1>
@@ -124,9 +241,7 @@ function Page() {
 
                     <button className={styles.button_2}><FaPlus />Add users</button>
 
-                    <button className={styles.button_3} 
-                    onClick={() => router.push('/upcoming-schedules')}
-                    >Done</button>
+                    <button onClick={handleSubmit} className={styles.button_3}>Done</button>
                     </div>
             
                 </div>
