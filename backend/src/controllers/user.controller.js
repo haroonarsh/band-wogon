@@ -260,6 +260,7 @@ const becomeArtist = asyncHandler(async (req, res) => {
     if (req.user.role !== "user") {
       throw new ApiError(400, "Only users can become artists");
     }
+    
       // Create a new artist
     const newArtist = new Artist({
       artistName, 
@@ -290,7 +291,8 @@ const becomeArtist = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, { user }, "User updated successfully"));
   } catch (error) {
-    throw new ApiError(400, error.message);
+    console.error("Error updating user:", error.message);
+    res.status(500).json({ success: false, message: error.message || "Internal server error" });
   }
 })
 
