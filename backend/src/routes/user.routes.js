@@ -14,7 +14,7 @@ router.put("/edit-profile", authenticate, upload.single("profileImage"), updateU
 router.post("/logout", authenticate, logout);
 router.put("/update-password", authenticate, updatePassword);
 router.delete("/delete-user", authenticate, deleteUser);
-router.post("/become-artist", authenticate, roleAuth("user"), becomeArtist);
+router.post("/become-artist", authenticate, becomeArtist);
 
 
 export default router;
