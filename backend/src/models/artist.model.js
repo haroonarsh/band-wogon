@@ -28,7 +28,7 @@ const artistSchema = new mongoose.Schema({
         default: 0,
     },
     genres: {
-        type: String,
+        type: [String],
         enum: ['Blues', 'Classical', 'Country', 'EDM', 'Folk', 'Funk', 'Hip-Hop', 'Jazz', 'Latin', 'Metal', 'Pop', 'Punk', 'Reggae', 'R&B', 'Rock', 'Soul'],
         validate: {
             validator: function (array) {
