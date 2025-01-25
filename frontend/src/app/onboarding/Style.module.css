@@ -97,3 +97,32 @@
     border-radius: 30px;
     border: none;
 }
+
+                /* *****************For Mobile***************** */
+@media only screen and (max-width: 820px) {
+    .section{
+        flex-direction: column;
+        height: 100vh;
+    }
+    .section .sub_section {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .section .sub_section .image_section {
+        width: 100%;
+        justify-content: center;
+    }
+    .section .sub_section .image_section img {
+        width: 80%;
+    }
+    .section .sub_section .text_section {
+        width: 88%;
+    }
+    .section .sub_section .text_section .heading_section {
+        width: 100%;
+    }
+    .input_section {
+        flex-direction: column;
+        gap: 21px;
+    }
+}
