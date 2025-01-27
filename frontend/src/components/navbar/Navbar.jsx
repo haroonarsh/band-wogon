@@ -11,8 +11,8 @@ function Navbar() {
   return (
     <>
       <div className={styles.navbar}>
-        <img className={styles.img} src="./icons/instant_mix.png" alt="" />
-        <div className={`${isOpen ? styles.genre : ''}`} 
+        <img className={styles.logo} src="./icons/instant_mix.png" alt="" />
+        <div className={`${isOpen ? styles.genreActive : styles.genre}`} 
         onClick={toggleDropdown}>
           <img className={styles.img} src="./icons/genres.png" alt="" />
           <p>Genre</p>
@@ -89,16 +89,16 @@ function Navbar() {
         </ul>
         )}
 
-        <div>
+        <div className={styles.time}>
           <img className={styles.img} src="./icons/schedule.png" alt="schelude" />
           <p>Time</p>
           <img className={styles.arrow} src="./icons/arrow_drop_down.png" alt="" />
         </div>
-        <div>
+        <div className={styles.saved}>
           <img className={styles.img} src="./icons/favorite.png" alt="" />
           <p>Saved</p>
         </div>
-        <div>
+        <div className={styles.verified}>
           <img className={styles.img} src="./icons/check_circle.png" alt="" />
           <p>Verified</p>
         </div>
