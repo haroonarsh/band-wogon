@@ -65,6 +65,14 @@
     margin-left: 24px;
     cursor: pointer;
 }
+.icon_3{
+    width: 15px;
+    height: 45px;
+    object-fit: cover;
+    object-position: center;
+    margin-left: 24px;
+    cursor: pointer;
+}
 .icon_2{
     width: 18px;
     height: 45px;
@@ -198,4 +206,66 @@
 .or span{
     /* margin: 0 10px; */
     color: #A3A3A3;
+}
+.already{
+    display: none;
+}
+
+                    /* **************For Mobile************** */
+@media only screen and (max-width: 820px) {
+    .section{
+        height: 100%;
+    }
+    .left_section{
+        display: none;
+    }
+    .right_section{
+        width: 82%;
+        /* align-items: baseline; */
+    }
+    .right_section .icon{
+        margin-left: 0;
+    }
+    .right_section h1{
+        font-size: 5.6vw;
+        margin-left: 0;
+    }
+    .input_section{
+        width: 100%;
+        justify-content: initial;
+    }
+    .input_section div{
+        width: 100%;
+    }
+    .button_2{
+        width: 100%;
+    }
+    .button_3{
+        width: 100%;
+    }
+    .button_4{
+        width: 100%;
+    }
+    .button_5{
+        width: 100%;
+    }
+    .or span{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        font-size: 3.9vw;
+    }
+    .already{
+        display: block;
+        text-align: center;
+        width: 100%;
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    .already span{
+        color: #1ed760;
+        cursor: pointer;
+    }
 }
