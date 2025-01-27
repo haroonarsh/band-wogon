@@ -94,28 +94,28 @@
 
         /* // Heading 1  */
 .heading_1_regular {
-  font-size: 36px;
+  font-size: 2.6vw;
   line-height: 44px;
   letter-spacing: -2%;
   color: white;
   font-weight: 400;
 }
 .heading_1_Medium {
-  font-size: 36px;
+  font-size: 2.6vw;
   line-height: 44px;
   letter-spacing: -2%;
   color: white;
   font-weight: 500;
 }
 .heading_1_Semibold {
-  font-size: 36px;
+  font-size: 2.6vw;
   line-height: 44px;
   letter-spacing: -2%;
   color: white;
   font-weight: 600;
 }
 .heading_1_ExtraBold {
-  font-size: 36px;
+  font-size: 2.6vw;
   line-height: 44px;
   letter-spacing: -2%;
   color: white;
