@@ -72,7 +72,7 @@ function SecondPage() {
               exit={{ opacity: 0, translateX: 100 }}
               transition={{ duration: 0.5 }}
               >
-              <h1  className='heading_1_Semibold'>{slides[currentSlide].title}</h1>
+              <h1  className={styles.heading_1}>{slides[currentSlide].title}</h1>
               <motion.p className='paragraph_large_medium' >{slides[currentSlide].discription}</motion.p>
               </motion.div>
 
