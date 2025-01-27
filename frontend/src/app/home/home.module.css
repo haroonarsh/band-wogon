@@ -4,3 +4,9 @@
     overflow: hidden;
     display: block;
 }
+/* @media (max-width: 820px) {
+    .page Header{
+        display: none;
+    }
+    
+} */
