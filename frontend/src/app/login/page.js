@@ -107,6 +107,7 @@ function Login() {
             > <img src="./images/google.png" alt="" />Sign up with Google</button>
             <button className={styles.button_4}> <img src="./images/facebook.png" alt="" />Sign up with Facebook</button>
             <button className={styles.button_5}> <img src="./images/apple-48.png" alt="" />Sign up with Apple</button>
+            <p className={styles.already}>Don't have an account? <span onClick={() => router.push('/signup')}>Sign Up</span></p>
         </form>
 
                 {/* // left section */}
