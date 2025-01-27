@@ -80,8 +80,8 @@ function SignupPage() {
           />
             <h1 className='heading_1_Semibold'>Create an account</h1>
             <div className={styles.input_section}>
-              <div>
-              <FaRegUser className={styles.icon}/>
+              <div className={styles.input}>
+              <FaRegUser className={styles.icon_3}/>
               <input 
               type="text" 
               placeholder='Username' 
@@ -90,7 +90,7 @@ function SignupPage() {
               required 
               />
               </div>
-              <div>
+              <div className={styles.input}>
               <MdOutlineEmail  className={styles.icon_2}/>
               <input 
               type="email" 
@@ -100,7 +100,7 @@ function SignupPage() {
               required 
               />
               </div>
-              <div>
+              <div className={styles.input}>
               <MdLockOutline className={styles.icon_2}/>
               <input 
               type="password" 
@@ -123,6 +123,7 @@ function SignupPage() {
             > <img src="./images/google.png" alt="" />Sign up with Google</button>
             <button className={styles.button_4}> <img src="./images/facebook.png" alt="" />Sign up with Facebook</button>
             <button className={styles.button_5}> <img src="./images/apple-48.png" alt="" />Sign up with Apple</button>
+            <p className={styles.already}>Already have an account? <span onClick={() => router.push('/login')}>Sign in</span></p>
         </form>
     </div>
     </>
