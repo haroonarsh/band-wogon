@@ -52,27 +52,27 @@ function Sidebar() {
                 <div className={`${pathname === '/profile-screen' ? styles.active : styles.profile}`}
                 onClick={() => router.push('/profile-screen')}
                 >
-                    <MdOutlinePersonOutline className={styles.icon}/>
+                    <MdOutlinePersonOutline className={styles.icon_2}/>
                 </div>
                 <div className={`${ pathname === '/notification' ? styles.active : styles.notification}`}
                 onClick={() => router.push('/notification')}
                 >
-                    <MdNotificationsNone className={styles.icon}/>
+                    <MdNotificationsNone className={styles.icon3}/>
                 </div>
                 <div className={`${ pathname === '/setting' ? styles.active2 : styles.sitting}`}
                 onClick={() => router.push('/setting')}
                 >
-                    <IoMdSettings className={styles.icon}/>
+                    <IoMdSettings className={styles.icon4}/>
                 </div>
                 <div className={styles.move_item}
                 onClick={handleLogout || logoutGoogle}
                 >
-                    <TbLogout className={styles.icon}/>
+                    <TbLogout className={styles.icon5}/>
                 </div>
                 <div className={styles.right_arrow}
                 onClick={toggleSidebar}
                 >
-                    <MdOutlineKeyboardArrowRight className={styles.icon}/>
+                    <MdOutlineKeyboardArrowRight className={styles.icon6}/>
                 </div>
             </div>
 
