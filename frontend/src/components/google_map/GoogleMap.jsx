@@ -1,12 +1,13 @@
+"use client";
 import React from 'react'
 import { IoMdSearch } from "react-icons/io";
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { darkThemeStyles } from '../../mapTheme/mapTheme.js';
-// import styles from './google_map.module.css'
+import styles from './google_map.module.css';
 
 const containerStyle = {
     width: '100%',
-    height: '90.9vh'
+    minHeight: '90.9vh',
   };
   
   const center = {
@@ -17,7 +18,7 @@ const containerStyle = {
 function GoogleMaps() {
     return (
         <>
-        <section>
+        <section className={styles.googleMap}>
         <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
          <GoogleMap
          mapContainerStyle={containerStyle}
