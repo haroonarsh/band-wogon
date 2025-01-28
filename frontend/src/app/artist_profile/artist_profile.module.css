@@ -1,6 +1,6 @@
 .artist_profile{
     width: 100%;
-    height: 125vh;
+    min-height: 100%;
     display: flex;
     overflow: hidden;
     background-color: #121212;
@@ -16,7 +16,7 @@
 .blank div{
     width: 1.5px;
     margin: 3px 0;
-    height: 124vh;
+    min-height: 100vh;
     background-color: #A3A3A3;
     color: #A3A3A3;
 }
@@ -34,7 +34,7 @@
 
 .artist_image{
     width: 99px;
-    border-radius: 50px;
+    border-radius: 90px;
 }
 
 .artist_details{
@@ -287,4 +287,73 @@
 .show h2{
     font-size: 16px;
     font-weight: 700;
+}
+.icon3{
+    display: none;
+}
+
+                /* ***********For Mobile*********** */
+@media screen and (max-width: 820px){
+    .blank{
+        display: none;
+    }
+    .icon3{
+        display: block;
+        font-size: 30px;
+        cursor: pointer;
+    }
+    .artist{
+        width: 100%;
+        padding: 0;
+    }
+    .artist_name h2{
+        display: none;
+    }
+    .header{
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        width: 100%;
+        background-color: #262626;
+        height: 55px;
+        gap: 38px;
+        padding: 0 25px;
+    }
+    .artist_image{
+        width: 20vw;
+    }
+    .artist_name{
+        gap: 8px;
+    }
+    .artist_name button{
+        padding: 7px 4vw;
+    }
+    .artist_details{
+        gap: 20px;
+        flex-direction: column;
+    }
+    .lives{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .bio{
+        width: 95%;
+    }
+    .artist_shows{
+        width: 95%;
+    }
+    .button_3{
+        width: 94%;
+        margin-bottom: 40px;
+    }
+    .checked_in_live{
+        height: 100%;
+    }
+    .checked_in_live_container{
+        min-width: 71%;
+        height: 45%;
+    }
+    .show{
+        background-repeat: repeat;
+    }
 }
