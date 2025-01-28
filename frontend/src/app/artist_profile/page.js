@@ -17,6 +17,7 @@ import { FaVimeoV } from "react-icons/fa6";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { useRouter } from 'next/navigation';
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 function Artist_profile() {
 
@@ -31,7 +32,10 @@ function Artist_profile() {
       <div className={styles.artist_profile}>
         <div className={styles.blank}><div></div></div>
         <div className={styles.artist}>
+          <div className={styles.header}>
+        <MdOutlineKeyboardArrowLeft className={styles.icon3} onClick={() => router.push('/home')} />
           <h1 className='heading_3_medium'>andwarhool234</h1>
+          </div>
           <div className={styles.artist_details}>
             <img src="./images/Image(1).png" alt="" className={styles.artist_image} />
             <div className={styles.artist_info}>
@@ -41,7 +45,7 @@ function Artist_profile() {
                 <button>Hide artist</button>
               </div>
               <div className={styles.artist_bio}>
-                <p className='neutral5'><span className='neutral3'>10+</span> Lives shows</p>
+                <p className={`neutral5 ${styles.lives}`}><span className='neutral3'>10+</span> Lives shows</p>
                 <p className='neutral5'><span className='neutral3'>15</span> Years performing</p>
               </div>
               <h2 className={`heading_6_medium ${styles.artist_name2}`}>Andy Warhool <img src="./icons/viral.png" alt="" /></h2>
