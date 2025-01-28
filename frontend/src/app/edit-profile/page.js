@@ -8,6 +8,8 @@ import { BiEditAlt } from "react-icons/bi";
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify';
+import { FaArrowLeft } from 'react-icons/fa';
+import { IoMdCheckmark } from "react-icons/io";
 // import { AuthContext } from '@/context/AuthContext'
 
 function Page() {
@@ -150,7 +152,9 @@ function Page() {
     return (
         <>
                     {/* Header */}
-            <Header />
+                <div className={styles.header}>
+                    <Header />
+                </div>
                     {/* sidebar */}
             <Sidebar />
 
@@ -158,7 +162,12 @@ function Page() {
             <div className={styles.main}>
                 <div className={styles.blank}><div></div></div>
                 <div className={styles.main_content}>
+                    <div className={styles.heading_div}>
+                    <FaArrowLeft className={styles.icon}
+                    onClick={() => router.push('/profile-screen')}
+                    />
                     <h1 className={styles.heading}>Edit profile</h1>
+                    </div>
                 <div className={styles.profile}>
                     <form onSubmit={(e) => {
                         if (storedUser === null || storedUser === "undefined") {
