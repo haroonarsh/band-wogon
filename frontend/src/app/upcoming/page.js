@@ -7,6 +7,8 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa";
 import Header from '@/components/header/Header';
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import { useRouter } from 'next/navigation';
 // import { BiDollarCircle } from "react-icons/bi";
 // import { FaSpotify } from "react-icons/fa";
 // import { GrYoutube } from "react-icons/gr";
@@ -20,6 +22,7 @@ import Header from '@/components/header/Header';
 
 function UpcomingShow() {
 
+    const router = useRouter();
     const [isOpenTab, setIsOpenTab] = useState("upcoming");
 
     const events = {
@@ -68,7 +71,10 @@ function UpcomingShow() {
     <div className={styles.upcoming_shows}>
         <div className={styles.blank}><div></div></div>
         <div className={styles.upcoming}>
-        <h1 className='heading_3_medium'>Upcoming & Past Shows</h1>
+        <div className={styles.header}>
+        <MdOutlineKeyboardArrowLeft className={styles.icon3} onClick={() => router.push('/home')} />
+          <h1 className='heading_3_medium'>andwarhool234</h1>
+          </div>
         <div className={styles.show}>
             <div className={styles.buttons}>
                 <button className={`${styles.button} ${isOpenTab === "upcoming" ? styles.active : ""}`}
