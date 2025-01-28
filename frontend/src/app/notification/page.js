@@ -18,7 +18,9 @@ function page() {
         <div className={styles.main}>
             <div className={styles.blank}><div></div></div>
             <div className={styles.main_content}>
+                <div className={styles.header}>
                 <h1>Notifications</h1>
+                </div>
                 <div className={styles.notification}>
                     <img src="./images/Image(1).png" alt="" />
                     <div className={styles.notification_info}>
