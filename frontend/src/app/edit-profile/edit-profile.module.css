@@ -16,7 +16,7 @@
 .blank div{
     width: 1.5px;
     margin: 3px 0;
-    height: 90vh;
+    min-height: 90vh;
     background-color: #A3A3A3;
     color: #A3A3A3;
 }
@@ -114,4 +114,53 @@
 .button:hover{
     background-color: transparent;
     color: #04bd46;
+}
+.icon{
+    display: none;
+}
+
+        /* **********For mobile********** */
+@media screen and (max-width: 820px){
+    .blank{
+        display: none;
+    }
+    .header{
+        display: none;
+    }
+    .main_content{
+        width: 100%;
+    }
+    .heading_div{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px 23px;
+        height: 63px;
+        background-color: #262626;
+        gap: 35px;
+    }
+    .icon{
+        display: block;
+        cursor: pointer;
+    }
+    .heading{
+        padding: 0;
+    }
+    .edit{
+        font-size: 22px;
+    }
+    .profile_info{
+        width: 50%;
+    }
+    .username{
+        width: 100%;
+    }
+    .username input{
+        width: 100%;
+    }
+    .button{
+        padding: 8px 42px;
+        width: auto;
+    }
 }
