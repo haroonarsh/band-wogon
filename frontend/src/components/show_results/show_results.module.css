@@ -243,3 +243,37 @@
     background-color: #262626;
     color: #04bd46;
 }
+
+            /* ************For mobile************ */
+@media screen and (max-width: 820px) {
+    .all_results{
+        width: 100%;
+    }   
+    .show_results{
+        top: auto;
+        bottom: 4rem;
+    }
+    .cards {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 3rem;
+        width: 312%;
+        padding: 0 2rem;
+        flex-direction: row;
+    }
+    .icon2{
+        display: none;
+    }
+    .card{
+        width: 89vw;
+    }
+    .show_results_2{
+        width: 100%;
+        right: 0;
+        top: 0;
+        z-index: 5;
+        height: 100%;
+    }
+}
