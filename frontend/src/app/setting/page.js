@@ -17,11 +17,14 @@ import { BiHide } from "react-icons/bi";
 import { BiShow } from "react-icons/bi";
 import { LuSunMedium } from "react-icons/lu";
 import { FiMoon } from "react-icons/fi";
+import { FaArrowLeft } from 'react-icons/fa';
+import { useRouter } from 'next/navigation'
 
 function Page() {
 
     // const [isDarkMode, setIsDarkMode] = useState(false);
     // const [isHidden, setIsHidden] = useState(false);
+    const router = useRouter();
     const [activeSection, setActiveSection] = useState("changeEmail");
     const [isOn, setIsOn] = useState({
         autoPlay: false,
@@ -161,7 +164,9 @@ function Page() {
     return (
         <>
                     {/* Header */}
-                    <Header />
+            <div className={styles.header}>
+                <Header />
+            </div>
                     {/* sidebar */}
             <Sidebar />
 
@@ -169,7 +174,12 @@ function Page() {
             <div className={styles.main}>
                 <div className={styles.blank}>
                     <div className={styles.settings}>
-                        <h1 className={styles.heading}>Settings</h1>
+                    <div className={styles.heading_div}>
+                    <FaArrowLeft className={styles.icon}
+                    onClick={() => router.push('/profile-screen')}
+                    />
+                    <h1 className={styles.heading}>Settings</h1>
+                    </div>
                         <div className={styles.line}></div>
                         <div>
                             <div className={styles.account}>
