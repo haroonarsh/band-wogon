@@ -8,6 +8,7 @@ import { MdOutlineCalendarMonth } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
+import { FaArrowLeft } from 'react-icons/fa';
 
 function Page() {
 
@@ -15,13 +16,20 @@ function Page() {
     return (
         <>
                 {/* Header */}
-            <Header />
+                <div className={styles.header}>
+                    <Header />
+                </div>
 
                 {/* Main */}
             <div className={styles.main}>
                 <div className={styles.blank}><div></div></div>
                 <div className={styles.main_content}>
-                    <h1 className={styles.heading}>Upcoming schedules</h1>
+                <div className={styles.heading_div}>
+                    <FaArrowLeft className={styles.icon}
+                    onClick={() => router.push('/create-page')}
+                    />
+                    <h1 className={styles.heading}>Upcoming schedule</h1>
+                    </div>
                     <div className={styles.artist}>
                         <img src="./images/frame2.png" alt="" />
                         <h2>BandWagon music</h2>
