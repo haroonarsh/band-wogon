@@ -217,6 +217,9 @@ top: 1316px; */
     /* margin: 0 10px; */
     color: #A3A3A3;
 }
+.already{
+    display: none;
+}
 
                     /* **************For Mobile************** */
 @media only screen and (max-width: 820px) {
