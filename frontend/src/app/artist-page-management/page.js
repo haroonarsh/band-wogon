@@ -3,7 +3,7 @@
 import React from 'react'
 import styles from './artist-page-management.module.css'
 import Header from '@/components/header/Header'
-// import Sidebar from '@/components/sidebar/Sidebar'
+import Sidebar from '@/components/sidebar/Sidebar'
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
@@ -14,15 +14,21 @@ function page() {
   return (
     <>
                {/* Header */}
+               <div className={styles.header}>
                <Header />
+               </div>
             {/* Sidebar */}
-        {/* <Sidebar /> */}
+            <div className={styles.sidebar}>
+        <Sidebar />
+        </div>
 
             {/* Main */}
         <div className={styles.main}>
             <div className={styles.blank}><div></div></div>
             <div className={styles.main_content}>
+                <div className={styles.heading_div}>
                 <h1 className={styles.heading}>Artist page management</h1>
+                </div>
                 <div className={styles.content}>
                     <img src="./logo.png" alt="" />
                     <h1>Create an artist page</h1>
