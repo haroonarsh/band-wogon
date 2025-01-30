@@ -232,3 +232,68 @@
 .theme:hover{
     background-color: #4d4d4d;
 }
+.icon{
+    display: none;
+}
+
+            /* **************For mobile************** */
+@media screen and (max-width: 820px){
+    .header{
+        display: none;
+    }
+    .icon{
+        display: block;
+        cursor: pointer;
+        font-size: 19px;
+    }
+    .heading_div{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px 23px;
+        height: 63px;
+        background-color: #262626;
+        gap: 35px;
+    }
+    .heading{
+        padding: 0;
+        font-size: 25px;
+    }
+    .blank{
+        justify-content: start;
+        width: 44%;
+    }
+    .main_content{
+        width: 56%;
+        padding: 0;
+    }
+    .settings{
+        width: 100%;
+    }
+    .account h2{
+        font-size: 18px;
+    }
+    .route{
+        padding: 16px 4px;
+    }
+    .route div h2{
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .change_email{
+        width: 97%;
+        margin: 18px auto;
+    }
+    .button{
+        padding: 8px 0px;
+    }
+    .theme{
+        margin: 0 auto 20px;
+        width: 97%;
+    }
+    .change_notification{
+        width: 97%;
+        margin: 18px auto;
+    }
+}
