@@ -39,7 +39,15 @@
     /* position: relative; */
     margin-left: 4rem;
 }
-.create_page img{
+.profile{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+.admin_image{
     width: 100px;
     height: 100px;
     object-fit: cover;
@@ -99,6 +107,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    width: 100%;
     /* margin-bottom: 30px;     */
 }
 .date input{
@@ -109,7 +118,7 @@
     padding: 5px 18px;
     font-size: 16px;
     outline: none;
-    width: 38%;
+    width: 30%;
 }
 
 .genres{
@@ -265,4 +274,109 @@
 .button_3:hover{
     background-color: transparent;
     color: #04bd46;
+}
+.icon{
+    display: none;
+}
+
+            /* **************For mobile************** */
+@media screen and (max-width: 820px){
+    .blank{
+        display: none;
+    }
+    .header{
+        display: none;
+    }
+    .icon{
+        display: block;
+        cursor: pointer;
+        font-size: 19px;
+    }
+    .main_content{
+        margin-left: 0;
+        width: 100%;
+        margin-top: 0;
+    }
+    .heading_div{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px 23px;
+        height: 63px;
+        background-color: #262626;
+        gap: 35px;
+    }
+    .heading{
+        padding: 0;
+    }
+    .create_page{
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .profile{
+        width: 91px;
+        height: 100%;
+    }
+    .inputs{
+        width: 100%;
+    }
+    .inputs input{
+        width: 70%;
+        margin: 0 auto;
+        font-size: 13px;
+    }
+    .create_page h1{
+        font-size: 17px;
+    }
+    .dates{
+        width: 70%;
+    }
+    .date{
+        width: 100%;
+    }
+    .date input{
+        width: 100%;
+        font-size: 13px;
+    }
+    .genres{
+        width: 70%;
+    }
+    .social{
+        width: 70%;
+    }
+    .admin{
+        width: 70%;
+    }
+    .button_2{
+        width: 70%;
+    }
+    .button_3{
+        width: 70%;
+    }
+    .admin img{
+        width: 50px;
+        height: 50px;
+    }
+    .admin_info{
+        padding-right: 0px;
+    }
+    .admin_info h2{
+        font-size: 14px;
+        width: 111px;
+    }
+    .admin_info h2 img{
+        width: 15px;
+        height: 15px;
+    }
+    .admin_info p{
+        font-size: 12px;
+    }
+    .admin button{
+        width: 26%;
+        font-size: 14px;
+    }
 }
