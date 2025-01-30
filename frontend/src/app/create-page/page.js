@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import styles from './create-page.module.css'
 import Header from '@/components/header/Header'
+import Sidebar from '@/components/sidebar/Sidebar'
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { FaPlus } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
@@ -20,15 +21,23 @@ function Page() {
     return (
         <>
             {/* Header */}
+            <div className={styles.header}>
             <Header />
+            </div>
+            {/* Sidebar */}
+            <div className={styles.sidebar}>
+            <Sidebar />
+            </div>
 
             {/* Main */}
         <div className={styles.main}>
             <div className={styles.blank}><div></div></div>
             <div className={styles.main_content}>
+                <div className={styles.heading_div}>
                 <h1 className={styles.heading}>Create page</h1>
+                </div>
 
-                <div >
+                <div className={styles.content_div}>
                     <div className={styles.content}>
                     <div className={styles.dots}>
                     <PiDotsThreeOutlineFill size={20} cursor={'pointer'} />
