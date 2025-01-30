@@ -7,6 +7,7 @@ import { BiEditAlt } from "react-icons/bi";
 // import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import Google_map from '@/components/google_map/GoogleMap';
 import { useRouter } from 'next/navigation';
+import { FaArrowLeft } from 'react-icons/fa';
 
 function Page() {
 
@@ -26,13 +27,20 @@ function Page() {
     return (
         <>
                    {/* Header */}
-            <Header />
+            <div className={styles.header}>
+                <Header />
+            </div>
 
                     {/* Main */}    
             <div className={styles.main}>
                 <div className={styles.blank}><div></div></div>
                 <div className={styles.main_content}>
-                    <h1 className={styles.heading}>Create shows</h1>
+                <div className={styles.heading_div}>
+                    <FaArrowLeft className={styles.icon}
+                    onClick={() => router.push('/create-page')}
+                    />
+                    <h1 className={styles.heading}>Upcoming schedule</h1>
+                    </div>
                     <div className={styles.artist}>
                         <div className={styles.uploader}>
                             <label htmlFor="file-input" className={styles.uploadBox}>
