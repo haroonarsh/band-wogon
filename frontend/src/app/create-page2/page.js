@@ -13,6 +13,7 @@ import { FaSoundcloud } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa6";
 import { BiLogoVenmo } from "react-icons/bi";
 import { SiCashapp } from "react-icons/si";
+import { FaArrowLeft } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -121,16 +122,23 @@ function Page() {
     return (
         <>
                     {/* Header */}
+                    <div className={styles.header}>
             <Header />
+            </div>
 
                     {/* Main */}
             <div className={styles.main}>
                 <div className={styles.blank}><div></div></div>
                 <div className={styles.main_content}>
+                <div className={styles.heading_div}>
+                    <FaArrowLeft className={styles.icon}
+                    onClick={() => router.push('/create-page')}
+                    />
                     <h1 className={styles.heading}>Create page</h1>
+                    </div>
             <div className={styles.create_page}>
                     <div  className='relative'>   
-                        <img src={previewImage || './images/frame2.png'} alt="profile preview" />
+                        <img className={styles.profile} src={previewImage || './images/frame2.png'} alt="profile preview" />
                         <label htmlFor="fileInput" className={styles.edit}>
                         <BiEditAlt  />
                         </label>
@@ -173,19 +181,19 @@ function Page() {
                         <h2 className='paragraph_small_medium'>Start date</h2>
                         <div className={styles.date}>
                             <input 
-                            type="text" 
-                            placeholder='Septamber'
-                            name='startDate'
-                            value={form.startDate}
-                            onChange={handleChange}
-                            />
-                            <input 
-                            type="month" 
+                            type='date' 
                             placeholder='2023'
                             name='startDate'
                             value={form.startDate}
                             onChange={handleChange}
                             />
+                            {/* <input 
+                            type="date" 
+                            placeholder='2023'
+                            name='startDate'
+                            value={form.startDate}
+                            onChange={handleChange}
+                            /> */}
                         </div>
                     </div>
 
@@ -231,7 +239,7 @@ function Page() {
                     <h1>Admin accounts</h1>
 
                     <div className={styles.admin}>
-                        <img src="./images/Image(1).png" alt="" />
+                        <img className={styles.admin_image} src="./images/Image(1).png" alt=""  />
                         <div className={styles.admin_info}>
                             <h2>Andy Warhool <img src="./icons/viral.png" alt="" /></h2>
                             <p className='paragraph_small_regular'>andywarhool234</p>
