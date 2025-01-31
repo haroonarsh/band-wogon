@@ -92,7 +92,7 @@ function Page() {
         const userDataToken = localStorage.getItem('UserAccessToken');
         const googleUserToken = localStorage.getItem('accessToken');
             try {   
-                const response = await axios.post('http://localhost:8000/api/user/become-artist', form, {
+                const response = await axios.post('http://localhost:8000/api/user/create-show', form, {
                     headers: {
                         Authorization: `Bearer ${userDataToken === null || userDataToken === "undefined" 
                         ? googleUserToken 
