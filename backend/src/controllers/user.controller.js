@@ -248,7 +248,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
                   // Become a Artist
-const becomeArtist = asyncHandler(async (req, res) => {
+const createShow = asyncHandler(async (req, res) => {
   try {
     const userId = req.user.id;
     const { artistName, location, bio, startDate, showPerformed, genres } = req.body;
@@ -277,7 +277,6 @@ const becomeArtist = asyncHandler(async (req, res) => {
     const user = await User.findByIdAndUpdate(
       userId,
       {
-        role: "artist",
         artistProfile: savedArtist._id,
       },
       { new: true }
@@ -296,6 +295,66 @@ const becomeArtist = asyncHandler(async (req, res) => {
   }
 })
 
+        // become a artist
+const becomeArtist =  asyncHandler(async (req, res) => {
+  try {
+    const userId = req.user.id; // Ensure `req.user` is set by middleware
+  
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+
+  if (!user.role === "user") {
+    throw new ApiError(403, "user are already a artist");
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    {
+      role: "artist",
+    },
+    { new: true }
+  );
+
+  if (!updatedUser) {
+    throw new ApiError(404, "User not found");
+  }
+  res
+  .status(200)
+  .json(new ApiResponse(200, { user: updatedUser }, "User updated successfully"));
+  } catch (error) {
+    console.error("Error updating user:", error.message);
+    res.status(500).json({ success: false, message: error.message || "Internal server error" });
+  }
+}) 
+
+        // Become a User
+
+const becomeUser = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        role: "user",
+      },
+      { new: true }
+    );
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    res
+    .status(200)
+    .json(new ApiResponse(200, { user : user }, "User updated successfully"));
+  } catch (error) {
+    console.error("Error updating user:", error.message);
+    res.status(500).json({ success: false, message: error.message || "Internal server error" });
+  }
+})
 
 
-export { signup, login, updateUser, logout, updatePassword, deleteUser, becomeArtist };
+
+export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist };
