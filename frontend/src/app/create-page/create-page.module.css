@@ -123,9 +123,9 @@
     background-color: transparent;
     color: #04bd46;
 }
-.sidebar{
+/* .sidebar{
     display: none;
-}
+} */
 
                 /* ***********For mobile********** */
 @media screen and (max-width: 820px){
