@@ -197,9 +197,9 @@ const logout = asyncHandler(async (req, res) => {
 
           // update password
 const updatePassword = asyncHandler(async (req, res) => {
-  const { password, newPassword } = req.body;
+  const { password, newPassword, confirmPassword } = req.body;
 
-  if (!password || !newPassword) {
+  if (!password || !newPassword || !confirmPassword) {
     throw new ApiError(400, "All fields are required");
   }
 
@@ -214,6 +214,10 @@ const updatePassword = asyncHandler(async (req, res) => {
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
       throw new ApiError(400, "Invalid password");
+    }
+
+    if (newPassword !== confirmPassword) {
+      throw new ApiError(400, "Passwords do not match");
     }
 
     user.password = newPassword;
@@ -257,8 +261,8 @@ const createShow = asyncHandler(async (req, res) => {
       throw new ApiError(400, "All fields are required");
     }
 
-    if (req.user.role !== "user") {
-      throw new ApiError(400, "Only users can become artists");
+    if (req.user.role !== "artist") {
+      throw new ApiError(400, "User is not an artist");
     }
     
       // Create a new artist
@@ -288,9 +292,9 @@ const createShow = asyncHandler(async (req, res) => {
 
     res
     .status(200)
-    .json(new ApiResponse(200, { user }, "User updated successfully"));
+    .json(new ApiResponse(200, { user }, "Show created successfully"));
   } catch (error) {
-    console.error("Error updating user:", error.message);
+    console.error("Error creating show:", error.message);
     res.status(500).json({ success: false, message: error.message || "Internal server error" });
   }
 })
