@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './artist-page-management.module.css'
 import Header from '@/components/header/Header'
 import Sidebar from '@/components/sidebar/Sidebar'
@@ -11,6 +11,17 @@ import { useRouter } from 'next/navigation';
 function page() {
 
     const router = useRouter();
+    const [user, setUser] = useState(null);
+
+            // Get the user data from localStorage
+    useEffect(() => {
+            // Get the user data from localStorage
+            const storedUser = localStorage.getItem('userData');
+            const googeleUser = localStorage.getItem('user');
+            if (storedUser || googeleUser) {
+                setUser(JSON.parse(storedUser) || JSON.parse(googeleUser));
+            }
+        }, [])
   return (
     <>
                {/* Header */}
