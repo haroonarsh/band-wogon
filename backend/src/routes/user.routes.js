@@ -15,8 +15,8 @@ router.post("/logout", authenticate, logout);
 router.put("/update-password", authenticate, updatePassword);
 router.delete("/delete-user", authenticate, deleteUser);
 router.post("/create-show", authenticate, createShow);
-router.post("/become-artist", authenticate, becomeArtist);
-router.post("/become-user", authenticate, becomeUser);
+router.put("/become-artist", authenticate, becomeArtist);
+router.put("/become-user", authenticate, becomeUser);
 
 
 export default router;
