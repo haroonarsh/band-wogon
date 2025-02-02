@@ -56,17 +56,19 @@ function Page() {
                     >Edit profile</button>
                 </div>
                 <div className={styles.saved}
-                onClick={() => router.push('/saved-and-hidden-artists')}
+                onClick={() => router.push('/saved-artist')}
                 >
                     <p>View saved & hidden artists</p> 
                     <FaAngleRight />
                 </div>
-                <div className={styles.artist}
-                onClick={() => router.push('/artist-page-management')}
-                >
-                    <p>Artist page management</p> 
-                    <FaAngleRight />
-                </div>
+                {user?.role === 'artist' && (
+                    <div className={styles.artist}
+                    onClick={() => router.push('/artist-page-management')}
+                    >
+                        <p>Artist page management</p> 
+                        <FaAngleRight />
+                    </div>
+                )}
                 </div>
             </div> 
         </div>
