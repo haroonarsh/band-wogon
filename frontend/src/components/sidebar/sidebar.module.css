@@ -1,6 +1,6 @@
 .sidebar{
     position: fixed;
-    top: 10rem;
+    top: 7rem;
     left: 2rem;
     display: flex;
     flex-direction: column;
@@ -77,7 +77,7 @@
                 /* // show sidebar */
 .show_sidebar{
     position: fixed;
-    top: 10rem;
+    top: 7rem;
     left: 8rem;
     display: flex;
     flex-direction: column;
@@ -108,7 +108,7 @@
     padding: 15px;
     border-radius: 90px;
 }
-.show_location p{
+.active3{
     color: #04bd46;
 }
 .show_profile{
@@ -145,6 +145,15 @@
 }
 .show_move_item img{
     width: 18px;
+}
+
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+    padding: 15px;
+    border-radius: 90px;
 }
 
                 /* ********For mobile******** */
