@@ -234,6 +234,11 @@ const updatePassword = asyncHandler(async (req, res) => {
                   // delete user
 const deleteUser = asyncHandler(async (req, res) => {
   const userId = req.user.id; // Ensure `req.user` is set by middleware
+  const { password } = req.body;
+
+  if (!password) {
+    throw new ApiError(400, "Password is required");
+  }
 
   try {
     const user = await User.findById(userId);
@@ -241,13 +246,18 @@ const deleteUser = asyncHandler(async (req, res) => {
       throw new ApiError(404, "User not found");
     }
 
+    const isPasswordValid = await user.comparePassword(password);
+    if (!isPasswordValid) {
+      throw new ApiError(400, "Invalid password");
+    }
+
     await User.findByIdAndDelete(userId);
 
     res
     .status(200)
-    .json(new ApiResponse(200, null, "User deleted successfully"));
+    .json(new ApiResponse(200, {}, "User deleted successfully"));
   } catch (error) {
-    throw new ApiError(400, error.message);
+    res.status(400).json({ success: false, message: error.message || "Internal server error" });
   }
 })
 
@@ -359,6 +369,42 @@ const becomeUser = asyncHandler(async (req, res) => {
   }
 })
 
+        // Change email
+const changeEmail = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { email, newEmail, password } = req.body;
+
+    if (!email || !newEmail || !password) {
+      throw new ApiError(400, "All fields are required");
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    if (user.email !== email) {
+      throw new ApiError(400, "Invalid email");
+    }
+
+    if (!(await user.comparePassword(password))) {
+      throw new ApiError(400, "Invalid password");
+    }
+
+    user.email = newEmail;
+    await user.save();
+
+    res
+    .status(200)
+    .json(new ApiResponse(200, { user }, "Email updated successfully"));
+  } catch (error) {
+    console.error("Error updating email:", error.message);
+    res.status(500).json({ success: false, message: error.message || "Internal server error" });
+  }
+})
 
 
-export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist };
+
+export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail };
