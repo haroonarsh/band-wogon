@@ -227,7 +227,7 @@ const updatePassword = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, { user }, "Password updated successfully"));
   } catch (error) {
-    throw new ApiError(400, error.message);
+    res.status(400).json({ success: false, message: error.message || "Internal server error" });
   }
 })
 

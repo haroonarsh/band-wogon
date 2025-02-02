@@ -83,7 +83,7 @@ function Page() {
             }
             
         } catch (error) {
-            console.log("erroR", error.response.data);
+            // console.log("erroR", error);
             toast.error(error.response.data.message);
         }
         
