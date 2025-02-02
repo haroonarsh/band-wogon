@@ -10,7 +10,9 @@ function page() {
   return (
     <>
              {/* Header */}
-        <Header />
+             <div className={styles.header}>
+                <Header />
+            </div>
             {/* Sidebar */}
         <Sidebar />
 
@@ -18,7 +20,7 @@ function page() {
         <div className={styles.main}>
             <div className={styles.blank}><div></div></div>
             <div className={styles.main_content}>
-                <div className={styles.header}>
+                <div className={styles.heading_div}>
                 <h1>Notifications</h1>
                 </div>
                 <div className={styles.notification}>
