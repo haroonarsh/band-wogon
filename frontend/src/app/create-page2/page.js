@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { set } from 'mongoose';
+import Sidebar from '@/components/sidebar/Sidebar';
 
 
         // initial state for the form
@@ -124,6 +125,10 @@ function Page() {
                     {/* Header */}
                     <div className={styles.header}>
             <Header />
+            </div>
+                    {/* Sidebar */}
+                    <div className={styles.sidebar}>
+            <Sidebar />
             </div>
 
                     {/* Main */}
