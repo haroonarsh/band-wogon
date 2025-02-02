@@ -35,11 +35,13 @@ function Page() {
         marketingEmail: false
     });
 
-            // Change password code
+                // Change password code
     const [input, setInput] = useState({
         password: '',
         newPassword: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        email: '',
+        newEmail: '',
     })
 
     const handleChange = (e) => {
@@ -89,6 +91,93 @@ function Page() {
         
     }
 
+                    // Change email code
+    const handleEmail = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('email', input.email);
+        formData.append('newEmail', input.newEmail);
+        formData.append('password', input.password);
+
+        localStorage.removeItem('user');
+        localStorage.removeItem('userData');
+        const userDataToken = localStorage.getItem('UserAccessToken');
+        const googleUserToken = localStorage.getItem('accessToken');
+
+        try {
+            const response = await axios.put('http://localhost:8000/api/user/update-email', formData, {
+                headers: {
+                    'Authorization': `Bearer ${userDataToken || googleUserToken}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            // console.log("response", response);
+            if (userDataToken === null || userDataToken === "undefined") {
+                localStorage.setItem('user', JSON.stringify(response.data.data.user));
+                toast.success("Email updated successfully");
+                router.push('/login');
+            } else {
+                localStorage.setItem('userData', JSON.stringify(response.data.data.user));
+                toast.success("Email updated successfully");
+                router.push('/home');
+            }
+        } catch (error) {
+            // console.log("erroR", error);
+            toast.error(error.response.data.message);
+        }
+    }
+
+                    // Delete account code
+    const handleDelete = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData();
+  formData.append('password', input.password);
+
+  // 1. Get tokens BEFORE deleting localStorage
+  const userDataToken = localStorage.getItem('UserAccessToken');
+  const googleUserToken = localStorage.getItem('accessToken');
+  const storedUser = localStorage.getItem('userData');
+  const googleUser = localStorage.getItem('user');
+
+  console.log("userDataToken", userDataToken);
+  console.log("googleUserToken", googleUserToken);
+  console.log("storedUser", storedUser);
+  console.log("googleUser", googleUser);
+
+  // 2. Determine which token to use
+//   const authToken = storedUser ? userDataToken : googleUserToken;
+
+  try {
+    const response = await axios.delete(
+      'http://localhost:8000/api/user/delete-user',
+    //   { data: formData },
+      {
+        data: formData,
+        headers: {
+            'Authorization': `Bearer ${userDataToken || googleUserToken}`,
+            'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    if (response) {
+      // 3. Clear localStorage AFTER successful deletion
+      localStorage.removeItem('user');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('UserAccessToken');
+      localStorage.removeItem('accessToken');
+
+      toast.success("Account deleted successfully");
+      router.push('/login');
+    }
+  } catch (error) {
+    console.log("error", error);
+    toast.error(error.response?.data?.message || "Deletion failed");
+  }
+};
+
 
     const toggleSwitch = (switchKey) => {
         setIsOn((prevstate) => ({
@@ -102,24 +191,24 @@ function Page() {
         switch (activeSection) {
             case 'changeEmail':
                 return (
-                    <div className={styles.change_email}>
+                    <form onSubmit={handleEmail} className={styles.change_email}>
                         <h1>Change email</h1>
                         <div className={styles.email}>
                             <MdOutlineMail size={22} color='#A3A3A3' />
-                            <input type="email" placeholder='Email' required />
+                            <input type="email" name='email' value={input.email} onChange={handleChange} placeholder='Email' required />
                         </div>
                         <div className={styles.email}>
                             <MdOutlineMail size={22} color='#A3A3A3' />
-                            <input type="email" placeholder='New email' required />
+                            <input type="email" name='newEmail' value={input.newEmail} onChange={handleChange} placeholder='New email' required />
                         </div>
                         <div className={styles.password}>
                             <MdLockOutline size={24} color='#A3A3A3' />
-                            <input type="password" placeholder='Password' required />
+                            <input type="password" name='password' value={input.password} onChange={handleChange} placeholder='Password' required />
                             <BiHide size={24} color='#A3A3A3' cursor={'pointer'} />
                         </div>
 
-                        <button className={styles.button}>Save changes</button>
-                    </div>
+                        <button type='submit' className={styles.button}>Save changes</button>
+                    </form>
                 );
             case 'changePassword':
                 return (
@@ -146,16 +235,16 @@ function Page() {
                 )
             case 'deleteAccount': 
                 return (
-                    <div className={styles.change_email}>
+                    <form onSubmit={handleDelete} className={styles.change_email}>
                         <h1>Delete account</h1>
                         <div className={styles.email}>
                             <MdLockOutline size={22} color='#A3A3A3' />
-                            <input type="password" placeholder='Old password' required />
+                            <input type="password" name='password' value={input.password} onChange={handleChange} placeholder='password' required />
                             <BiHide size={24} color='#A3A3A3' cursor={'pointer'} />
                         </div>
 
-                        <button className={styles.button}>Save changes</button>
-                    </div>
+                        <button type='submit' className={styles.button}>Save changes</button>
+                    </form>
                 )
             case 'notification':
                 return (
