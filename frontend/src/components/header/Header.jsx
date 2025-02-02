@@ -8,7 +8,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
-
+import { toast } from 'react-toastify';
 
 function Header() {
 
@@ -75,6 +75,63 @@ const StoredUserData = JSON.parse(localStorage.getItem('userData'));
             getUser();
         }
     }, [])
+
+    const switchUser = async () => {
+      localStorage.removeItem('userData');
+      localStorage.removeItem('user');
+      const userDataToken = localStorage.getItem('UserAccessToken');
+      const googleUserToken = localStorage.getItem('accessToken');
+
+      try {
+        if (user.role === "user") {
+          const response = await axios.put("http://localhost:8000/api/user/become-artist",
+            { withCredentials: true },
+            {
+              headers: {
+                Authorization: `Bearer ${userDataToken === null || userDataToken === "undefined" 
+                ? googleUserToken 
+                : userDataToken}`,
+              },
+            }
+          )
+          console.log("response", response);
+          if (userDataToken === null || userDataToken === "undefined") {
+            localStorage.setItem('user', JSON.stringify(response.data.data.user));
+            toast.success("You are now an artist");
+            router.push('/login');
+          } else {
+            localStorage.setItem('userData', JSON.stringify(response.data.data.user));
+            toast.success("You are now an artist please refresh the page");
+            router.push('/home');
+        } 
+      } else {
+        const response = await axios.put("http://localhost:8000/api/user/become-user",
+          { withCredentials: true },
+          {
+            headers: {
+              Authorization: `Bearer ${userDataToken === null || userDataToken === "undefined" 
+              ? googleUserToken 
+              : userDataToken}`,
+            },
+          }
+        )
+        console.log("response", response);
+        if (userDataToken === null || userDataToken === "undefined") {
+          localStorage.setItem('user', JSON.stringify(response.data.data.user));
+          toast.success("You are now a user");
+          router.push('/login');
+        } else {
+          localStorage.setItem('userData', JSON.stringify(response.data.data.user));
+          toast.success("You are now a user please refresh the page");
+          router.push('/home');
+        }
+          }
+      } catch (error) {
+        console.log("error", error);
+        toast.error(error.response.data.message);
+      }
+
+    }
 
   const toggleDropdown = (e) => {
     e.preventDefault();
@@ -143,7 +200,13 @@ const StoredUserData = JSON.parse(localStorage.getItem('userData'));
           
           </div>
         )}
+        
         <div className={styles.profile}>
+        <button className={styles.switch}
+        onClick={switchUser}
+        >
+          {user?.role === "artist" ? "Switch to User" : "Switch to Artist"}
+        </button>
           <img className="cursor-pointer"  src={user?.profileImage} alt="profile" 
           onClick={() => router.push('/profile-screen')}
           />
