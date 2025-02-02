@@ -85,7 +85,7 @@ function Sidebar() {
                     <IoMdSettings className={styles.icon4}/>
                 </div>
                 {user && (
-                    <div className={`${user?.role === 'artist' ? styles.show : styles.hide} ${pathname === '/artist-page-management' || pathname === '/create-page' ? styles.active : styles.artist}`}
+                    <div className={`${user?.role === 'artist' ? styles.show : styles.hide} ${pathname === '/artist-page-management' || pathname === '/create-page' || pathname === '/create-page2' ? styles.active : styles.artist}`}
                     onClick={() => router.push('/artist-page-management')}
                     >
                         <GiGuitarHead className={styles.icon_2}/>
@@ -129,8 +129,8 @@ function Sidebar() {
                 {user.role === 'artist' && (
                     <div className={styles.show_profile}
                     onClick={() => router.push('/artist-page-management')}>
-                    <GiGuitarHead className={`${pathname === '/artist-page-management' || pathname === '/create-page' ? styles.icon2 : styles.icon}`}/>
-                    <p className={`${pathname === '/artist-page-management' || pathname === '/create-page' ? styles.active3 : styles.inactive}`}>Artist page</p>
+                    <GiGuitarHead className={`${pathname === '/artist-page-management' || pathname === '/create-page' || pathname === '/create-page2' ? styles.icon2 : styles.icon}`}/>
+                    <p className={`${pathname === '/artist-page-management' || pathname === '/create-page' || pathname === '/create-page2' ? styles.active3 : styles.inactive}`}>Artist page</p>
                     </div>
                 )}
                 <div className={styles.show_move_item}
