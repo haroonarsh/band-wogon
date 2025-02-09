@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 const artistSchema = new mongoose.Schema({
-    profileImage: {
+    artistImage: {
         type: String,
+        default: "https://thumbs.dreamstime.com/z/crowd-music-show-happy-people-raised-hands-orange-stage-light-144447159.jpg?ct=jpeg",
         required: false,
     },
     artistName: {
