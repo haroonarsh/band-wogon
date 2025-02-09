@@ -50,7 +50,8 @@ function Page() {
         bio: '',
         startDate: '',
         showPerformed: '',
-        genres: '',
+        genres: [],
+        artistImage: null,
     });
     const router = useRouter()
     const [previewImage, setPreviewImage] = useState(null);
@@ -64,13 +65,20 @@ function Page() {
         }))
     }
 
+    // const handleFileChange = (e) => {
+    //     const file = e.target.files[0];
+    //     if (file) {
+    //         setForm((prevState) => ({
+    //             ...prevState,
+    //             profileImage: file,
+    //         }));
+    //         setPreviewImage(URL.createObjectURL(file));
+    //     }
+    // }
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setForm((prevState) => ({
-                ...prevState,
-                profileImage: file,
-            }));
+            setForm({ ...form, artistImage: file });
             setPreviewImage(URL.createObjectURL(file));
         }
     }
@@ -88,26 +96,41 @@ function Page() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        localStorage.removeItem('user');
-        localStorage.removeItem('userData');
+        // localStorage.removeItem('user');
+        // localStorage.removeItem('userData');
         const userDataToken = localStorage.getItem('UserAccessToken');
         const googleUserToken = localStorage.getItem('accessToken');
             try {   
-                const response = await axios.post('http://localhost:8000/api/user/create-show', form, {
+                const formData = new FormData();
+                formData.append('artistName', form.artistName);
+                formData.append('location', form.location);
+                formData.append('bio', form.bio);
+                formData.append('startDate', form.startDate);
+                formData.append('showPerformed', form.showPerformed);
+      
+                    // Append genres as individual entries
+                form.genres.forEach(genre => {
+                formData.append('genres', genre);
+                });
+
+                if (form.artistImage) {
+                    formData.append('artistImage', form.artistImage);
+                }
+                const response = await axios.post('http://localhost:8000/api/user/create-show', formData, {
                     headers: {
                         Authorization: `Bearer ${userDataToken === null || userDataToken === "undefined" 
                         ? googleUserToken 
                         : userDataToken}`,
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'multipart/form-data',
                     },
                 });
                  
-                if (userDataToken === null || userDataToken === "undefined") {
-                    localStorage.setItem('user', JSON.stringify(response.data.data.user));
-                } else {
-                    localStorage.setItem('userData', JSON.stringify(response.data.data.user));
-                }
-                 if (response.success === true || response.status === 200 ) {
+                // if (userDataToken === null || userDataToken === "undefined") {
+                //     localStorage.setItem('user', JSON.stringify(response.data.data.user));
+                // } else {
+                //     localStorage.setItem('userData', JSON.stringify(response.data.data.user));
+                // }
+                 if (response.success === true || response.status === 200 || response.data.success === true) {
                     toast.success(response.data.message);
                     router.push('/upcoming-schedules');
 
@@ -150,8 +173,9 @@ function Page() {
                         <input
                             type="file"
                             id="fileInput"
-                            name='profileImage' 
+                            name='artistImage' 
                             accept="image/*"
+                            // value={form.profileImage}
                             onChange={handleFileChange}
                             style={{ display: "none" }}
                         />
