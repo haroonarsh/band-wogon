@@ -274,35 +274,47 @@ const createShow = asyncHandler(async (req, res) => {
     if (req.user.role !== "artist") {
       throw new ApiError(400, "User is not an artist");
     }
+
+    const user = await User.findById(userId);
+
+    // Image handling
+    let artistImage = "" || req.body.artistImage; // Default empty string or set a placeholder URL
+    if (req.file) {
+      try {
+        // console.log("File path:", req.file);
+        
+        const uploadPresponse = await uploadOnCloudinary(req.file.path);
+        if (uploadPresponse && uploadPresponse?.secure_url) {
+          artistImage = uploadPresponse.secure_url;
+        } else {
+          throw new ApiError(400, "Error uplaoding image to cloudinary");
+        }
+      } catch (error) {
+        throw new ApiError(400, error.message);
+      }
+    }
     
       // Create a new artist
     const newArtist = new Artist({
       artistName, 
       location, 
-      bio, 
+      bio,
+      artistImage: artistImage,
       startDate: new Date(startDate), 
       showPerformed: parseInt(showPerformed, 10), 
-      genres,
+      genres: Array.isArray(genres) ? genres : genres.split(','),
     })
 
       // Save the artist
-    const savedArtist = await newArtist.save();
+    const artist = await newArtist.save();
 
-    const user = await User.findByIdAndUpdate(
-      userId,
-      {
-        artistProfile: savedArtist._id,
-      },
-      { new: true }
-    );
-
-    if (!user) {
-      throw new ApiError(404, "User not found");
+    if (!artist) {
+      throw new ApiError(404, "Artist not found");
     }
 
     res
     .status(200)
-    .json(new ApiResponse(200, { user }, "Show created successfully"));
+    .json(new ApiResponse(200, { artist }, "Show created successfully"));
   } catch (error) {
     console.error("Error creating show:", error.message);
     res.status(500).json({ success: false, message: error.message || "Internal server error" });
