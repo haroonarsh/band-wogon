@@ -14,7 +14,7 @@ router.put("/edit-profile", authenticate, upload.single("profileImage"), updateU
 router.post("/logout", authenticate, logout);
 router.put("/update-password", authenticate, updatePassword);
 router.delete("/delete-user", authenticate, deleteUser);
-router.post("/create-show", authenticate, createShow);
+router.post("/create-show", authenticate, upload.single("artistImage"), createShow);
 router.put("/become-artist", authenticate, becomeArtist);
 router.put("/become-user", authenticate, becomeUser);
 router.put("/update-email", authenticate, changeEmail);
