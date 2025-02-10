@@ -65,16 +65,6 @@ function Page() {
         }))
     }
 
-    // const handleFileChange = (e) => {
-    //     const file = e.target.files[0];
-    //     if (file) {
-    //         setForm((prevState) => ({
-    //             ...prevState,
-    //             profileImage: file,
-    //         }));
-    //         setPreviewImage(URL.createObjectURL(file));
-    //     }
-    // }
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -116,7 +106,7 @@ function Page() {
                 if (form.artistImage) {
                     formData.append('artistImage', form.artistImage);
                 }
-                const response = await axios.post('http://localhost:8000/api/user/create-show', formData, {
+                const response = await axios.post('http://localhost:8000/api/user/create-artist-page', formData, {
                     headers: {
                         Authorization: `Bearer ${userDataToken === null || userDataToken === "undefined" 
                         ? googleUserToken 
