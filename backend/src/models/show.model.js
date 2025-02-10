@@ -13,7 +13,11 @@ const showSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    time: {
+    startTime: {
+        type: String,
+        required: true,
+    },
+    endTime: {
         type: String,
         required: true,
     },
