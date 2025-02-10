@@ -433,9 +433,9 @@ const changeEmail = asyncHandler(async (req, res) => {
         // shows
 const shows = asyncHandler(async (req, res) => {
   try {
-    const { name, date, time, latitude, longitude, location, bio, genres } = req.body;
+    const { name, date, startTime, endTime, latitude, longitude, location, bio, genres } = req.body;
 
-    if (!name || !date || !time || !location || !bio || !genres) {
+    if (!name || !date || !startTime || !endTime || !location || !bio || !genres) {
       throw new ApiError(400, "All fields are required");
     }
 
@@ -463,7 +463,8 @@ const shows = asyncHandler(async (req, res) => {
     const newShow = new Show({
       name,
       date,
-      time,
+      startTime,
+      endTime,
       location,
       bio,
       latitude: latitude ? parseFloat(latitude) : null,
