@@ -16,7 +16,8 @@ function Page() {
     const [form, setForm] = useState({
         name: '',
         date: '',
-        time: '',
+        startTime: '',
+        endTime: '',
         location: '',
         bio: '',
         genres: [],
@@ -65,7 +66,8 @@ function Page() {
             const formData = new FormData();
             formData.append('name', form.name);
             formData.append('date', form.date);
-            formData.append('time', form.time);
+            formData.append('startTime', form.startTime);
+            formData.append('endTime', form.endTime);
             formData.append('location', form.location);
             formData.append('bio', form.bio);
             formData.append('latitude', form.latitude);
@@ -166,14 +168,27 @@ function Page() {
                             />
                             <hr/>
                         </div>
-                        <div className={styles.artist_info}>
-                            <p>Time</p>
+                        <div className={styles.time}>
+                            <div className={styles.time_div}>
+                            <div>
+                            <p>Start Time</p>
                             <input 
                             type="time"
-                            name='time'
-                            value={form.time}
+                            name='startTime'
+                            value={form.startTime}
                             onChange={handleChange}
                             />
+                            </div>
+                            <div>
+                            <p>End Time</p>
+                            <input 
+                            type="time"
+                            name='endTime'
+                            value={form.endTime}
+                            onChange={handleChange}
+                            />
+                            </div>
+                            </div>
                             <hr/>
                         </div>
                         <div className={styles.location}>
