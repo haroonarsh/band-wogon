@@ -8,6 +8,8 @@ import { BiEditAlt } from "react-icons/bi";
 import Google_map from '@/components/google_map/GoogleMap';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Page() {
 
@@ -25,9 +27,6 @@ function Page() {
     
     const [imagePreview, setImagePreview] = useState(null);
     const router = useRouter();
-    const genresList = ['Blues', 'Classical', 'Country', 'EDM', 'Folk', 'Funk', 
-                      'Hip-Hop', 'Jazz', 'Latin', 'Metal', 'Pop', 'Punk', 
-                      'Reggae', 'R&B', 'Rock', 'Soul'];
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -46,16 +45,22 @@ function Page() {
         setForm(prev => ({...prev, [name]: value}));
     };
 
-    const handleGenreToggle = (genre) => {
-        setForm(prev => ({
-            ...prev,
-            genres: prev.genres.includes(genre)
-                ? prev.genres.filter(g => g !== genre)
-                : [...prev.genres, genre]
-        }));
-    };
+    const handleGenreSelection = (genre) => {
+        setForm((prevState) => {
+            const updatedGenres = prevState.genres.includes(genre)
+            ? prevState.genres.filter((g) => g !== genre)
+            : [...prevState.genres, genre];
+            return { ...prevState, genres: updatedGenres };
 
-    const handleSubmit = async () => {
+        })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        localStorage.removeItem('user');
+        localStorage.removeItem('userData');
+        const userDataToken = localStorage.getItem('UserAccessToken');
+        // const googleUserToken = localStorage.getItem('accessToken');
         try {
             const formData = new FormData();
             formData.append('name', form.name);
@@ -65,22 +70,38 @@ function Page() {
             formData.append('bio', form.bio);
             formData.append('latitude', form.latitude);
             formData.append('longitude', form.longitude);
-            form.genres.forEach(genre => formData.append('genres', genre));
+            form.genres.forEach(genre => {
+                formData.append('genres', genre);
+                });
             if(form.image) formData.append('image', form.image);
 
             const token = localStorage.getItem('UserAccessToken') || localStorage.getItem('accessToken');
             
-            const response = await axios.post('/api/user/create-show', formData, {
+            const response = await axios.post('http://localhost:8000/api/user/create-show', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
-            if(response.data.success) {
+            console.log("response", response);
+            
+            if (userDataToken === null || userDataToken === "undefined") {
+                localStorage.setItem('user', JSON.stringify(response.data.data.user));
+                toast.success('Show created successfully!');
+                router.push('/login');
+            } else {
+                localStorage.setItem('userData', JSON.stringify(response.data.data.user));
                 toast.success('Show created successfully!');
                 router.push('/home');
             }
+            // if(response.data.success) {
+            //     console.log(response.data);
+            //     toast.success('Show created successfully!');
+            //     // router.push('/upcoming-schedules');
+            //     // router.refresh();
+            //     router.push('/home');
+            // }
         } catch (error) {
             toast.error(error.response?.data?.message || 'Failed to create show');
         }
@@ -102,7 +123,7 @@ function Page() {
                     />
                     <h1 className={styles.heading}>Upcoming schedule</h1>
                     </div>
-                    <form className={styles.artist}>
+                    <div className={styles.artist}>
                         <div className={styles.uploader}>
                             <label htmlFor="file-input" className={styles.uploadBox}>
                                 {imagePreview ? (
@@ -126,7 +147,13 @@ function Page() {
 
                         <div className={styles.artist_info}>
                             <p>Name</p>
-                            <input type="text" placeholder='Andy Warhol' />
+                            <input 
+                            type="text" 
+                            placeholder='Andy Warhol' 
+                            name='name'
+                            value={form.name}
+                            onChange={handleChange}
+                            />
                             <hr/>
                         </div>
                         <div className={styles.artist_info}>
@@ -204,7 +231,7 @@ function Page() {
                                 <button
                                 key={genre}
                                 className={form.genres.includes(genre) ? styles.selected : styles.unselected}
-                                onClick={() => handleGenreToggle(genre)}
+                                onClick={() => handleGenreSelection(genre)}
                                 >
                                     {genre}
                                 </button> 
@@ -222,10 +249,10 @@ function Page() {
                                 }}
                             />
                         </div>
-                        <button className={styles.button}
+                        <button onClick={handleSubmit} className={styles.button}
                         // onClick={() => router.push('/home')}
                         >Create show</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </>
