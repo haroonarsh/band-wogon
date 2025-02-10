@@ -433,9 +433,9 @@ const changeEmail = asyncHandler(async (req, res) => {
         // shows
 const shows = asyncHandler(async (req, res) => {
   try {
-    const { name, date, time, latitude, longitude, location, bio } = req.body;
+    const { name, date, time, latitude, longitude, location, bio, genres } = req.body;
 
-    if (!name || !date || !time || !location || !bio) {
+    if (!name || !date || !time || !location || !bio || !genres) {
       throw new ApiError(400, "All fields are required");
     }
 
@@ -444,7 +444,7 @@ const shows = asyncHandler(async (req, res) => {
       throw new ApiError(404, "User not found");
     }
 
-    let artistImage = "" || req.body.artistImage; // Default empty string or set a placeholder URL
+    let artistImage = "" || req.body.image; // Default empty string or set a placeholder URL
     if (req.file) {
       try {
         // console.log("File path:", req.file);
@@ -469,6 +469,7 @@ const shows = asyncHandler(async (req, res) => {
       latitude: latitude ? parseFloat(latitude) : null,
       longitude: longitude ? parseFloat(longitude) : null,
       image: artistImage,
+      genres: Array.isArray(genres) ? genres : genres.split(','),
       artist: user._id,
     })
 
@@ -487,7 +488,7 @@ const shows = asyncHandler(async (req, res) => {
 
     res
     .status(200)
-    .json(new ApiResponse(200, { show }, "Show created successfully"));
+    .json(new ApiResponse(200, { show, user: user }, "Show created successfully"));
   } catch (error) {
     console.error("Error creating show:", error.message);
     res.status(500).json({ success: false, message: error.message || "Internal server error" });
