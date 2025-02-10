@@ -38,6 +38,11 @@ const showSchema = new mongoose.Schema({
         enum: ['Blues', 'Classical', 'Country', 'EDM', 'Folk', 'Funk', 'Hip-Hop', 'Jazz', 'Latin', 'Metal', 'Pop', 'Punk', 'Reggae', 'R&B', 'Rock', 'Soul'],
         required: false,
     },
+    artist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Artist",
+        required: true,
+    },
 },
    {
     timestamps: true
