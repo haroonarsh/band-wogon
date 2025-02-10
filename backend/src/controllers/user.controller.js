@@ -6,6 +6,7 @@ import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import Artist from "../models/artist.model.js";
+import Show from "../models/show.model.js";
 
         // utility functions to generate tokens
 const generateAccessToken = (userId) => {
@@ -312,6 +313,18 @@ const createShow = asyncHandler(async (req, res) => {
       throw new ApiError(404, "Artist not found");
     }
 
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $push: { artistProfile: artist._id },
+      } ,
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      throw new ApiError(404, "User not found");
+    }
+
     res
     .status(200)
     .json(new ApiResponse(200, { artist }, "Show created successfully"));
@@ -417,6 +430,70 @@ const changeEmail = asyncHandler(async (req, res) => {
   }
 })
 
+        // shows
+const shows = asyncHandler(async (req, res) => {
+  try {
+    const { name, date, time, latitude, longitude, location, bio } = req.body;
+
+    if (!name || !date || !time || !location || !bio) {
+      throw new ApiError(400, "All fields are required");
+    }
+
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    let artistImage = "" || req.body.artistImage; // Default empty string or set a placeholder URL
+    if (req.file) {
+      try {
+        // console.log("File path:", req.file);
+        
+        const uploadPresponse = await uploadOnCloudinary(req.file.path);
+        if (uploadPresponse && uploadPresponse?.secure_url) {
+          artistImage = uploadPresponse.secure_url;
+        } else {
+          throw new ApiError(400, "Error uplaoding image to cloudinary");
+        }
+      } catch (error) {
+        throw new ApiError(400, error.message);
+      }
+    }
+
+    const newShow = new Show({
+      name,
+      date,
+      time,
+      location,
+      bio,
+      latitude: latitude ? parseFloat(latitude) : null,
+      longitude: longitude ? parseFloat(longitude) : null,
+      image: artistImage,
+      artist: user._id,
+    })
+
+          // Save the show 
+    const show = await newShow.save();
+
+    if (!show) {
+      throw new ApiError(400, "Error creating show");
+    }
+
+        // Add the show to the user's shows array
+    user.shows.push(show._id);
+
+        // Save the user
+    await user.save({ validateBeforeSave: false }); // Skip validation if not needed
+
+    res
+    .status(200)
+    .json(new ApiResponse(200, { show }, "Show created successfully"));
+  } catch (error) {
+    console.error("Error creating show:", error.message);
+    res.status(500).json({ success: false, message: error.message || "Internal server error" });
+  }
+});
 
 
-export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail };
+
+export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows };
