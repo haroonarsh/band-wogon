@@ -106,6 +106,34 @@
     color: white;
     padding-top: 10px;
 }
+.time{
+    width: 38%;
+}
+.time_div{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding-bottom: 2px;
+}
+/* .time div{
+    width: 50%;
+} */
+.time p{
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+    color: #A3A3A3;
+    padding-top: 30px;
+}
+.time input{
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    border: transparent;
+    outline: none;
+    color: white;
+    padding-top: 10px;
+}
 .artist_bio input{
     width: 100%;
     height: 30px;
