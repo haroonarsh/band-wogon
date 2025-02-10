@@ -35,10 +35,11 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Artist",
     },
-    show: [
+    shows: [
         {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Show",
+        default: [],
         },
     ],
     location: {
