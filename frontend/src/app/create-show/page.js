@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './create-show.module.css'
 import Header from '@/components/header/Header'
 import { BiEditAlt } from "react-icons/bi";
-// import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { LoadScript, Autocomplete } from '@react-google-maps/api';
 import Google_map from '@/components/google_map/GoogleMap';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -28,6 +28,7 @@ function Page() {
     
     const [imagePreview, setImagePreview] = useState(null);
     const router = useRouter();
+    const autoCompleteRef = useRef(null);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -45,6 +46,22 @@ function Page() {
         const { name, value } = e.target;
         setForm(prev => ({...prev, [name]: value}));
     };
+
+    const handlePlaceSelect = () => {
+        const place = autoCompleteRef.current.getPlace();
+        if (place.geometry) {
+          const lat = place.geometry.location.lat();
+          const lng = place.geometry.location.lng();
+          const address = place.formatted_address;
+
+          setForm(prev => ({
+            ...prev,
+            latitude: lat,
+            longitude: lng,
+            location: address
+          }))
+        }
+      }
 
     const handleGenreSelection = (genre) => {
         setForm((prevState) => {
@@ -191,14 +208,26 @@ function Page() {
                             </div>
                             <hr/>
                         </div>
+                        <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} libraries={["places"]}>
+
+                        
                         <div className={styles.location}>
                             <p>Location</p>
+                            <Autocomplete
+                             onLoad={autocomplete => {
+                                autoCompleteRef.current = autocomplete;
+                                autocomplete.setComponentRestrictions({ country: "pk"});
+                             }}
+                             onPlaceChanged={handlePlaceSelect}
+                            >
                             <input 
                             type="text"
                             name='location'
                             value={form.location}
                             onChange={handleChange}
+                            placeholder='Search locations in Pakistan...'
                             />
+                            </Autocomplete>
                             <hr/>
                         </div>
                         <div className={styles.artist_bio}>
@@ -252,18 +281,17 @@ function Page() {
                                 </button> 
                             ))}                        
                         </div>
+                        </LoadScript>
                         <div className={styles.map}>
-                            <Google_map 
-                                onLocationSelect={(lat, lng, address) => {
-                                    setForm(prev => ({
-                                        ...prev,
-                                        latitude: lat,
-                                        longitude: lng,
-                                        location: address
-                                    }));
-                                }}
-                            />
+                        <Google_map 
+                                    selectedLocation={
+                                        form.latitude && form.longitude 
+                                            ? { lat: parseFloat(form.latitude), lng: parseFloat(form.longitude) }
+                                            : null
+                                    }
+                        />
                         </div>
+                        
                         <button onClick={handleSubmit} className={styles.button}
                         // onClick={() => router.push('/home')}
                         >Create show</button>
