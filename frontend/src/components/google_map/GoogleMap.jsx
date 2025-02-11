@@ -1,7 +1,7 @@
 "use client";
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { IoMdSearch } from "react-icons/io";
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, Autocomplete } from '@react-google-maps/api';
 import { darkThemeStyles } from '../../mapTheme/mapTheme.js';
 import styles from './google_map.module.css';
 
@@ -15,19 +15,28 @@ const containerStyle = {
     lng: 73.03031502875508, // Example: Longitude of San Francisco
   };
 
-function GoogleMaps() {
+function GoogleMaps({ selectedLocation }) {
+
+  // const [mapCenter, setMapCenter] = useState(center);
+  // const autoCompleteRef = useRef(null);
+  const libraries = ["places"];
+
     return (
         <>
         <section className={styles.googleMap}>
-        <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+        <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+        libraries={libraries}
+        >
          <GoogleMap
          mapContainerStyle={containerStyle}
-         center={center}
-         zoom={10}
+         center={selectedLocation || center}
+         zoom={selectedLocation ? 15 : 10}
          options={{ styles: darkThemeStyles
          }}
          >
-          <Marker position={center} />
+          {selectedLocation && (
+            <Marker position={selectedLocation} />
+          )}
          </GoogleMap>
          </LoadScript>
       </section>
