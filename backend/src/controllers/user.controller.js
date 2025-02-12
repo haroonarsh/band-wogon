@@ -496,6 +496,34 @@ const shows = asyncHandler(async (req, res) => {
   }
 });
 
+      // get all shows
+const getShows = asyncHandler(async (req, res) => {
+  try {
+      // Get authenticated user
+    const user = await User.findById(req.user._id).select("shows");
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+     // Get all shows for the authenticated user ID
+    const shows = await Show.find({ 
+      _id: { $in: user.shows } 
+    });
+
+    if (!shows.length) {
+      throw new ApiError(404, "No shows found for this user");
+    }
+
+    res
+    .status(200)
+    .json(new ApiResponse(200, { shows }, "User shows retrieved successfully"));
+  } catch (error) {
+    console.error("Error retrieving user shows:", error.message);
+    res.status(500).json({ success: false, message: error.message || "Internal server error" });
+  }
+});
 
 
-export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows };
+
+export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows };
