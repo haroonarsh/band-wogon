@@ -17,8 +17,8 @@ function Header() {
   const [user, setUser] = useState(null)
   const router = useRouter();
 
-  console.log("user : ",user);
-  console.log("ProfileImage", user?.profileImage);
+  // console.log("user : ",user);
+  // console.log("ProfileImage", user?.profileImage);
   
 
               // Check if user data exists in localStorage
@@ -65,10 +65,6 @@ function Header() {
         }
     }
 
-    // logoout
-    // const logout = ()=>{
-    //     window.open("http://localhost:8000/logout","_self")
-    // }
 const StoredUserData = JSON.parse(localStorage.getItem('userData'));
     useEffect(() => {
         if (!StoredUserData) {
