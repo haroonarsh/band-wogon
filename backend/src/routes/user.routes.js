@@ -1,5 +1,5 @@
 import express from "express";
-import { signup, login, updateUser, logout, updatePassword, deleteUser, becomeArtist, createShow, becomeUser, changeEmail, shows } from "../controllers/user.controller.js";
+import { signup, login, updateUser, logout, updatePassword, deleteUser, becomeArtist, createShow, becomeUser, changeEmail, shows, getShows } from "../controllers/user.controller.js";
 import authenticate from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/upload.js";
 import { roleAuth } from "../middlewares/roleAuth.middleware.js";
@@ -19,6 +19,7 @@ router.put("/become-artist", authenticate, becomeArtist);
 router.put("/become-user", authenticate, becomeUser);
 router.put("/update-email", authenticate, changeEmail);
 router.post("/create-show", authenticate, upload.single("image"), shows);
+router.get("/shows", authenticate, getShows);
 
 
 export default router;
