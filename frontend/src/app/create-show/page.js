@@ -48,7 +48,16 @@ function Page() {
     };
 
     const handlePlaceSelect = () => {
+        if (!autoCompleteRef.current) {
+            console.log("autoCompleteRef", autoCompleteRef.current);
+            return;
+        };
         const place = autoCompleteRef.current.getPlace();
+
+        if (!place || !place.geometry) {
+          console.log("place", place);
+          return;
+        }
         if (place.geometry) {
           const lat = place.geometry.location.lat();
           const lng = place.geometry.location.lng();
