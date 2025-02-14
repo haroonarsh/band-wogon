@@ -121,7 +121,7 @@ function Page() {
             } else {
                 localStorage.setItem('userData', JSON.stringify(response.data.data.user));
                 toast.success('Show created successfully!');
-                router.push('/home');
+                router.push('/upcoming-schedules');
             }
             // if(response.data.success) {
             //     console.log(response.data);
