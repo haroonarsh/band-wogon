@@ -19,7 +19,7 @@ router.put("/become-artist", authenticate, becomeArtist);
 router.put("/become-user", authenticate, becomeUser);
 router.put("/update-email", authenticate, changeEmail);
 router.post("/create-show", authenticate, upload.single("image"), shows);
-router.get("/shows", authenticate, getShows);
+router.get("/get-shows", authenticate, getShows);
 
 
 export default router;
