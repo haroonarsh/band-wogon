@@ -70,8 +70,29 @@
     gap: 12px;
     background-color: #262626;
     border-radius: 4px;
+    /* padding: 7px 40px 7px 7px; */
+    cursor: pointer;
+}
+.card2{
+    display: flex;
+    align-items: center;    
+    justify-content: start;
+    gap: 12px;
+    background-color: #262626;
+    border-radius: 4px;
     padding: 7px 40px 7px 7px;
     cursor: pointer;
+}
+.genres{
+    color: #737373;
+    /* display: flex; */
+    align-items: center;
+    width: 120px;
+    overflow: hidden; /* Hide overflow */
+    display: block ruby;
+    /* -webkit-line-clamp: 1;  */ /* Number of lines */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
 }
 
 .card_text h2{
