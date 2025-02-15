@@ -430,7 +430,7 @@ const changeEmail = asyncHandler(async (req, res) => {
   }
 })
 
-        // shows
+        // create shows
 const shows = asyncHandler(async (req, res) => {
   try {
     const { name, date, startTime, endTime, latitude, longitude, location, bio, genres } = req.body;
@@ -524,6 +524,34 @@ const getShows = asyncHandler(async (req, res) => {
   }
 });
 
+        // get Artist
+const getArtist = asyncHandler(async (req, res) => {
+    try {
+        // Get authenticated user
+        const user = await User.findById(req.user._id).select("artistProfile");
+        if (!user) {
+            throw new ApiError(404, "User not found");
+        }
+
+        // Check if artist profile exists
+        if (!user.artistProfile || user.artistProfile.length === 0) {
+            throw new ApiError(404, "Artist profile not found");
+        }
+
+        // Get artist profile data
+        const artistProfile = await Artist.find({
+            _id: { $in: user.artistProfile }
+        });
+
+        res.status(200).json(
+            new ApiResponse(200, artistProfile, "Artist profile retrieved successfully")
+        );
+
+    } catch (error) {
+        throw new ApiError(500, error?.message || "Error fetching artist profile");
+    }
+});
 
 
-export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows };
+
+export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows, getArtist };
