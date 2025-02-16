@@ -90,7 +90,7 @@
 }
 
 .bio{
-    width: 40%;
+    width: 100%;
     color: #d4d4d4;
     font-size: 16px;
     padding-top: 9px;
@@ -98,7 +98,7 @@
 }
 
 .artist_shows{
-    width: 40%;
+    width: 100%;
     background-color: #262626;
     padding: 12px 20px 30px 20px;
     border-radius: 9px;
@@ -261,7 +261,7 @@
 }
 
 .show{
-    background: url("../../../public/images/club_bg.png");
+    background: url("../../../../public/images/club_bg.png");
     /* background-size: ; */
     /* background-position: center; */
     background-repeat: no-repeat;
@@ -340,7 +340,7 @@
         width: 95%;
     }
     .artist_shows{
-        width: 95%;
+        width: auto;
     }
     .button_3{
         width: 94%;
