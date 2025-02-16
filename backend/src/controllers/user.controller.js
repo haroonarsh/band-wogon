@@ -552,6 +552,26 @@ const getArtist = asyncHandler(async (req, res) => {
     }
 });
 
+        // get single artist
+const getSingleArtist = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.query;
+
+    const artist = await Artist.findById(id);
+
+    if (!artist) {
+      throw new ApiError(404, "Artist not found");
+    }
+
+    res
+    .status(200)
+    .json(new ApiResponse(200, artist, "Artist retrieved successfully"));
+  } catch (error) {
+    console.error("Error retrieving artist:", error.message);
+    res.status(500).json({ success: false, message: error.message || "Internal server error" });
+  }
+})
 
 
-export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows, getArtist };
+
+export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows, getArtist, getSingleArtist };
