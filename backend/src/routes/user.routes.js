@@ -21,7 +21,7 @@ router.put("/update-email", authenticate, changeEmail);
 router.post("/create-show", authenticate, upload.single("image"), shows);
 router.get("/get-shows", authenticate, getShows);
 router.get("/get-artist", authenticate, getArtist);
-router.get("/get-artist/:id", authenticate, getSingleArtist);
+router.get("/get-artist/:id", getSingleArtist);
 
 
 export default router;
