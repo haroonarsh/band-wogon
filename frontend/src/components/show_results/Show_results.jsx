@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 
-function Show_results() {
+function Show_results({ artist }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -50,24 +50,10 @@ function Show_results() {
         fetchArtists();
     }, []);
 
-    // if (loading) {
-    //     return <div className={styles.loading}>Loading shows...</div>;
-    // }
-
     const formatDate = (dateString) => {
         const options = { day: 'numeric', month: 'short', year: 'numeric' };
         return new Date(dateString).toLocaleDateString('en-US', options);
     };
-
-    // const formatTime = (timeString) => {
-    //     const time = new Date(`2000-01-01T${timeString}`);
-    //     return time.toLocaleTimeString('en-US', {
-    //         hour: 'numeric',
-    //         minute: '2-digit',
-    //         hour12: true
-    //     });
-    // };
-
 
             // Function to toggle the dropdown
     const toggleDropdown = () => {
@@ -107,7 +93,7 @@ function Show_results() {
                         </div>
                     </div>
                     <button className={styles.button_2}
-                    onClick={() => router.push('/artist_profile')}
+                    onClick={() => router.push(`/artist_profile/${artists[0]?._id}`)}
                     >View profile</button>
                 </div>
                 <span className={styles.line} />
@@ -150,7 +136,7 @@ function Show_results() {
                         </div>
                     </div>
                     <button className={styles.button_2}
-                    onClick={() => router.push('/artist_profile')}
+                    onClick={() => router.push(`/artist_profile/${artists[1]?._id}`)}
                     >View profile</button>
                 </div>
                 <span className={styles.line} />
@@ -193,7 +179,7 @@ function Show_results() {
                         </div>
                     </div>
                     <button className={styles.button_2}
-                    onClick={() => router.push('/artist_profile')}
+                    onClick={() => router.push(`/artist_profile/${artists[2]?._id}`)}
                     >View profile</button>
                 </div>
                 <span className={styles.line} />
