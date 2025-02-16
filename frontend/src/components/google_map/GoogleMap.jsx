@@ -17,6 +17,7 @@ const containerStyle = {
 
 function GoogleMaps({ selectedLocation }) {
 
+
   // const [mapCenter, setMapCenter] = useState(center);
   // const autoCompleteRef = useRef(null);
   const libraries = ["places"];
