@@ -1,5 +1,5 @@
 import express from "express";
-import { signup, login, updateUser, logout, updatePassword, deleteUser, becomeArtist, createShow, becomeUser, changeEmail, shows, getShows, getArtist, getSingleArtist } from "../controllers/user.controller.js";
+import { signup, login, updateUser, logout, updatePassword, deleteUser, becomeArtist, createShow, becomeUser, changeEmail, shows, getShows, getArtist, getSingleArtist, getAllUsersWithShows } from "../controllers/user.controller.js";
 import authenticate from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/upload.js";
 import { roleAuth } from "../middlewares/roleAuth.middleware.js";
@@ -22,6 +22,7 @@ router.post("/create-show", authenticate, upload.single("image"), shows);
 router.get("/get-shows", authenticate, getShows);
 router.get("/get-artist", authenticate, getArtist);
 router.get("/get-artist/:id", getSingleArtist);
+router.get("/users-with-shows", getAllUsersWithShows);
 
 
 export default router;
