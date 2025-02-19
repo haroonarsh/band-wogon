@@ -13,7 +13,7 @@ const testImage = "https://res.cloudinary.com/dtoy2m9rj/image/upload/v1739214171
 const markerIcon = (image, isHovered) => `data:image/svg+xml;utf-8,${encodeURIComponent(`
   <svg width="40" height="42" viewBox="0 0 40 52" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M20 0C8.954 0 0 8.954 0 20C0 35 20 52 20 52C20 52 40 35 40 20C40 8.954 31.046 0 20 0Z" 
-          fill="${isHovered ? '#8B5CF6' : '#4F46E5'}"/>
+          fill="${isHovered ? '#1ed760' : '#04bd46'}"/>
     <path d="M20 25C23.3137 25 26 22.3137 26 19C26 15.6863 23.3137 13 20 13C16.6863 13 14 15.6863 14 19C14 22.3137 16.6863 25 20 25Z" 
           fill="white"/>
     <path d="M20 28C13.3726 28 8 23.0751 8 17C8 10.9249 13.3726 6 20 6C26.6274 6 32 10.9249 32 17C32 23.0751 26.6274 28 20 28Z" 
@@ -40,8 +40,8 @@ function GoogleMaps({ selectedLocation }) {
   const libraries = ["places"];
   const router = useRouter();
 
-  console.log("shows", shows);
-  console.log("Artist Profile", shows[6]?.artist?.profile);
+  // console.log("shows", shows);
+  // console.log("Artist Profile", shows[6]?.artist?.profile);
   
   
 
