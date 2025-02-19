@@ -572,6 +572,47 @@ const getSingleArtist = asyncHandler(async (req, res) => {
   }
 })
 
+        // get all users and their shows
+const getAllUsersWithShows = asyncHandler(async (req, res) => {
+  try {
+        // Get all users with populated shows
+    const users = await User.find({})
+    .select("-password -refreshToken") // Exclude sensitive fields
+    .populate({
+      path: "shows",
+      select: "name date startTime endTime location bio latitude longitude image genres", // Select specific show fields
+      options: { sort: { createdAt: -1 } }, // Sort shows by latest first
+    })
+    .populate({
+      path: "artistProfile",
+      select: "artistName location bio startDate showPerformed genres",
+    });
+
+    if (!users || users.length === 0) {
+      throw new ApiError(404, "No users found");
+    }
+
+              // Transform data for better frontend consumption
+    const transformedUsers = users.map(user => ({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      profileImage: user.profileImage,
+      role: user.role,
+      createdAt: user.createdAt,
+      shows: user.shows,
+      artistProfile: user.artistProfile
+    }));
+
+    res
+    .status(200)
+    .json(new ApiResponse(200, transformedUsers, "Users retrieved successfully"));
+
+  } catch (error) {
+    console.error("Error retrieving users:", error.message);
+    res.status(500).json({ success: false, message: error.message || "Internal server error" });
+  }
+})
 
 
-export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows, getArtist, getSingleArtist };
+export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows, getArtist, getSingleArtist, getAllUsersWithShows };
