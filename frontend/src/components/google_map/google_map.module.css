@@ -3,3 +3,59 @@
     height: 100%;
 } */
 
+.tooltip {
+  background: white !important;
+  border: none !important;
+  padding: 0 !important;
+  transition: transform 0.2s;
+
+}
+.tooltip:hover {
+  transform: translateY(-2px);
+}
+
+.tooltipImage {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+.tooltipContent {
+  padding: 12px;
+}
+
+.tooltip h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #1F2937;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.date {
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.location {
+  font-size: 14px;
+  color: #4F46E5;
+  font-weight: 500;
+}
+
+
+.viewProfile {
+  margin-top: 8px;
+  color: #4F46E5;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.tooltip:hover .viewProfile {
+  text-decoration: underline;
+}
