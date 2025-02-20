@@ -20,6 +20,28 @@ function Page() {
     const [user, setUser] = useState(null);
     console.log("User", user)
     console.log("shows", shows)
+
+    // Function to filter out past shows
+    const filterPastShows = (showsList) => {
+        const currentDate = new Date();
+        return showsList.filter(show => {
+            // Convert the date string to a Date object
+            const endDateTime = new Date(show.date);
+            // Check if the show date is in the past
+            if (show.endTime) {
+                const [hours, minutes] = show.endTime.split(':');
+                endDateTime.setHours(parseInt(hours, 10));
+                endDateTime.setMinutes(parseInt(minutes, 10));
+            } else {
+                // Set the time to 23:59:59 if endTime is not provided
+                endDateTime.setHours(23, 59, 59);
+            }
+
+            return endDateTime > currentDate;
+        });
+    };
+
+    // Fetch user data and shows
     useEffect(() => {
         const fetchUserAndShows = async () => {
             try {
@@ -38,9 +60,14 @@ function Page() {
                 console.log("response", response);
 
                 if (response.data.data) {
-                    // setShows(response.data.data.shows);
                     const showsData = Array.isArray(response?.data?.data.shows) ? response.data.data.shows : [response.data.data.shows];
-                    setShows(showsData);
+
+                    // initialize shows
+                    const filteredShows = filterPastShows(showsData);
+                    setShows(filteredShows);
+                    // const endDateTime = new Date(new Date().setHours(new Date().getHours() + 2)).toISOString();
+                    // const filteredShows = showsData.filter(show => show.date > endDateTime);
+                    // setShows(filteredShows);
 
                 }
             } catch (error) {
@@ -51,6 +78,16 @@ function Page() {
         };
 
         fetchUserAndShows();
+
+        // Set up automatic refresh every minutes
+        const intervalId = setInterval(() => [
+            setShows(prevShows => {
+                const updatedShows = filterPastShows(prevShows);
+                return updatedShows;
+            })
+        ], 60000);
+        // Clean up the interval
+        return () => clearInterval(intervalId);
     }, []);
 
     if (loading) {
