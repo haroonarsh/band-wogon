@@ -40,7 +40,7 @@ function GoogleMaps({ selectedLocation }) {
   const libraries = ["places"];
   const router = useRouter();
 
-  // console.log("shows", shows);
+  console.log("shows", shows);
   // console.log("Artist Profile", shows[6]?.artist?.profile);
   
   
@@ -125,7 +125,7 @@ function GoogleMaps({ selectedLocation }) {
                   <div className={styles.tooltip}>
                   <div className={styles.artistInfo} onClick={() => handleArtistClick()}>
                     <img 
-                      src={show.artist.profileImage} 
+                      src={show.image || show.artist.profileImage} 
                       alt={show.artist.name}
                       className={styles.tooltipImage}
                     />
