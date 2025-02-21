@@ -671,7 +671,7 @@ const getArtistsShows = asyncHandler(async (req, res) => {
 
     res
     .status(200)
-    .json(new ApiResponse(200, { shows: filteredShows }, "Shows retrieved successfully"));
+    .json(new ApiResponse(200, filteredShows, "Shows retrieved successfully"));
 
   } catch (error) {
     console.error("Error retrieving shows:", error.message);
