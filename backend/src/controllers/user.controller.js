@@ -7,6 +7,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import Artist from "../models/artist.model.js";
 import Show from "../models/show.model.js";
+import mongoose from "mongoose";
 
         // utility functions to generate tokens
 const generateAccessToken = (userId) => {
@@ -612,7 +613,71 @@ const getAllUsersWithShows = asyncHandler(async (req, res) => {
     console.error("Error retrieving users:", error.message);
     res.status(500).json({ success: false, message: error.message || "Internal server error" });
   }
+});
+
+          // get upcoming and past shows
+const getArtistsShows = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { type } = req.query;
+
+    console.log('Received artist ID:', id);
+
+    // Validate input
+    if (!['upcoming', 'past'].includes(type)) {
+      throw new ApiError(400, "Invalid type");
+    }
+
+    // Convert string ID to ObjectId
+    const artistId = new mongoose.Types.ObjectId(id);
+
+    const shows = await Show.find({ artist: artistId })
+    .sort({ date: type === 'upcoming' ? 1 : -1 })
+    .lean();
+
+    console.log("shows", shows);
+    
+
+    const currentDate = new Date();
+
+    const filteredShows = shows.filter(show => {
+      // Create date object in UTC
+      const showDate = new Date(show.date);
+      
+      // If endTime exists, create full datetime
+      if (show.endTime) {
+        const [hours, minutes] = show.endTime.split(':');
+        const endDateTime = new Date(show.date);
+        endDateTime.setUTCHours(parseInt(hours, 10));
+        endDateTime.setUTCMinutes(parseInt(minutes, 10));
+        return type === 'upcoming' 
+          ? endDateTime > currentDate
+          : endDateTime <= currentDate;
+      }
+      
+      // For shows without endTime, compare dates only
+      const showDateOnly = new Date(show.date);
+      showDateOnly.setUTCHours(0, 0, 0, 0);
+      const currentDateOnly = new Date();
+      currentDateOnly.setUTCHours(0, 0, 0, 0);
+
+      return type === 'upcoming'
+        ? showDateOnly >= currentDateOnly
+        : showDateOnly < currentDateOnly;
+    });
+
+    console.log("filteredShows", filteredShows);
+    
+
+    res
+    .status(200)
+    .json(new ApiResponse(200, { shows: filteredShows }, "Shows retrieved successfully"));
+
+  } catch (error) {
+    console.error("Error retrieving shows:", error.message);
+    res.status(500).json({ success: false, message: error.message || "Internal server error" });
+  }
 })
 
 
-export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows, getArtist, getSingleArtist, getAllUsersWithShows };
+export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows, getArtist, getSingleArtist, getAllUsersWithShows, getArtistsShows };
