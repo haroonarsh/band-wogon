@@ -119,7 +119,7 @@ function Artist_profile() {
                 </div>
               </div>
               <button className={styles.button_3}
-              onClick={() => router.push(`/upcoming/${artist?._id}`)}
+              onClick={() => router.push(`/upcoming/${artist?.userId}`)}
               >View upcoming & past shows</button>
             </div>
           </div>
