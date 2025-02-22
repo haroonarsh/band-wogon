@@ -266,7 +266,7 @@ const deleteUser = asyncHandler(async (req, res) => {
                   // Become a Artist
 const createShow = asyncHandler(async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user._id;
     const { artistName, location, bio, startDate, showPerformed, genres } = req.body;
 
     if (!artistName || !location || !bio || !startDate || !showPerformed || !genres) {
@@ -277,7 +277,7 @@ const createShow = asyncHandler(async (req, res) => {
       throw new ApiError(400, "User is not an artist");
     }
 
-    const user = await User.findById(userId);
+    // const user = await User.findById(userId);
 
     // Image handling
     let artistImage = "" || req.body.artistImage; // Default empty string or set a placeholder URL
@@ -303,6 +303,7 @@ const createShow = asyncHandler(async (req, res) => {
       bio,
       artistImage: artistImage,
       startDate: new Date(startDate), 
+      userId: userId,
       showPerformed: parseInt(showPerformed, 10), 
       genres: Array.isArray(genres) ? genres : genres.split(','),
     })
