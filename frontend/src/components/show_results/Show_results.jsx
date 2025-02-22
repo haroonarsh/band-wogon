@@ -227,7 +227,7 @@ function Show_results({ artist }) {
                             <img src={ artists[0]?.artistImage || "./images/Image.png"} alt="" width={90} />
                             <div className={styles.card_text}>
                                 <h2>{artists[0]?.artistName || 'andwarhool234'} <img src="./icons/viral.png" alt="" /></h2>
-                                <p className='paragraph_extraSmall_medium'><MdOutlineLocationOn color='#737373' size={20} /> {artists[0]?.location || 'New York City'}</p>
+                                <span className={`${styles.location} && ${'paragraph_extraSmall_medium'}`}><MdOutlineLocationOn color='#737373' size={20} /> {artists[0]?.location || 'New York City'}</span>
                                 <p className='paragraph_extraSmall_medium'><MdOutlineCalendarMonth color='#737373' size={20} /> {formatDate(artists[0]?.startDate) || 'Feb 25, 2023'}</p>
                                 <span className={`${styles.genres} && ${'paragraph_extraSmall_medium'}`}><GiMusicSpell color='#737373' size={20} /> {artists[0]?.genres && ((artists[0]?.genres).join(', ') ) || 'Pop, Rock'}</span>
                             </div>
@@ -242,7 +242,7 @@ function Show_results({ artist }) {
                             <img src={artists[1]?.artistImage || "./images/Image(1).png"} alt="" width={90} />
                             <div className={styles.card_text}>
                                 <h2>{artists[1]?.artistName || 'andwarhool234'} <img src="./icons/viral.png" alt="" /></h2>
-                                <p className='paragraph_extraSmall_medium'><MdOutlineLocationOn color='#737373' size={20} /> {artists[1]?.location || 'New York City'}</p>
+                                <span className={`${styles.location} && ${'paragraph_extraSmall_medium'}`}><MdOutlineLocationOn color='#737373' size={20} /> {artists[1]?.location || 'New York City'}</span>
                                 <p className='paragraph_extraSmall_medium'><MdOutlineCalendarMonth color='#737373' size={20} /> {formatDate(artists[1]?.startDate) || 'Feb 25, 2023'}</p>
                                 <span className={`${styles.genres} && ${'paragraph_extraSmall_medium'}`}><GiMusicSpell color='#737373' size={20} /> {artists[1]?.genres && ((artists[1]?.genres).join(', ') ) || 'Pop, Rock'}</span>
                             </div>
@@ -257,7 +257,7 @@ function Show_results({ artist }) {
                             <img src={artists[2]?.artistImage || "./images/Image(2).png"} alt="" width={90} />
                             <div className={styles.card_text}>
                                 <h2>{artists[2]?.artistName || 'andwarhool234'} <img src="./icons/viral.png" alt="" /></h2>
-                                <p className='paragraph_extraSmall_medium'><MdOutlineLocationOn color='#737373' size={20} /> {artists[2]?.location || 'New York City'}</p>
+                                <span className={`${styles.location} && ${'paragraph_extraSmall_medium'}`}><MdOutlineLocationOn color='#737373' size={20} /> {artists[2]?.location || 'New York City'}</span>
                                 <p className='paragraph_extraSmall_medium'><MdOutlineCalendarMonth color='#737373' size={20} /> {formatDate(artists[2]?.startDate) || 'Feb 25, 2023'}</p>
                                 <span className={`${styles.genres} && ${'paragraph_extraSmall_medium'}`}><GiMusicSpell color='#737373' size={20} /> {artists[2]?.genres && ((artists[2]?.genres).join(', ') ) || 'Pop, Rock'}</span>
                             </div>
