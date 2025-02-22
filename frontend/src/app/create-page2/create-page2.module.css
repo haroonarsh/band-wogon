@@ -95,7 +95,26 @@
     font-size: 16px;
     outline: none;
 }
-
+.autocomplete{
+    /* width: 30%;
+    background-color: transparent;
+    border: 1px solid #a3a3a38a;
+    border-radius: 50px;
+    color: #e6e6e6;
+    padding: 7px 18px;
+    font-size: 16px;
+    outline: none; */
+}
+.location{
+    width: 22vw !important;
+    background-color: transparent;
+    border: 1px solid #a3a3a38a;
+    border-radius: 50px;
+    color: #e6e6e6 !important;
+    padding: 7px 18px;
+    font-size: 16px;
+    outline: none;
+}
 .dates{
     display: flex;
     flex-direction: column;
@@ -328,6 +347,14 @@
         width: 70%;
         margin: 0 auto;
         font-size: 13px;
+    }
+    .autocomplete{
+        width: 70%;
+        margin: 0 auto;
+        font-size: 13px;
+    }
+    .location{
+        width: 100% !important;
     }
     .create_page h1{
         font-size: 17px;
