@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import styles from './create-page2.module.css'
 import Header from '@/components/header/Header'
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { set } from 'mongoose';
 import Sidebar from '@/components/sidebar/Sidebar';
+import { Autocomplete, LoadScript } from '@react-google-maps/api';
 
 
         // initial state for the form
@@ -55,6 +56,7 @@ function Page() {
     });
     const router = useRouter()
     const [previewImage, setPreviewImage] = useState(null);
+    const autoCompleteRef = useRef(null);
 
     
     const handleChange = (e) => {
@@ -72,6 +74,31 @@ function Page() {
             setPreviewImage(URL.createObjectURL(file));
         }
     }
+
+    const handlePlaceSelect = () => {
+        if (!autoCompleteRef.current) {
+            console.log("autoCompleteRef", autoCompleteRef.current);
+            return;
+        };
+        const place = autoCompleteRef.current.getPlace();
+
+        if (!place || !place.geometry) {
+          console.log("place", place);
+          return;
+        }
+        if (place.geometry) {
+          const lat = place.geometry.location.lat();
+          const lng = place.geometry.location.lng();
+          const address = place.formatted_address;
+
+          setForm(prev => ({
+            ...prev,
+            latitude: lat,
+            longitude: lng,
+            location: address
+          }))
+        }
+      }
 
     const handleGenreSelection = (genre) => {
         setForm((prevState) => {
@@ -133,6 +160,7 @@ function Page() {
             }
         
     }
+
     return (
         <>
                     {/* Header */}
@@ -170,6 +198,17 @@ function Page() {
                             style={{ display: "none" }}
                         />
                     </div>
+                    <LoadScript
+                            googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                            libraries={['places']}
+                        >
+                        {/* <Autocomplete
+                             onLoad={autocomplete => {
+                                autoCompleteRef.current = autocomplete;
+                                autocomplete.setComponentRestrictions({ country: "pk"});
+                             }}
+                             onPlaceChanged={handlePlaceSelect}
+                            > */}
                     <div className={styles.inputs}>
                         <input 
                         type="text" 
@@ -178,13 +217,30 @@ function Page() {
                         value={form.artistName}
                         onChange={handleChange}
                         />
-                        <input 
-                        type="text" 
-                        placeholder='Location' 
-                        name='location'
-                        value={form.location}
-                        onChange={handleChange}
-                        />
+                        {/* <div className={styles.autocomplete}> */}
+                        {/* <LoadScript
+                            googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                            libraries={['places']}
+                        > */}
+                        <Autocomplete
+                             onLoad={autocomplete => {
+                                autoCompleteRef.current = autocomplete;
+                                autocomplete.setComponentRestrictions({ country: "pk"});
+                             }}
+                             onPlaceChanged={handlePlaceSelect}
+                             className={styles.autocomplete}
+                            >
+                            <input  
+                            className={styles.location}
+                            type="text"
+                            name='location'
+                            value={form.location}
+                            onChange={handleChange}
+                            placeholder='Search locations in Pakistan...'
+                            />
+                            </Autocomplete>
+                        {/* </LoadScript> */}
+                        {/* </div> */}
                         <input 
                         type="text" 
                         placeholder='Bio' 
@@ -193,7 +249,8 @@ function Page() {
                         onChange={handleChange}
                         />
                     </div>
-
+                    {/* </Autocomplete> */}
+                    </LoadScript>
                     <h1>When did you start performing</h1>
 
                     <div className={styles.dates}>
