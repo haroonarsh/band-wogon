@@ -65,7 +65,16 @@ function UpcomingShow() {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            /* From Uiverse.io by devAaus */ 
+            <div className="flex items-center justify-center h-screen bg-zinc-900">
+                <div className="flex-col gap-4 w-full flex items-center justify-center">
+                    <div className="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full">
+                        <div className="w-16 h-16 border-4 border-transparent text-red-400 text-2xl animate-spin flex items-center justify-center border-t-red-400 rounded-full" />
+                    </div>
+                </div>
+            </div>
+        )
     }
 
     const icon = "./icons/viral.png"
@@ -153,18 +162,19 @@ function UpcomingShow() {
                                     {show.name}
                                     {show.isTrending || <img src={icon} />}
                                 </h3>
-                                <p>
-                                    <MdOutlineLocationOn size={18} />
-                                    {show.location}
-                                </p>
-                                <p>
+                                <span><MdOutlineLocationOn size={18} /> <p> {show.location}</p></span>
+                                <span>
                                     <MdOutlineCalendarMonth size={16} />
+                                    <p>
                                     {formatDate(show.date)}
-                                </p>
-                                <p>
+                                    </p>
+                                </span>
+                                <span>
                                     <FaRegClock size={16} />
+                                    <p>
                                     {formatTimeRange(show.startTime, show.endTime)}
-                                </p>
+                                    </p>
+                                </span>
                             </div>
                             <button className={styles.button_2}>
                                 Save
