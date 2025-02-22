@@ -6,10 +6,8 @@ import { darkThemeStyles } from '../../mapTheme/mapTheme.js';
 import styles from './google_map.module.css';
 import axios from 'axios';
 import { useRouter } from 'next/navigation.js';
-import Artist_profile from '@/app/artist_profile/[id]/page.js';
 
-// Custom marker SVG in data URL format
-const testImage = "https://res.cloudinary.com/dtoy2m9rj/image/upload/v1739214171/dlvcw0azimkuryn5retm.png"; 
+// Custom marker SVG in data URL format 
 const markerIcon = (image, isHovered) => `data:image/svg+xml;utf-8,${encodeURIComponent(`
   <svg width="40" height="42" viewBox="0 0 40 52" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M20 0C8.954 0 0 8.954 0 20C0 35 20 52 20 52C20 52 40 35 40 20C40 8.954 31.046 0 20 0Z" 
@@ -39,6 +37,7 @@ function GoogleMaps({ selectedLocation }) {
   const [hoveredShow, setHoveredShow] = useState(null);
   const libraries = ["places"];
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   console.log("shows", shows);
   // console.log("Artist Profile", shows[6]?.artist?.profile);
@@ -76,11 +75,27 @@ function GoogleMaps({ selectedLocation }) {
         }
       } catch (error) {
         console.error('Error fetching shows:', error);
+      } finally {
+        setLoading(false);
       }
     }
 
     fetchShows();
   }, []);
+
+  if (loading) {
+    return (
+      /* From Uiverse.io by devAaus */ 
+      <div className="flex items-center justify-center h-screen bg-zinc-900">
+      <div className="flex-col gap-4 w-full flex items-center justify-center">
+            <div className="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full">
+              <div className="w-16 h-16 border-4 border-transparent text-red-400 text-2xl animate-spin flex items-center justify-center border-t-red-400 rounded-full" />
+            </div>
+          </div>
+          </div>
+    )
+    
+  }
 
   const handleArtistClick = (artistId) => {
     router.push(`/artist_profile/${artistId}`);
