@@ -13,19 +13,19 @@ function Page() {
         <> 
             <div className={styles.page}>
                     {/* Header */}
-            <Header />
+                <Header />
 
                     {/* Main */}
-            <GoogleMaps />
+                <GoogleMaps />
                 
                     {/* Sidebar */}
-            <Sidebar />
+                <Sidebar />
 
                     {/* Navbar */}
-            <Navbar />
+                <Navbar />
 
                     {/* show_results */}
-            <Show_results />
+                <Show_results />
 
             </div>
 
