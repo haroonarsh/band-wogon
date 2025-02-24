@@ -24,27 +24,57 @@ const containerStyle = {
     minHeight: '90.9vh',
   };
   
-  const center = {
-    lat: 33.693661514230975, // Example: Latitude of San Francisco
-    lng: 73.03031502875508, // Example: Longitude of San Francisco
-  };
+const center = {
+  lat: 33.693661514230975, // Example: Latitude of San Francisco
+  lng: 73.03031502875508, // Example: Longitude of San Francisco
+};
 
+const userLocationIcon = `data:image/svg+xml;utf8,${encodeURIComponent(`
+  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="8" fill="#4285F4" fill-opacity="0.2"/>
+    <circle cx="12" cy="12" r="5" fill="#4285F4" fill-opacity="0.2"/>
+    <circle cx="12" cy="12" r="2" fill="#4285F4"/>
+    <circle cx="12" cy="12" r="1.5" fill="white"/>
+    <circle cx="12" cy="12" r="9" stroke="#4285F4" stroke-width="1" fill="none"/>
+  </svg>
+`)}`;
 function GoogleMaps({ selectedLocation }) {
 
 
   const [mapCenter, setMapCenter] = useState(center);
   const [shows, setShows] = useState([]);
   const [hoveredShow, setHoveredShow] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
+  const mapRef = useRef(null);
   const libraries = ["places"];
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const watchIdRef = useRef(null);
+  const mapInstanceRef = useRef(null);
+  
 
-  console.log("shows", shows);
+  // console.log("shows", shows);
   // console.log("Artist Profile", shows[6]?.artist?.profile);
   
-  
+  // Geolocation cleanup
+  const stopLocationTracking = () => {
+    if (watchIdRef.current && navigator.geolocation) {
+      navigator.geolocation.clearWatch(watchIdRef.current);
+    }
+  };
+
+  // // Map instance cleanup
+  const clearMapInstance = () => {
+    if (mapInstanceRef.current) {
+      google.maps.event.clearInstanceListeners(mapInstanceRef.current);
+      mapInstanceRef.current = null;
+    }
+  };
 
   useEffect(() => {
+    let isMounted = true;
+
+    // Fetch shows
     const fetchShows = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/user/users-with-shows');
@@ -58,20 +88,16 @@ function GoogleMaps({ selectedLocation }) {
               profile: user.artistProfile[0] // Take first artist profile
             }
           }))
-        );
+        ).filter(show => show.latitude && show.longitude && show.image);
 
-        setShows(allShows.filter(show => 
-          show.latitude && show.longitude && show.image
-        ));
-
+        setShows(allShows);
+        getUserLocation();
         // Set map center to first show's location or default
         if (allShows.length > 0) {
           setMapCenter({
             lat: allShows[0].latitude,
             lng: allShows[0].longitude,
           });
-        } else {
-          setMapCenter(center);
         }
       } catch (error) {
         console.error('Error fetching shows:', error);
@@ -80,8 +106,58 @@ function GoogleMaps({ selectedLocation }) {
       }
     }
 
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        if (!mapInstanceRef.current) {
+          fetchShows();
+          getUserLocation();
+        }
+      }
+      else {
+        stopLocationTracking();
+        clearMapInstance();
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // initial setup
     fetchShows();
+
+    return () => {
+      isMounted = false;
+      stopLocationTracking();
+      clearMapInstance();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+
+      // Additional cleanup for mapRef
+    if (mapRef.current) {
+      mapRef.current = null;
+    }
+    }
   }, []);
+
+  // Get user's current location
+  const getUserLocation = () => {
+    stopLocationTracking();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const newPos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        
+        setUserLocation(newPos);
+        setMapCenter(newPos);
+      },
+      (error) => {
+        console.error('Error getting user location:', error);
+        stopLocationTracking();
+      },
+      { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+      );
+    }
+  };
 
   if (loading) {
     return (
@@ -106,6 +182,8 @@ function GoogleMaps({ selectedLocation }) {
         <section className={styles.googleMap}>
         <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
         libraries={libraries}
+        // className={`${pathname === '/home' || pathname === 'create-show' ? }`}
+        // stopLocationTracking={stopLocationTracking}
         >
          <GoogleMap
          mapContainerStyle={containerStyle}
@@ -113,7 +191,24 @@ function GoogleMaps({ selectedLocation }) {
          zoom={selectedLocation ? 10 : 6}
          options={{ styles: darkThemeStyles
          }}
+        //  onUnmount={() => {
+        //   clearMapInstance();
+        //   stopLocationTracking();
+        //  }}
          >
+          {/* User Location */}
+          {userLocation && (
+            <Marker
+            position={userLocation}
+            icon={{
+              url: userLocationIcon,
+              scaledSize: new window.google.maps.Size(40, 40),
+            }}
+            zIndex={999}
+            />
+          )}
+
+          {/* Show Marker */}
           {shows.map((show) => (
             <Marker
               key={show._id}
