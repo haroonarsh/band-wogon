@@ -5,11 +5,11 @@ import styles from './create-show.module.css'
 import Header from '@/components/header/Header'
 import { BiEditAlt } from "react-icons/bi";
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
-import Google_map from '@/components/google_map/GoogleMap';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import GoogleMaps from '@/components/google_map/GoogleMap';
 
 function Page() {
 
@@ -292,7 +292,7 @@ function Page() {
                         </div>
                         </LoadScript>
                         <div className={styles.map}>
-                        <Google_map 
+                        <GoogleMaps 
                                     selectedLocation={
                                         form.latitude && form.longitude 
                                             ? { lat: parseFloat(form.latitude), lng: parseFloat(form.longitude) }
