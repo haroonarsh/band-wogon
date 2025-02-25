@@ -141,12 +141,7 @@ function Page() {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                 
-                // if (userDataToken === null || userDataToken === "undefined") {
-                //     localStorage.setItem('user', JSON.stringify(response.data.data.user));
-                // } else {
-                //     localStorage.setItem('userData', JSON.stringify(response.data.data.user));
-                // }
+                
                  if (response.success === true || response.status === 200 || response.data.success === true) {
                     toast.success(response.data.message);
                     router.push('/upcoming-schedules');

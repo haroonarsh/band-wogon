@@ -111,8 +111,6 @@ function Page() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-
-            console.log("response", response);
             
             if (userDataToken === null || userDataToken === "undefined") {
                 localStorage.setItem('user', JSON.stringify(response.data.data.user));
@@ -123,13 +121,6 @@ function Page() {
                 toast.success('Show created successfully!');
                 router.push('/upcoming-schedules');
             }
-            // if(response.data.success) {
-            //     console.log(response.data);
-            //     toast.success('Show created successfully!');
-            //     // router.push('/upcoming-schedules');
-            //     // router.refresh();
-            //     router.push('/home');
-            // }
         } catch (error) {
             toast.error(error.response?.data?.message || 'Failed to create show');
         }
