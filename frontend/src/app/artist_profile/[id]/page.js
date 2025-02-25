@@ -33,7 +33,6 @@ function Artist_profile() {
     const fetchArtist = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/api/user/get-artist/:?id=${id}`);
-        console.log("response", response);
         
         if (response.data.data) {
           setArtist(response.data.data);
