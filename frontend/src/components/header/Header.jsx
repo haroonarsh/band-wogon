@@ -16,30 +16,7 @@ function Header() {
   const dropdownRef = useRef(null)
   const [user, setUser] = useState(null)
   const router = useRouter();
-
-  // console.log("user : ",user);
-  // console.log("ProfileImage", user?.profileImage);
   
-
-              // Check if user data exists in localStorage
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem('userData');
-  //   const googleUser = localStorage.getItem('user');
-  //   if (storedUser || googleUser) {
-  //     try {
-  //       // Parse the JSON string
-  //       const parsedUser = JSON.parse(storedUser) || JSON.parse(googleUser); // Parse the JSON string
-  //       setUser(parsedUser);
-  //       console.log("Stored User:", parsedUser);
-  //     } catch (error) {
-  //       console.error("Error parsing user data:", error);
-  //       localStorage.removeItem('user'); // Remove invalid data
-  //       localStorage.removeItem('userData');
-  //     }
-  //   } else {
-  //     console.log('No user data found in localStorage');
-  //   }
-  // }, []);
   useEffect(() => {
           // Get the user data from localStorage
           const storedUser = localStorage.getItem('userData');
@@ -55,8 +32,6 @@ function Header() {
             const response = await axios.get("http://localhost:8000/login/success", { withCredentials: true });
 
             setUser(response.data.user.user);
-            console.log("user", response.data.user.user);
-            console.log("accessToken", response.data.accessToken);
             
             localStorage.setItem('user', JSON.stringify(response.data.user.user));
             localStorage.setItem('accessToken', response.data.accessToken);
@@ -90,7 +65,6 @@ const StoredUserData = JSON.parse(localStorage.getItem('userData'));
               },
             }
           )
-          console.log("response", response);
           if (userDataToken === null || userDataToken === "undefined") {
             localStorage.setItem('user', JSON.stringify(response.data.data.user));
             toast.success("You are now an artist");
@@ -111,7 +85,6 @@ const StoredUserData = JSON.parse(localStorage.getItem('userData'));
             },
           }
         )
-        console.log("response", response);
         if (userDataToken === null || userDataToken === "undefined") {
           localStorage.setItem('user', JSON.stringify(response.data.data.user));
           toast.success("You are now a user");
@@ -144,9 +117,6 @@ const StoredUserData = JSON.parse(localStorage.getItem('userData'));
     document.addEventListener('mousedown', closeDropdown);
     return () => document.removeEventListener('mousedown', closeDropdown);
   }, []);
-
-  // console.log("session : ",session);
-  // console.log("user : ",user);
   
   return (
     <>
