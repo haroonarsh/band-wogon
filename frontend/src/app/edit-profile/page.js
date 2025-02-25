@@ -1,7 +1,7 @@
 "use client"
 
 import Header from '@/components/header/Header'
-import React, { use, useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './edit-profile.module.css'
 import Sidebar from '@/components/sidebar/Sidebar'
 import { BiEditAlt } from "react-icons/bi";
@@ -9,15 +9,11 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify';
 import { FaArrowLeft } from 'react-icons/fa';
-import { IoMdCheckmark } from "react-icons/io";
-// import { AuthContext } from '@/context/AuthContext'
 
 function Page() {
 
     const [user, setUser] = useState(null);
-    // const { user, login } = useContext(AuthContext);
     const router = useRouter();
-    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('userData');
@@ -30,18 +26,6 @@ function Page() {
 
     const storedUser = localStorage.getItem('userData');
     const googleUser = localStorage.getItem('user');
-
-    console.log("Stored User:", storedUser);
-    console.log("Google User:", googleUser);
-    
-
-    // const checkingUsers = () => {
-    //     if (storedUser === null || storedUser === "undefined") {
-    //         handleSubmit();
-    //     } else {
-    //         handleGoogleSubmit();
-    //     }
-    // }
 
     const [form, setForm] = useState({
         username: "",
