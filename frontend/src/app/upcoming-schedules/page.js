@@ -18,8 +18,6 @@ function Page() {
     const [shows, setShows] = useState([]);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-    console.log("User", user)
-    console.log("shows", shows)
 
     // Function to filter out past shows
     const filterPastShows = (showsList) => {
@@ -57,18 +55,12 @@ function Page() {
                     }
                 });
 
-                console.log("response", response);
-
                 if (response.data.data) {
                     const showsData = Array.isArray(response?.data?.data.shows) ? response.data.data.shows : [response.data.data.shows];
 
                     // initialize shows
                     const filteredShows = filterPastShows(showsData);
                     setShows(filteredShows);
-                    // const endDateTime = new Date(new Date().setHours(new Date().getHours() + 2)).toISOString();
-                    // const filteredShows = showsData.filter(show => show.date > endDateTime);
-                    // setShows(filteredShows);
-
                 }
             } catch (error) {
                 toast.error(error.response?.data?.message || 'Error loading shows');
