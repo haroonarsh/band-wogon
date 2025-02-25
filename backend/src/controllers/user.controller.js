@@ -680,5 +680,60 @@ const getArtistsShows = asyncHandler(async (req, res) => {
   }
 })
 
+        // Edit show
+const editShow = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, date, startTime, endTime, location, bio, genres, latitude, longitude } = req.body;
+    
+    if (!name || !date || !startTime || !endTime || !location || !bio || !genres) {
+      throw new ApiError(400, "All fields are required");
+    }
 
-export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows, getArtist, getSingleArtist, getAllUsersWithShows, getArtistsShows };
+    let artistImage = "" || req.body.image; // Default empty string or set a placeholder URL
+    if (req.file) {
+      try {
+        // console.log("File path:", req.file);
+        
+        const uploadPresponse = await uploadOnCloudinary(req.file.path);
+        if (uploadPresponse && uploadPresponse?.secure_url) {
+          artistImage = uploadPresponse.secure_url;
+        } else {
+          throw new ApiError(400, "Error uplaoding image to cloudinary");
+        }
+      } catch (error) {
+        throw new ApiError(400, error.message);
+      }
+    }
+
+    const show = await Show.findByIdAndUpdate(
+      id,
+      {
+        image: artistImage,
+        name,
+        date,
+        startTime,
+        endTime,
+        location,
+        latitude,
+        longitude,
+        bio,
+        genres: Array.isArray(genres) ? genres : genres.split(','),
+      },
+      { new: true }
+    );
+
+    if (!show) {
+      throw new ApiError(404, "Show not found");
+    }
+
+    res
+    .status(200)
+    .json(new ApiResponse(200, { show }, "Show updated successfully"));
+  } catch (error) {
+    console.error("Error updating show:", error.message);
+    res.status(500).json({ success: false, message: error.message || "Internal server error" });
+  }
+})
+
+export { signup, login, updateUser, logout, updatePassword, deleteUser, createShow, becomeUser, becomeArtist, changeEmail, shows, getShows, getArtist, getSingleArtist, getAllUsersWithShows, getArtistsShows, editShow };
