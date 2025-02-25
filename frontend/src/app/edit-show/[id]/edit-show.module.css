@@ -1,0 +1,333 @@
+.main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    background-color: #121212;
+    position: relative;
+}
+
+.blank{
+    width: 20%;
+    display: flex;
+    /* align-items: flex-end; */
+    justify-content: flex-end;
+}
+.blank div{
+    width: 1.5px;
+    margin: 3px 0;
+    height: 100%;
+    background-color: #A3A3A3;
+    color: #A3A3A3;
+}
+
+.main_content{
+    width: 80%;
+    min-height: 100vh;
+    color: white;
+    margin-top: 3rem;
+    margin-left: 2rem;
+    /* justify-content: center; */
+    background-color: #121212;
+}
+.heading{
+    font-size: 28px;
+    letter-spacing: -2%;
+    padding-bottom: 40px;
+}
+
+.artist{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    margin-left: 60px;
+}
+
+.uploader {
+    position: relative;
+    width: 38%;
+    height: 240px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .uploadBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    background-color: #525252;
+  }
+  
+  .fileInput {
+    display: none;
+  }
+  
+  .placeholder {
+    text-align: center;
+    color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .icon2 {
+    font-size: 24px;
+    color: #fafafa;
+    margin-bottom: 8px;
+  }
+  
+  .preview {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+.artist_info{
+    width: 38%;
+}
+.artist_info p{
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+    color: #A3A3A3;
+    padding-top: 30px;
+}
+.artist_info input{
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    border: transparent;
+    outline: none;
+    color: white;
+    padding-top: 10px;
+}
+.time{
+    width: 38%;
+}
+.time_div{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding-bottom: 2px;
+}
+/* .time div{
+    width: 50%;
+} */
+.time p{
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+    color: #A3A3A3;
+    padding-top: 30px;
+}
+.time input{
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    border: transparent;
+    outline: none;
+    color: white;
+    padding-top: 10px;
+}
+.artist_bio input{
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    border: transparent;
+    outline: none;
+    color: white;
+    padding-top: 10px;
+}
+.artist_info hr{
+    border: none;
+    width: 100%;
+    height: 1px;
+    background-color: #a3a3a3dd;
+    margin-top: 3px;
+}
+.artist_bio{
+    width: 38%;
+}
+.artist_bio p{
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+    color: #A3A3A3;
+    padding-top: 30px;
+}
+.artist_bio hr{
+    border: none;
+    width: 100%;
+    height: 1px;
+    background-color: #a3a3a3dd;
+    margin-top: 3px;
+}
+.location{
+    width: 38%;
+}
+.location p{
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+    color: #A3A3A3;
+    padding-top: 30px;
+}
+.location input{
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    border: transparent;
+    outline: none;
+    color: white;
+    padding-top: 10px;
+}
+.textarea{
+    width: 100%;
+    min-height: 30px;
+    background-color: transparent;
+    border: transparent;
+    outline: none;
+    color: white;
+    padding-top: 10px;
+}
+.location hr{
+    border: none;
+    width: 100%;
+    height: 1px;
+    background-color: #a3a3a3dd;
+    margin-top: 3px;
+}
+
+.genres{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+    width: 27%;
+    gap: 10px;
+    margin: 30px 0;
+}
+.genres .unselected{
+    background-color: transparent;
+    border: 1px solid #04bd46;
+    border-radius: 50px;
+    color: #04bd46;
+    padding: 5px 0;
+    width: 39px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+    /* margin: 5px 0; */
+    transition: all .2s ease-in-out;
+}
+.genres button:hover{
+    background-color: #04bd46;
+    border: 1px solid #04bd46;
+    color: #d4d4d4;
+}
+.selected{
+    background-color: #04bd46;
+    border: 1px solid #04bd46;
+    color: #d4d4d4;
+    border-radius: 50px;
+    padding: 5px 0;
+    width: 39px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+.map{
+    width: 38%;
+    height: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #04bd46;
+    color: #fafafa;
+    border: 1px solid #04bd46;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 7px 11px;
+    width: 38%;
+    margin-top: 30px;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 4rem;
+}
+.button:hover{
+    background-color: transparent;
+    color: #04bd46;
+}
+.icon{
+    display: none;
+}
+
+            /* **************For mobile************** */
+@media screen and (max-width: 820px){
+    .blank{
+        display: none;
+    }
+    .header{
+        display: none;
+    }
+    .icon{
+        display: block;
+        cursor: pointer;
+        font-size: 19px;
+    }
+    .main_content{
+        margin-left: 0;
+        width: 100%;
+        margin-top: 0;
+    }
+    .heading_div{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px 23px;
+        height: 63px;
+        background-color: #262626;
+        gap: 35px;
+    }
+    .heading{
+        padding: 0;
+        font-size: 25px;
+    }
+    .artist{
+        margin-left: 0;
+        align-items: center;
+        padding: 41px 0;
+    }
+    .uploader{
+        width: 89%;
+    }
+    .artist_bio{
+        width: 89%;
+    }
+    .artist_info{
+        width: 89%;
+    }
+    .location{
+        width: 89%;
+    }
+    .map{
+        width: 89%;
+    }
+    .button{
+        width: 89%;
+    }
+}
