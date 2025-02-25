@@ -18,11 +18,7 @@ function Show_results({ artist }) {
     const dropdownRef = useRef(null);
     const router = useRouter();
     const [activeSection, setActiveSection] = useState(null);
-    const [artists, setArtists] = useState([]);
-    // const [loading, setLoading] = useState(true);
-
-    console.log("artists", artists);
-    
+    const [artists, setArtists] = useState([]);   
 
             // function for getting Artists
     useEffect(() => {
@@ -34,7 +30,6 @@ function Show_results({ artist }) {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                console.log("response", response);
 
                 if (response.data.data) {
                     const artistData = Array.isArray(response?.data?.data) ? response.data.data : [response.data.data];

@@ -27,8 +27,8 @@ function Sidebar() {
           // Get the user data from localStorage
           const storedUser = localStorage.getItem('userData');
           const googeleUser = localStorage.getItem('user');
-          console.log("storedUser", storedUser);
-            console.log("googeleUser", googeleUser);
+        //   console.log("storedUser", storedUser);
+        //     console.log("googeleUser", googeleUser);
           
           if (storedUser || googeleUser) {
               setUser(JSON.parse(storedUser) || JSON.parse(googeleUser));
@@ -41,8 +41,8 @@ function Sidebar() {
         localStorage.removeItem('userData');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('UserAccessToken');
-        console.log("logout success");
-        console.log("removeUser", removeUser);
+        // console.log("logout success");
+        // console.log("removeUser", removeUser);
         
         router.push('/login');
     }
