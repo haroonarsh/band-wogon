@@ -21,28 +21,6 @@ import { set } from 'mongoose';
 import Sidebar from '@/components/sidebar/Sidebar';
 import { Autocomplete, LoadScript } from '@react-google-maps/api';
 
-
-        // initial state for the form
-// const initialState = {
-//     artistName: '',
-//     location: '',
-//     bio: '',
-//     startDate: '',
-//     showPerformed: '',
-//     genres: [],
-//     socialLinks: {
-//         facebook: '',
-//         twitter: '',
-//         spotify: '',
-//         soundcloud: '',
-//         youtube: '',
-//     },
-//     paymentMethods: {
-//         venmo: '',
-//         cashapp: '',
-//     },
-// };
-
 function Page() {
 
     const [form, setForm] = useState({
